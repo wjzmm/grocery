@@ -13,8 +13,12 @@ def main():
     baseurll = "http://tieba.baidu.com"
     html = getHtml(url);
     soup = BeautifulSoup.BeautifulSoup(html)
-    page_name = soup.html.body.find('div', {'class': 'content_leftList'}).find('a', {'class': 'j_th_tit'})['href'] #抓取特定标签的链接
-    print page_name
+    # = soup.html.body.find('a', {'class': 'j_th_tit'})['href'] #抓取特定标签的链接
+    #page_name = soup.html.find('div', {'class': 'content_leftList'}).find_all(class_="j_th_tit")
+    link = soup.html.find('div', {'class': 'content_leftList'}).fetch('a')
+    print len(link)
+    for j in xrange(0,len(link),3):
+        print link[j].get('href')
 
 if __name__ == "__main__":
     main()
