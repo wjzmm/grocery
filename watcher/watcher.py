@@ -4,7 +4,8 @@ import BeautifulSoup
 import sys
 import os
 import re
-import string
+import filecmp
+import string
 import time
 
 ######################goal##########################
@@ -67,7 +68,11 @@ def main():
         newurl = baseurl+link[j].get('href') #合成url地址
         #saveAsFile(path, link[j].text, getHtml(newurl), ".html")           #保存更新的页面
     #print PATH + '/backup/'+ time.strftime(ISOTIMEFORMAT, time.localtime(time.time())) + '/'+ link[0].text+ '.html'
-
+        
+#filecmp 测试
+def test():
+    result = filecmp.dircmp(".//backup//2015-06-11",".//backup//2015-06-11")
+    result.report()
 if __name__ == "__main__":
-    main()
-    
+    #main()
+    test()
