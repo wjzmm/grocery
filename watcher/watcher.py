@@ -7,6 +7,7 @@ import re
 import filecmp
 import string
 import time
+import tarfile
 
 ######################goal##########################
 #当前已完成页面的抓取工作
@@ -73,6 +74,20 @@ def main():
 def test():
     result = filecmp.dircmp(".//backup//2015-06-11",".//backup//2015-06-11")
     result.report()
+
+def compress(path):
+    for root, dirs, files, in os.walk(path, True):
+        print "位置:" , root
+        for filename in files:
+            fname = root.split("/")[-1]
+            if not len(fname) == 0:
+                fname = path + fname + ".tar.gz"
+                print fname
+                tar = tarfile.open(fname, "w:gz")
+                filen = filename.decode("gbk").encode("gbk")
+                print filen
+                #tar.add(filen)存储时报错，存在类型转换问题，待解决
+                tar.close()
 if __name__ == "__main__":
     #main()
-    test()
+    compress("./backup/")
