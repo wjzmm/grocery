@@ -8,6 +8,8 @@ import filecmp
 import string
 import time
 import tarfile
+import chardet
+import hashlib
 
 ######################goal##########################
 #当前已完成页面的抓取工作
@@ -26,6 +28,7 @@ LOG_NAME = 'watcher_log'                #报警日志存储路径
 
 
 warn = (u'学习',u'吃饭',u'睡觉',u'想到',u'关于',u'我')  # 要监控的敏感词汇,应该是可变的，所以采用list存放
+last_md5 = ''
 
 def getHtml(url):        #通过url抓取页面并返回
     con = urllib2.urlopen(url)
@@ -68,8 +71,11 @@ def main():
         #print link[j].get('href'),link[j].text
         newurl = baseurl+link[j].get('href') #合成url地址
         #saveAsFile(path, link[j].text, getHtml(newurl), ".html")           #保存更新的页面
-    #print PATH + '/backup/'+ time.strftime(ISOTIMEFORMAT, time.localtime(time.time())) + '/'+ link[0].text+ '.html'
-        
+
+# 试图用MD5辨别是否存在新发的帖子
+def isChangedOrNot(page):
+    last_md5 = hashlib.md5(page).hexdigest()
+    
 #filecmp 测试
 def test():
     result = filecmp.dircmp(".//backup//2015-06-11",".//backup//2015-06-11")
@@ -84,10 +90,11 @@ def compress(path):
                 fname = path + fname + ".tar.gz"
                 print fname
                 tar = tarfile.open(fname, "w:gz")
-                filen = filename.decode("gbk").encode("gbk")
-                print filen
-                #tar.add(filen)存储时报错，存在类型转换问题，待解决
+                filen = filename.decode('gbk','ignore').encode('utf-8')
+                print chardet.detect(filen)
+                tar.add(filen)      #存储时报错，存在类型转换问题，待解决
                 tar.close()
 if __name__ == "__main__":
     #main()
-    compress("./backup/")
+    #compress("./backup/")#压缩部分由于编码问题暂未解决。
+    isChangedOrNot("这是一个字符串")
