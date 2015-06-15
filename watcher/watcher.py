@@ -73,6 +73,7 @@ def main():
         #saveAsFile(path, link[j].text, getHtml(newurl), ".html")           #保存更新的页面
 
 # 试图用MD5辨别是否存在新发的帖子
+# 必须承认自己今天偷懒了，就为了凑一下更新时间吧，保证下周考完试后天天认真更新
 def isChangedOrNot(page):
     last_md5 = hashlib.md5(page).hexdigest()
     
