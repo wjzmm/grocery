@@ -81,21 +81,45 @@ def isChangedOrNot(page):
 def test():
     result = filecmp.dircmp(".//backup//2015-06-11",".//backup//2015-06-11")
     result.report()
+    
 
+#压缩模块还存在一定的问题，会把目录同时压缩，如果不添加全局目录，则会抱一个编码错误，待解决，暂时可用吧
 def compress(path):
     for root, dirs, files, in os.walk(path, True):
-        print "位置:" , root
-        for filename in files:
-            fname = root.split("/")[-1]
-            if not len(fname) == 0:
-                fname = path + fname + ".tar.gz"
-                print fname
-                tar = tarfile.open(fname, "w:gz")
-                filen = filename.decode('gbk','ignore').encode('utf-8')
-                print chardet.detect(filen)
-                tar.add(filen)      #存储时报错，存在类型转换问题，待解决
-                tar.close()
+        #print "location:" , root
+        #os.chdir(root)
+        fname = root.split("/")[-1]
+        if not len(fname) == 0:
+            #fname = path + fname + ".tar.gz"
+            fname = fname + ".tar.gz"
+            #print fname, fullpath
+            tar = tarfile.open(fname, "w:gz")
+            for filename in files:
+                #os.chdir(path)
+                #print path
+                fullpath = os.path.join(root, filename)
+                tar.add(fullpath)
+            tar.close()
+        
+    
+def backup(path):
+    for root, dirs, files, in os.walk(path, True):
+        #print "location:" , root
+        #os.chdir(root)
+        fname = root.split("/")[-1]
+        if not len(fname) == 0:
+            fname = path + fname + ".tar.gz"
+            
+            #print fname, fullpath
+            tar = tarfile.open(fname, "w:gz")
+            for filename in files:
+                #os.chdir(path)
+                #print path
+                fullpath = os.path.join(root, filename)
+                tar.add(fullpath, root)
+            tar.close()
+            
 if __name__ == "__main__":
     #main()
-    #compress("./backup/")#压缩部分由于编码问题暂未解决。
-    isChangedOrNot("这是一个字符串")
+    compress("./backup/")#压缩部分由于编码问题暂未解决。
+    #isChangedOrNot("这是一个字符串")
