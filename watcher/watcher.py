@@ -10,6 +10,7 @@ import time
 import tarfile
 import chardet
 import hashlib
+import sched
 
 ######################goal##########################
 #当前已完成页面的抓取工作
@@ -18,6 +19,7 @@ import hashlib
 #将内容进行压缩后保存，并定期释放已保存页面
 #试图加入多线程
 #把当前程序作为exe文件运行
+#实现增量备份，提高效率
 ####################################################
 
 #一些常量
@@ -26,9 +28,10 @@ ISOTIMEFORMAT='%Y-%m-%d' #获取当前时间作为备份目录，即每天一个
 PATTERN = re.compile(u'[\u4e00-\u9fa5]+')#抓取页面中的汉字的正则表达式
 LOG_NAME = 'watcher_log'                #报警日志存储路径
 
+scheduler = sched.scheduler(time.time, time.sleep)
 
 warn = (u'学习',u'吃饭',u'睡觉',u'想到',u'关于',u'我')  # 要监控的敏感词汇,应该是可变的，所以采用list存放
-last_md5 = ''
+_last_md5 = ""
 
 def getHtml(url):        #通过url抓取页面并返回
     con = urllib2.urlopen(url)
@@ -39,43 +42,80 @@ def getHtml(url):        #通过url抓取页面并返回
 
 #页面监控，敏感词报警
 def watch(warn, soup):
+    print "watching sensitive words..."
     path = './backup'
     for aims in PATTERN.findall(soup.html.find('div', {'class': 'content_leftList'}).text):
         for oris in warn:
             if not aims.find(oris) == -1:
                 info = "warning, found \t" + oris + "\t at \t" + aims + "\n"
-                print info
-                saveAsFile(path, LOG_NAME, info.encode('GBK'), ".txt")
+                #print info
+                saveAsFile(path, LOG_NAME, info.encode('GBK'), ".txt", False)
                 
 
 #存储文件，path为保存路径，name为要保存的文件名称，page为页面内容，ftype为保存类型               
-def saveAsFile(path, name, page, ftype):
+def saveAsFile(path, name, page, ftype, com):
+    if com:
+        print "saving changed pages..."
     if not os.path.exists(path):#如果备份目录不存在，则创建
         os.mkdir(path)
     filename = path + "/" + name + ftype
     fw = file(filename, "a")
     fw.write(page)
-    print 'write success at ', filename
+    #print 'write success at ', filename
     fw.close()
-
-#主方法    
+    if com:
+        compress(path)
+#主方法
 def main():
+    scheduler.enter(0, 0, watchDog,"")
+    scheduler.run()
+
+#监控入口
+def watchDog():
+    global _last_md5
+    urllist = ""
+    newurl = []
+    linktext = []
+    print "watchingDog is working..."
     url = "http://tieba.baidu.com/f?kw=%C4%C7%CC%EC%D1%F4%B9%E2%BA%DC%C3%C0&fr=index" #要监控的博客地址，此处为个人贴吧地址
     baseurl = "http://tieba.baidu.com"
     html = getHtml(url)
+    
     soup = BeautifulSoup.BeautifulSoup(html)
-    link = soup.html.find('div', {'class': 'content_leftList'}).fetch('a') 
+    link = soup.html.find('div', {'class': 'content_leftList'}).fetch('a')
+    #print isChangedOrNot(' '.join(link)), _last_md5
     #watch(warn, soup)                                                      #监控敏感词
     path = './backup/'+ time.strftime(ISOTIMEFORMAT, time.localtime(time.time()))
     for j in xrange(0,len(link),3):#取出页面中的帖子的地址
         #print link[j].get('href'),link[j].text
-        newurl = baseurl+link[j].get('href') #合成url地址
+        #newurl = baseurl+link[j].get('href') #合成url地址
+        newurl.append(baseurl+link[j].get('href'))
+        linktext.append(link[j].text)
         #saveAsFile(path, link[j].text, getHtml(newurl), ".html")           #保存更新的页面
-
+        urllist += link[j].get('href')
+    #print newurl, linktext
+    if isChangedOrNot(urllist):
+        watch(warn, soup)
+        for i in xrange(len(newurl)):
+            #print newurl[i], linktext[i]
+            saveAsFile(path, linktext[i], getHtml(newurl[i]), ".html", True)
+    scheduler.enter(10, 0, watchDog,"")
+    
 # 试图用MD5辨别是否存在新发的帖子
 # 必须承认自己今天偷懒了，就为了凑一下更新时间吧，保证下周考完试后天天认真更新
 def isChangedOrNot(page):
-    last_md5 = hashlib.md5(page).hexdigest()
+    global _last_md5
+    if len(_last_md5) == 0:
+        _last_md5 = hashlib.md5(page).hexdigest()
+        return True
+    else:
+        new_md5 = hashlib.md5(page).hexdigest()
+        if _last_md5 == new_md5:
+            return False
+        else:
+            _last_md5 = hashlib.md5(page).hexdigest()
+            return True
+    
     
 #filecmp 测试
 def test():
@@ -85,13 +125,14 @@ def test():
 
 #压缩模块还存在一定的问题，会把目录同时压缩，如果不添加全局目录，则会抱一个编码错误，待解决，暂时可用吧
 def compress(path):
+    print "compressing changed files..."
     for root, dirs, files, in os.walk(path, True):
         #print "location:" , root
         #os.chdir(root)
         fname = root.split("/")[-1]
         if not len(fname) == 0:
-            #fname = path + fname + ".tar.gz"
-            fname = fname + ".tar.gz"
+            fname = path + ".tar.gz"
+            #fname = fname + ".tar.gz"
             #print fname, fullpath
             tar = tarfile.open(fname, "w:gz")
             for filename in files:
@@ -100,8 +141,7 @@ def compress(path):
                 fullpath = os.path.join(root, filename)
                 tar.add(fullpath)
             tar.close()
-        
-    
+               
 def backup(path):
     for root, dirs, files, in os.walk(path, True):
         #print "location:" , root
@@ -120,6 +160,6 @@ def backup(path):
             tar.close()
             
 if __name__ == "__main__":
-    #main()
-    compress("./backup/")#压缩部分由于编码问题暂未解决。
+    main()
+    #compress("./backup/")#压缩部分由于编码问题暂未解决。
     #isChangedOrNot("这是一个字符串")
