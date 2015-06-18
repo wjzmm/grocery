@@ -94,6 +94,7 @@ def watchDog():
         linktext.append(link[j].text)
         temp = hashlib.md5(link[j].text.encode("gbk")).hexdigest()
         if temp not in _con_dict:
+            saveAsFile(path, link[j].text, getHtml(newurl[-1]), ".html", True)      #增量备份
             print temp
             if not len(_con_dict) == _count:
                 _con_dict.append(temp)
@@ -104,11 +105,11 @@ def watchDog():
         else:
             print "-----------------------------------------------"
         urllist += link[j].get('href')
-    if isChangedOrNot(urllist):
-        watch(warn, soup)
-        for i in xrange(len(newurl)):
-            #print newurl[i], linktext[i]
-            saveAsFile(path, linktext[i], getHtml(newurl[i]), ".html", True)
+    #if isChangedOrNot(urllist):
+    #    watch(warn, soup)
+    #    for i in xrange(len(newurl)):
+    #        #print newurl[i], linktext[i]
+    #        saveAsFile(path, linktext[i], getHtml(newurl[i]), ".html", True)
     print _con_dict
     scheduler.enter(10, 0, watchDog,"")
  
