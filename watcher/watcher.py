@@ -31,10 +31,13 @@ LOG_NAME = 'watcher_log'                #报警日志存储路径
 scheduler = sched.scheduler(time.time, time.sleep)
 
 warn = (u'学习',u'吃饭',u'睡觉',u'想到',u'关于',u'我')  # 要监控的敏感词汇,应该是可变的，所以采用list存放
+
+#全局变量
 _last_md5 = ""
 _con_dict = []
 _pointer = 0
 _count = 100
+
 #通过url抓取页面并返回
 def getHtml(url):        
     con = urllib2.urlopen(url)
@@ -114,7 +117,7 @@ def watchDog():
     scheduler.enter(10, 0, watchDog,"")
  
 # 试图用MD5辨别是否存在新发的帖子
-# 必须承认自己今天偷懒了，就为了凑一下更新时间吧，保证下周考完试后天天认真更新
+# 因为加了列表作为判别，所以此方法并没有用到
 def isChangedOrNot(page):
     global _last_md5
     if len(_last_md5) == 0:
@@ -129,11 +132,12 @@ def isChangedOrNot(page):
             return True
     
     
-#filecmp 测试
+# 测试 方法
 def test():
     result = filecmp.dircmp(".//backup//2015-06-11",".//backup//2015-06-11")
     result.report()
-    
+    #compress("./backup/")#压缩部分由于编码问题暂未解决。
+    #isChangedOrNot("这是一个字符串")
 
 
 #压缩模块还存在一定的问题，会把目录同时压缩，如果不添加全局目录，则会报一个编码错误，待解决，暂时可用吧
@@ -155,24 +159,7 @@ def compress(path):
                 tar.add(fullpath)
             tar.close()
                
-def backup(path):
-    for root, dirs, files, in os.walk(path, True):
-        #print "location:" , root
-        #os.chdir(root)
-        fname = root.split("/")[-1]
-        if not len(fname) == 0:
-            fname = path + fname + ".tar.gz"
-            
-            #print fname, fullpath
-            tar = tarfile.open(fname, "w:gz")
-            for filename in files:
-                #os.chdir(path)
-                #print path
-                fullpath = os.path.join(root, filename)
-                tar.add(fullpath, root)
-            tar.close()
             
 if __name__ == "__main__":
     main()
-    #compress("./backup/")#压缩部分由于编码问题暂未解决。
-    #isChangedOrNot("这是一个字符串")
+    #test()
