@@ -53,7 +53,7 @@ def watch(warn, soup):
     for aims in PATTERN.findall(soup.html.find('div', {'class': 'content_leftList'}).text):
         for oris in warn:
             if not aims.find(oris) == -1:
-                info = "warning, found \t" + oris + "\t at \t" + aims + "\n"
+                info = time.time() + "/t" + "warning, found \t" + oris + "\t at \t" + aims + "\n"
                 #print info
                 saveAsFile(path, LOG_NAME, info.encode('GBK'), ".txt", False)
                 
