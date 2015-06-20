@@ -96,6 +96,8 @@ def watchDog():
         newurl.append(baseurl+link[j].get('href'))
         linktext.append(link[j].text)
         temp = hashlib.md5(link[j].text.encode("gbk")).hexdigest()
+        #把贴吧当前条目以列表的形式存储，每次监测都检查当前页面条目是否在列表中，如果不在则证明有内容变化，将新条目保存并存储在列表中，将列表中最老的条目剔除以保持列表长度不会发生变化
+        #为选择时间最久的条目，设置一个指针将列表变为队列，每次只在指针出做入队出对操作即可
         if temp not in _con_dict:
             saveAsFile(path, link[j].text, getHtml(newurl[-1]), ".html", True)      #增量备份
             print temp
@@ -106,7 +108,7 @@ def watchDog():
                 print _pointer
                 _pointer = (_pointer % 100) +1
         else:
-            print "-----------------------------------------------"
+            print "当前贴吧没有内容发生变化......"
         urllist += link[j].get('href')
     #if isChangedOrNot(urllist):
     #    watch(warn, soup)
