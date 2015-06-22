@@ -53,8 +53,7 @@ def watch(warn, soup):
     for aims in PATTERN.findall(soup.html.find('div', {'class': 'content_leftList'}).text):
         for oris in warn:
             if not aims.find(oris) == -1:
-                info = time.time() + "/t" + "warning, found \t" + oris + "\t at \t" + aims + "\n"
-                #print info
+                info =time.strftime(ISOTIMEFORMAT, time.localtime(time.time())) + "\t" + "warning, found \t" + oris + "\t at \t" + aims + "\n"
                 saveAsFile(path, LOG_NAME, info.encode('GBK'), ".txt", False)
                 
 
@@ -99,6 +98,7 @@ def watchDog():
         #把贴吧当前条目以列表的形式存储，每次监测都检查当前页面条目是否在列表中，如果不在则证明有内容变化，将新条目保存并存储在列表中，将列表中最老的条目剔除以保持列表长度不会发生变化
         #为选择时间最久的条目，设置一个指针将列表变为队列，每次只在指针出做入队出对操作即可
         if temp not in _con_dict:
+            watch(warn, soup)
             saveAsFile(path, link[j].text, getHtml(newurl[-1]), ".html", True)      #增量备份
             print temp
             if not len(_con_dict) == _count:
