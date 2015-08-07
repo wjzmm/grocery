@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瘦瘦瘦瘦瘦耶</title>
+	<script src="/public/js/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/style.css">
+	<script src="/public/js/bootstrap.min.js"></script>
+</head>
+<script>
+</script>
+<body>
+	<header>
+		<p class="text-center header-title">招聘信息</p>
+	</header>
+	<div class="container">
+		<div class="panel panel-default">
+		 	<div class="panel-heading">校招宣讲会</div>
+		 	<div class="panel-body">
+				<table class="table">
+				<% jobfairlist.forEach(function(jobfair) { %>
+					<tr>
+						<td><a href="<%= jobfair.url %>"><%= jobfair.title %></a></td>
+						<td><%= jobfair.time %></td>
+						<td><%= jobfair.school %></td>
+					</tr>
+				<% }) %>
+			</table>
+			</div>
+		</div>
+		<div class="panel panel-default">
+		 	<div class="panel-heading">实习生宣讲会</div>
+		 	<div class="panel-body">
+				<table class="table">
+				<% readInternFairList.forEach(function(jobinternfair) { %>
+				
+					<tr>
+						<td><a href="<%= jobinternfair.url %>"><%= jobinternfair.title %></a></td>
+						<td><%= jobinternfair.time %></td>
+						<td><%= jobinternfair.school %></td>
+					</tr>
+				
+				<% }) %>
+			</table>
+			</div>
+		</div>
+		<div class="panel panel-default">
+		 	<div class="panel-heading">校招招聘</div>
+		 	<div class="panel-body">
+				<table class="table">
+				<% JobList.forEach(function(job) { %>
+				
+					<tr>
+						<td><a href="<%= job.url %>"><%= job.title %></a></td>
+						<td><%= job.time %></td>
+						<td><%= job.school %></td>
+					</tr>
+				
+				<% }) %>
+			</table>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+</html>
