@@ -14,22 +14,12 @@ app.configure(function(){
 });
 
 app.get('/', function(req, res, next){
-	// read.readJobFairList(function(err, list){
-	// 	if (err) return next(err);
-	// 	res.locals.jobfairlist = list;
-	// 	console.log(res.locals.readInternFairList);
-	// });
-	// read.readInternFairList(function(err, list){
-	// 	if (err) return next(err);
-	// 	res.locals.readInternFairList = list;
-	// });
 	async.series([
 		function(done){
 			read.readJobFairList(function(err, list){
 				if (err) return next(err);
 				res.locals.jobfairlist = list;
 				done();
-				//console.log(res.locals.jobfairlist);
 			});
 		},
 		function(done){
@@ -42,6 +32,7 @@ app.get('/', function(req, res, next){
 		function(done){
 			read.readJobList(function(err, list){
 				if (err) return next(err);
+				console.log(list);
 				res.locals.JobList = list;
 				done();
 			});
