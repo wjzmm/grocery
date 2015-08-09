@@ -1,5 +1,6 @@
 var config = require('../config'),
 	xjtu_job = require('./xjtu_job'),
+	xdtu_job = require('./xdtu_job'),
 	save = require('./save'),
 	async = require('async');
 
@@ -11,7 +12,7 @@ async.series([
 	function(done){
 		xjtu_job.jobFairList(config.xjtu_job_url.url, function(err, list){
 			jobFairList = list;
-			console.log('jobFairList');
+			//console.log('jobFairList');
 			done(err);
 		});
 	},
@@ -21,7 +22,7 @@ async.series([
 	function(done){
 		xjtu_job.internFairList(config.xjtu_job_url.url, function(err, list){
 			internFairList = list;
-			console.log('internFairList');
+			//console.log('internFairList');
 			done(err);
 		});
 	},
@@ -30,6 +31,17 @@ async.series([
 	},
 	function(done){
 		xjtu_job.jobList(config.xjtu_job_url.url, function(err, list){
+			jobList = list;
+			//console.log(jobList);
+			done(err);
+		});
+	},
+	function(done){
+		//console.log(jobList);
+		save.saveJob(jobList, done);
+	},
+	function(done){
+		xdtu_job.jobList(config.xd_opt.url, function(err, list){
 			jobList = list;
 			//console.log(jobList);
 			done(err);
