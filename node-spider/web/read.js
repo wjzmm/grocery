@@ -4,8 +4,8 @@ var async = require('async'),
 
 exports.readJobFairList = function(callback){
 
-	db.query('select * from jobfair order by time desc', function(err, result, fields){
-
+	db.query('select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc', function(err, result, fields){
+		//取三个月之内的数据
 		result.forEach(function(item){
 			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
 			//console.log(item.time);
@@ -17,7 +17,7 @@ exports.readJobFairList = function(callback){
 
 exports.readInternFairList = function(callback){
 
-	db.query('select * from internfair order by time desc', function(err, result, fields){
+	db.query('select * from internfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc', function(err, result, fields){
 
 		result.forEach(function(item){
 			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
@@ -30,7 +30,8 @@ exports.readInternFairList = function(callback){
 
 exports.readJobList = function(callback){
 
-	db.query('select * from job order by time desc', function(err, result, fields){
+	//db.query('select * from job order by time desc', function(err, result, fields){
+	db.query('select * from job where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc', function(err, result, fields){
 	result.forEach(function(item){
 		item.time = moment(item.time).format('YYYY-MM-DD');
 		//console.log(item.time);

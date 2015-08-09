@@ -13,6 +13,14 @@ app.configure(function(){
 	app.use('/public', express.static(path.join(__dirname, 'public')));
 });
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+module.exports = app;
 app.get('/', function(req, res, next){
 	async.series([
 		function(done){
@@ -32,7 +40,7 @@ app.get('/', function(req, res, next){
 		function(done){
 			read.readJobList(function(err, list){
 				if (err) return next(err);
-				console.log(list);
+				//console.log(list);
 				res.locals.JobList = list;
 				done();
 			});
@@ -69,3 +77,4 @@ job.start();
 process.on('uncaughtException', function(err){
 	console.error('uncaughtException: s%', err.stack);
 });
+
