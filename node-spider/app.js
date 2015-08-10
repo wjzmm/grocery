@@ -13,13 +13,6 @@ app.configure(function(){
 	app.use('/public', express.static(path.join(__dirname, 'public')));
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
 module.exports = app;
 app.get('/', function(req, res, next){
 	async.series([
@@ -69,7 +62,7 @@ var job = new cronJob(config.autoUpdate, function(){
 	update.stdout.pipe(process.stdout);
 	update.stderr.pipe(process.stderr);
 	update.on('close', function(code){
-		console.log("更新任务结束，代码 = d%", code);
+		console.log("更新任务结束，代码 = %d", code);
 	});
 });
 job.start();

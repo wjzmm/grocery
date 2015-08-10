@@ -81,7 +81,7 @@ exports.jobList = function(url, callback){
 			var $me = $(this);
 			var item = {
 				title: $me.find('a').text(),
-				time: $me.find('.time').text().trim(),
+				time:$me.find('.time').text().trim(),
 				scantime: new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' '),
 				school: '西安电子科技大学'
 			}

@@ -1,7 +1,13 @@
 header{
 	height: 200px;
 }
-.header-title{
-	font-size:45px; 
-	margin-top:50px;
+.info{
+
+}
+a{
+	text-decoration: none;
+}
+.info:hover{
+	background-color: #CCFFFF;
+	/*border-radius: 5em;*/
 }
