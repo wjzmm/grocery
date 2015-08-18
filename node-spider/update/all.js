@@ -1,6 +1,7 @@
 var config = require('../config'),
 	xjtu_job = require('./xjtu_job'),
 	xdtu_job = require('./xdtu_job'),
+	nwpu_job = require('./nwpu_job'),
 	save = require('./save'),
 	async = require('async');
 
@@ -50,7 +51,28 @@ async.series([
 	function(done){
 		//console.log(jobList);
 		save.saveJob(jobList, done);
-	}
+	},function(done){
+		nwpu_job.job(config.xg_opt.url, function(err, job_list, job_intern){
+			console.log('save nwpu_job');
+			//console.log('11111'+jobList);
+			//console.log('22222'+job_intern);
+			//console.log(jobList);
+			jobList = job_list;
+			internFairList = job_intern;
+			done(err);
+		});
+	},function(done){
+		//console.log(jobList);
+		console.log(jobList);
+		save.saveJob(jobList, done);
+		//save.saveInternFair(internFairList, done);
+	},
+	function(done){
+		//console.log(jobList);
+		//save.saveJob(jobList, done);
+		console.log(internFairList);
+		save.saveInternFair(internFairList, done);
+	},
 	], function(err){
 		if (err) console.log(err);
 		console.log("all done");
