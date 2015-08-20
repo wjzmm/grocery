@@ -23,7 +23,7 @@
 	        </ul>
 	    </div> -->
 	    
-		<div class="col-md-9 col-xs-12">
+		<div class="">
 			<ul id="myTab" class="nav nav-tabs">
 			   	<li class="active">
 			   		<a href="#jobfair" data-toggle="tab">校园招聘</a>
@@ -35,7 +35,7 @@
 			      	<a href="#job" data-toggle="tab">校外招聘</a>
 			   	</li>
 			</ul>
-			<div class="tab-content">
+			<div class="tab-content col-md-9 col-xs-12">
 				<div class="tab-pane fade in active" id="jobfair">
 				<% jobfairlist.forEach(function(jobfair) { %>
 					
@@ -117,10 +117,26 @@
 						<% }) %>
 					</div>
 				</div>
-				<!-- <div class="col-md-3 hidden-sm hidden-xs">
-					
-				</div> -->
+
+					<div class="col-md-3 col-xs-12">
+						<br /><br />
+						<div class="input-group">
+					      <input type="text" class="form-control" placeholder="Search for...">
+					      <span class="input-group-btn">
+					        <button class="btn btn-default" type="button">Go!</button>
+					      </span>
+					    </div>
+					</div>
+					<div class="col-md-3 col-xs-12">
+						
+						<div class="hot-badge">
+							<h5 class="hb-title">热门标签</h5>
+						</div>
+					</div>
+				
 			</div>
+			
 	</div>
+			
 </body>
 </html>
