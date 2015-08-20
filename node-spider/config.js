@@ -23,10 +23,18 @@ exports.xd_opt = {
 	url: "http://job.xidian.edu.cn/html/zpxx/jobs/"
 };
 
-exports.xg_opt = {
-	url: "http://job.nwpu.edu.cn/jobInfoList.do"
-};
+// exports.xg_opt = {
+// 	url: "http://job.nwpu.edu.cn/jobInfoList.do"
+// };
 
-
+var urls = [];
+var page = 2;
+for(var i = 1; i < page + 1; i++){
+	var url = "http://job.nwpu.edu.cn/jobInfoList.do";
+ 	url = url + "?page=" + i + "&order=infoPlus.submitTime&sort=desc&filter=%7bstatus%3a1%2cworkType%3a0%7d&ext=0";
+	urls.push(url)	
+}
+//console.log(urls);
+exports.urls = urls
 exports.port = 3000;
 exports.autoUpdate = '* */30 * * *';

@@ -52,25 +52,26 @@ async.series([
 		//console.log(jobList);
 		save.saveJob(jobList, done);
 	},function(done){
-		nwpu_job.job(config.xg_opt.url, function(err, job_list, job_intern){
+		nwpu_job.job(config.urls, function(err, job_list, job_intern){
 			console.log('save nwpu_job');
 			//console.log('11111'+jobList);
 			//console.log('22222'+job_intern);
 			//console.log(jobList);
+			//console.log(job_intern);
 			jobList = job_list;
 			internFairList = job_intern;
 			done(err);
 		});
 	},function(done){
 		//console.log(jobList);
-		console.log(jobList);
+		
 		save.saveJob(jobList, done);
 		//save.saveInternFair(internFairList, done);
 	},
 	function(done){
 		//console.log(jobList);
 		//save.saveJob(jobList, done);
-		console.log(internFairList);
+		//console.log(internFairList);
 		save.saveInternFair(internFairList, done);
 	},
 	], function(err){

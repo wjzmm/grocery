@@ -69,6 +69,7 @@ exports.saveJob = function(list, callback) {
 	debug('保存招聘信息');
 	console.log('saveJob');
 	async.eachSeries(list, function(item, next) {
+		//console.log(list);
 		db.query("select * from job where title = ?", [item.title], function(err, data){
 			if (err) return next(err);
 			if (Array.isArray(data) && data.length >=1 ) {
