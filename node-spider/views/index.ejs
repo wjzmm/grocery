@@ -14,7 +14,7 @@
 </head>
 <body>
 		<%- include header %>
-	
+		
 	<div class="container">
 		<!-- <div class="page-sidebar ">
 	        <ul>
@@ -61,8 +61,8 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;学历要求：<strong></strong>
 						 </p>
 						</div>
-						
 					<% }) %>
+					<%- include page %>
 					</div>
 					<div class="tab-pane fade" id="internfair">
 					<% readInternFairList.forEach(function(jobinternfair) { %>
@@ -89,6 +89,7 @@
 							 </p>
 							</div>
 						<% }) %>
+						<%- include page %>
 					</div>
 					<div class="tab-pane fade" id="job">
 					<% JobList.forEach(function(job) { %>
@@ -115,6 +116,7 @@
 							 </p>
 							</div>
 						<% }) %>
+						<%- include page %>
 					</div>
 				</div>
 
@@ -126,13 +128,14 @@
 					        <button class="btn btn-default" type="button">Go!</button>
 					      </span>
 					    </div>
-					</div>
-					<div class="col-md-3 col-xs-12">
+					    <div class="col-md-3 col-xs-12">
 						
-						<div class="hot-badge">
-							<h5 class="hb-title">热门标签</h5>
+							<div class="hot-badge">
+								<h5 class="hb-title">热门标签</h5>
+							</div>
 						</div>
 					</div>
+					
 				
 			</div>
 			

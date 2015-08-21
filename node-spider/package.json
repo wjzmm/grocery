@@ -9,14 +9,16 @@
     },
   "dependencies": {
     "cheerio": "0.12.3",
+    "body-parser": "~1.12.4",
     "debug": "~2.2.0",
     "request": "2.27.0",
     "async": "0.2.9",
     "mysql": "2.x",
-    "express": "3.4.0",
+    "express": "~4.12.4",
     "ejs": "0.8.4",
     "cron": "1.0.1",
     "iconv-lite": "*",
-    "moment": "*"
+    "moment": "*",
+    "morgan": "*"
   }
 }

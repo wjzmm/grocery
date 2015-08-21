@@ -23,10 +23,6 @@ exports.xd_opt = {
 	url: "http://job.xidian.edu.cn/html/zpxx/jobs/"
 };
 
-// exports.xg_opt = {
-// 	url: "http://job.nwpu.edu.cn/jobInfoList.do"
-// };
-
 var urls = [];
 var page = 2;
 for(var i = 1; i < page + 1; i++){
@@ -37,4 +33,5 @@ for(var i = 1; i < page + 1; i++){
 //console.log(urls);
 exports.urls = urls
 exports.port = 3000;
+exports.pageSize = 10;
 exports.autoUpdate = '* */30 * * *';
