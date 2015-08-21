@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瘦瘦瘦瘦瘦耶</title>
+	<script src="/public/js/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/style-metronic.css">
+	<!-- <link rel="stylesheet" href="/public/css/modern.css"> -->
+	<link rel="stylesheet" href="/public/css/style.css">
+	
+	<script src="/public/js/bootstrap.min.js"></script>
+	<script src="/public/js/metro.min.js"></script>
+</head>
+<body>
+		<%- include header %>
+		
+	<div class="container">
+		<!-- <div class="page-sidebar ">
+	        <ul>
+	            <li class="sticker"><a>Item</a></li>
+	            ...
+	        </ul>
+	    </div> -->
+	    
+		<div class="">
+			<ul id="myTab" class="nav nav-tabs">
+			   	<li class="active">
+			   		<a href="#jobfair" data-toggle="tab">校园招聘</a>
+			   	</li>
+			   	<li>
+			   		<a href="#internfair" data-toggle="tab">实习招聘</a>
+			   	</li>
+			   	<li >
+			      	<a href="#job" data-toggle="tab">校外招聘</a>
+			   	</li>
+			</ul>
+			<div class="tab-content col-md-9 col-xs-12">
+				<div class="tab-pane fade in active" id="jobfair">
+				<% jobfairlist.forEach(function(jobfair) { %>
+					
+					<div class="col-md-12 info">
+						<h3>
+							<a href="<%= jobfair.url %>" target="_blank" title=
+							"<%= jobfair.title %>" style="font-size:24px;">	
+									<%= jobfair.title %>
+							</a>
+							<span class="badge badge-danger"><%= jobfair.school %></span> 
+							<span class="badge badge-warning" style="font-size: 9px;">招聘会</span>
+						</h3>
+						<ul class="list-inline" >
+							<li>
+								<i class="glyphicon glyphicon-time"></i> 发表于：<%= jobfair.time %>&nbsp;&nbsp;&nbsp;
+								<i class="glyphicon glyphicon-eye-open"></i> 阅读次数：2562
+							</li>
+						</ul>
+						<p>
+							单位名称：<strong style="font-size: 16px;"><%= jobfair.title %></strong><br/>
+							来源：<strong><%= jobfair.school %></strong> &nbsp;&nbsp;&nbsp;&nbsp;所属行业：<strong>教育</strong> &nbsp;&nbsp;&nbsp;&nbsp;职位性质：<strong>全职</strong><br/>
+							工作地点：<strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;职位类别：<strong></strong>
+							&nbsp;&nbsp;&nbsp;&nbsp;学历要求：<strong></strong>
+						 </p>
+						</div>
+					<% }) %>
+					<%- include page %>
+					</div>
+					<div class="tab-pane fade" id="internfair">
+					<% readInternFairList.forEach(function(jobinternfair) { %>
+						<div class="col-md-12 info">
+							<h3>
+								<a href="<%= jobinternfair.url %>" target="_blank" title=
+								"<%= jobinternfair.title %>" style="font-size:24px;">	
+										<%= jobinternfair.title %>
+								</a>
+								<span class="badge badge-danger"><%= jobinternfair.school %></span> 
+								<span class="badge badge-warning" style="font-size: 9px;">实习</span>
+							</h3>
+							<ul class="list-inline" >
+								<li>
+									<i class="glyphicon glyphicon-time"></i> 发表于：<%= jobinternfair.time %>&nbsp;&nbsp;&nbsp;
+									<i class="glyphicon glyphicon-eye-open"></i> 阅读次数：2562
+								</li>
+							</ul>
+							<p>
+								单位名称：<strong style="font-size: 16px;"><%= jobinternfair.title %></strong><br/>
+								来源：<strong><%= jobinternfair.school %></strong> &nbsp;&nbsp;&nbsp;&nbsp;所属行业：<strong>教育</strong> &nbsp;&nbsp;&nbsp;&nbsp;职位性质：<strong>全职</strong><br/>
+								工作地点：<strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;职位类别：<strong></strong>
+								&nbsp;&nbsp;&nbsp;&nbsp;学历要求：<strong></strong>
+							 </p>
+							</div>
+						<% }) %>
+						<%- include page %>
+					</div>
+					<div class="tab-pane fade" id="job">
+					<% JobList.forEach(function(job) { %>
+						<div class="col-md-12 info">
+							<h3>
+								<a href="<%= job.url %>" target="_blank" title=
+								"<%= job.title %>" style="font-size:24px;">	
+										<%= job.title %>
+								</a>
+								<span class="badge badge-danger"><%= job.school %></span> 
+								<span class="badge badge-warning" style="font-size: 9px;">校招</span>
+							</h3>
+							<ul class="list-inline" >
+								<li>
+									<i class="glyphicon glyphicon-time"></i> 发表于：<%= job.time %>&nbsp;&nbsp;&nbsp;
+									<i class="glyphicon glyphicon-eye-open"></i> 阅读次数：2562
+								</li>
+							</ul>
+							<p>
+								单位名称：<strong style="font-size: 16px;"><%= job.title %></strong><br/>
+								来源：<strong><%= job.school %></strong> &nbsp;&nbsp;&nbsp;&nbsp;所属行业：<strong>教育</strong> &nbsp;&nbsp;&nbsp;&nbsp;职位性质：<strong>全职</strong><br/>
+								工作地点：<strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;职位类别：<strong></strong>
+								&nbsp;&nbsp;&nbsp;&nbsp;学历要求：<strong></strong>
+							 </p>
+							</div>
+						<% }) %>
+						<%- include page %>
+					</div>
+				</div>
+
+					<div class="col-md-3 col-xs-12">
+						<br /><br />
+						<div class="input-group">
+					      <input type="text" class="form-control" placeholder="Search for...">
+					      <span class="input-group-btn">
+					        <button class="btn btn-default" type="button">Go!</button>
+					      </span>
+					    </div>
+					    <div class="col-md-3 col-xs-12">
+						
+							<div class="hot-badge">
+								<h5 class="hb-title">热门标签</h5>
+							</div>
+						</div>
+					</div>
+					
+				
+			</div>
+			
+	</div>
+			
+</body>
+</html>

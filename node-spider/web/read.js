@@ -5,10 +5,9 @@ var async = require('async'),
 
 exports.readJobFairList = function(page, callback){
 	var start = (page - 1) * pageSize;
-	var end = page * pageSize;
 	//var sql = 'select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc';
-	var sql = 'select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + end;
-	console.log(sql);
+	var sql = 'select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + pageSize;
+	//console.log(sql);
 	db.query(sql, function(err, result, fields){
 		//取三个月之内的数据
 		result.forEach(function(item){
@@ -22,8 +21,7 @@ exports.readJobFairList = function(page, callback){
 
 exports.readInternFairList = function(page, callback){
 	var start = (page - 1) * pageSize;
-	var end = page * pageSize;
-	var sql = 'select * from internfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + end;
+	var sql = 'select * from internfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + pageSize;
 	db.query(sql, function(err, result, fields){
 
 		result.forEach(function(item){
@@ -37,8 +35,7 @@ exports.readInternFairList = function(page, callback){
 
 exports.readJobList = function(page, callback){
 	var start = (page - 1) * pageSize;
-	var end = page * pageSize;
-	var sql = 'select * from job where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + end;
+	var sql = 'select * from job where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + pageSize;
 	//db.query('select * from job order by time desc', function(err, result, fields){
 	db.query(sql, function(err, result, fields){
 	result.forEach(function(item){

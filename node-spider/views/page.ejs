@@ -1,17 +1,17 @@
 <nav class="text-center">
   <ul class="pagination">
     <li>
-      <a href="?p=<%= page-1 %>" aria-label="Previous">
+      <a href="/<%=tab%>/<%= page-1 %>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     <li><a href="#"><%= page %></a></li>
-    <li><a href="?p=<%= page+1 %>"><%= page+1 %></a></li>
-    <li><a href="?p=<%= page+2 %>"><%= page+2 %></a></li>
-    <li><a href="?p=<%= page+3 %>"><%= page+3 %></a></li>
-    <li><a href="?p=<%= page+4 %>"><%= page+4 %></a></li>
+    <li><a href="/<%=tab%>/<%= page+1 %>"><%= page+1 %></a></li>
+    <li><a href="/<%=tab%>/<%= page+2 %>"><%= page+2 %></a></li>
+    <li><a href="/<%=tab%>/<%= page+3 %>"><%= page+3 %></a></li>
+    <li><a href="/<%=tab%>/<%= page+4 %>"><%= page+4 %></a></li>
     <li>
-      <a href="?p=<%= page+1 %>" aria-label="Next">
+      <a href="/<%=tab%>/<%= page+1 %>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
