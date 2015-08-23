@@ -19,6 +19,37 @@ exports.readJobFairList = function(page, callback){
 
 }
 
+exports.readCount = function(callback){
+	async.series({
+	jobfairc:function(done){
+
+		var sql_jf = 'select count(*) from jobfair';
+		db.query(sql_jf, function(err, result, fields){
+			//count.jobfairCount = result[0]['count(*)'];
+			done(err, result[0]['count(*)']);
+		});
+		
+	},
+	internfairc:function(done){
+		var sql_if = 'select count(*) from internfair';
+		db.query(sql_if, function(err, result, fields){
+			done(err, result[0]['count(*)']);
+		});
+	},
+	jobc:function(done){
+		var sql_job = 'select count(*) from job';
+		db.query(sql_job, function(err, result, fields){
+			done(err, result[0]['count(*)']);
+		});
+	}}, function(err, result){
+		//console.log("message");
+		//console.log(result);
+		callback(result);
+		//process.exit(0);
+	});
+}
+
+
 exports.readInternFairList = function(page, callback){
 	var start = (page - 1) * pageSize;
 	var sql = 'select * from internfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + pageSize;

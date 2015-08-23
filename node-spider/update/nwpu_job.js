@@ -61,7 +61,7 @@ exports.job = function(urls, out_callback){
 					});
 					
 				});
-				//console.log(jobList);
+				console.log(internList);
 		        callback(null, jobList, internList);
 	    }, 1000);
 	}, function(err, joblist, internlist) {
