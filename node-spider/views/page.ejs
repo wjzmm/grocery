@@ -1,19 +1,29 @@
 <nav class="text-center">
   <ul class="pagination">
-    <li>
+  
+    
+    <li class="<% if(page<2){ %> disabled <% } %>">
       <a href="/<%=tab%>/<%= page-1 %>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li><a href="#"><%= page %></a></li>
-    <li><a href="/<%=tab%>/<%= page+1 %>"><%= page+1 %></a></li>
-    <li><a href="/<%=tab%>/<%= page+2 %>"><%= page+2 %></a></li>
-    <li><a href="/<%=tab%>/<%= page+3 %>"><%= page+3 %></a></li>
-    <li><a href="/<%=tab%>/<%= page+4 %>"><%= page+4 %></a></li>
-    <li>
+    <!--<p>11111111111111111111111111111111--<%=count%></p>-->
+    <%
+    for(var i=0;i<3;i++){
+
+        if(page+i<count+1){%>
+           <li class=""><a href="/<%=tab%>/<%= page+i %>"><%= page+i %></a></li>
+        <%
+        }else{%>
+            <li class="disabled"><a href="/<%=tab%>/<%= page+i %>"><%= page+i %></a></li>
+        <%
+        }}
+    %>
+    <li class="<% if(page==count){ %> disabled <% } %>"">
       <a href="/<%=tab%>/<%= page+1 %>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
+
   </ul>
 </nav>

@@ -3,11 +3,9 @@ var router = express.Router();
 var async = require('async');
 var read = require('../web/read');
 var config = require('../config');
+var count = {};
 router.get('/', function(req, res) {
-	// console.log('1');
-	// console.log(req.params.p);
 	var page = 1;
-	var count = {};
 	var job_info = [];
 	read.readCount(function(result){
 		count = result;
@@ -19,93 +17,118 @@ router.get('/', function(req, res) {
 			res.render('index', {
 				page: page,
 				job_info: job_info,
-				tab: 'jobfair'
+				tab: 'jobfair',
+				count: Math.ceil(count.jobfairc/config.pageSize)
 			})
 			//process.exit(0);
 		});
-	})
-	
-	
-
+	});
+	//console.log(count);
+		
 });
 router.get('/jobfair', function(req, res) {
 
 	var page = 1;
-	read.readJobFairList(page, function(err, list){
-		if (err) return next(err);
-		res.locals.jobfairlist = list;
-		res.render('index', {
-			page: page,
-			job_info: list,
-			tab: 'jobfair'
-		})
-		//process.exit(0);
+	read.readCount(function(result){
+		count = result;
+		read.readJobFairList(page, function(err, list){
+			if (err) return next(err);
+			res.locals.jobfairlist = list;
+			res.render('index', {
+				page: page,
+				job_info: list,
+				tab: 'jobfair',
+				count: Math.ceil(count.jobfairc/config.pageSize)
+			})
+			//process.exit(0);
+		});
 	});
+	//console.log(count);
 });
 router.get('/jobfair/:p', function(req, res) {
 	var page = parseInt(req.params.p);
-	read.readJobFairList(page, function(err, list){
-		if (err) return next(err);
-		res.locals.jobfairlist = list;
-		res.render('index', {
-			page: page,
-			job_info: list,
-			tab: 'jobfair'
-		})
-		//process.exit(0);
+	read.readCount(function(result){
+		count = result;
+		read.readJobFairList(page, function(err, list){
+			if (err) return next(err);
+			res.locals.jobfairlist = list;
+			res.render('index', {
+				page: page,
+				job_info: list,
+				tab: 'jobfair',
+				count: Math.ceil(count.jobfairc/config.pageSize)
+			})
+			//process.exit(0);
+		});
 	});
 });
 
 router.get('/internfair', function(req, res) {
 	var page = 1;
-	read.readInternFairList(page, function(err, list){
-		if (err) return next(err);
-		res.locals.jobfairlist = list;
-		res.render('index', {
-			page: page,
-			job_info: list,
-			tab: 'internfair'
-		})
+	read.readCount(function(result){
+		count = result;
+		read.readInternFairList(page, function(err, list){
+			if (err) return next(err);
+			res.locals.jobfairlist = list;
+			res.render('index', {
+				page: page,
+				job_info: list,
+				tab: 'internfair',
+				count: Math.ceil(count.internfairc/config.pageSize)
+			})
+		});
 	});
 		//process.exit(0);
 });
 router.get('/internfair/:p', function(req, res) {
 	var page = parseInt(req.params.p);
-	read.readInternFairList(page, function(err, list){
-		if (err) return next(err);
-		res.locals.jobfairlist = list;
-		res.render('index', {
-			page: page,
-			job_info: list,
-			tab: 'internfair'
-		})
+	read.readCount(function(result){
+		count = result;
+		read.readInternFairList(page, function(err, list){
+			if (err) return next(err);
+			res.locals.jobfairlist = list;
+			res.render('index', {
+				page: page,
+				job_info: list,
+				tab: 'internfair',
+				count: Math.ceil(count.internfairc/config.pageSize)
+			})
+		});
 	});
 		//process.exit(0);
 });
 
 router.get('/job', function(req, res) {
 	var page = 1;
-	read.readJobList(page, function(err, list){
-		if (err) return next(err);
-		res.locals.jobfairlist = list;
-		res.render('index', {
-			page: page,
-			job_info: list,
-			tab: 'job'
-		})
+	read.readCount(function(result){
+		count = result;
+		read.readJobList(page, function(err, list){
+			if (err) return next(err);
+			res.locals.jobfairlist = list;
+			res.render('index', {
+				page: page,
+				job_info: list,
+				tab: 'job',
+				count: Math.ceil(count.jobc/config.pageSize)
+			})
+		});
 	});
 		//process.exit(0);
 });
 router.get('/job/:p', function(req, res) {
 	var page = parseInt(req.params.p);
-	read.readJobList(page, function(err, list){
-		if (err) return next(err);
-		res.locals.jobfairlist = list;
-		res.render('index', {
-			page: page,
-			job_info: list,
-			tab: 'job'
-		})
+	read.readCount(function(result){
+		count = result;
+		read.readJobList(page, function(err, list){
+			if (err) return next(err);
+			res.locals.jobfairlist = list;
+			res.render('index', {
+				page: page,
+				job_info: list,
+				tab: 'job',
+				count: Math.ceil(count.jobc/config.pageSize)
+			})
+		});
 	});
 		//process.exit(0);
 });
