@@ -1,13 +1,16 @@
-<nav class="text-center">
+<nav class="text-center" hidden="<% if(page===-1){%>hidden<%}%>" >
   <ul class="pagination">
   
-    
+    <li class="">
+      <a href="/<%=tab%>/1" aria-label="First">
+        <span aria-hidden="true">&laquo;&laquo;</span>
+      </a>
+    </li>
     <li class="<% if(page<2){ %> disabled <% } %>">
       <a href="/<%=tab%>/<%= page-1 %>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <!--<p>11111111111111111111111111111111--<%=count%></p>-->
     <%
     for(var i=0;i<3;i++){
 
@@ -19,9 +22,14 @@
         <%
         }}
     %>
-    <li class="<% if(page==count){ %> disabled <% } %>"">
+    <li class="<% if(page==count){ %> disabled <% } %>">
       <a href="/<%=tab%>/<%= page+1 %>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <li class="">
+      <a href="/<%=tab%>/<%= count %>" aria-label="Last">
+        <span aria-hidden="true">&raquo;&raquo;</span>
       </a>
     </li>
 

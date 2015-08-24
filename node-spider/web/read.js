@@ -3,6 +3,15 @@ var async = require('async'),
 	pageSize = require('../config').pageSize,
 	moment = require('moment');
 
+
+exports.searchDb = function(tbname, keywords, callback){
+	var searchSql = "select * from " + tbname + " where title like '%" + keywords + "%'";
+	console.log(searchSql);
+	db.query(searchSql, function(err, result, fields){
+		//console.log('serach');
+		callback(result);
+	});
+}
 exports.readJobFairList = function(page, callback){
 	var start = (page - 1) * pageSize;
 	//var sql = 'select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc';

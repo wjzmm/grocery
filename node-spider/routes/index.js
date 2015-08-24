@@ -51,7 +51,7 @@ router.get('/jobfair/:p', function(req, res) {
 		count = result;
 		read.readJobFairList(page, function(err, list){
 			if (err) return next(err);
-			res.locals.jobfairlist = list;
+			//res.locals.jobfairlist = list;
 			res.render('index', {
 				page: page,
 				job_info: list,
@@ -69,7 +69,7 @@ router.get('/internfair', function(req, res) {
 		count = result;
 		read.readInternFairList(page, function(err, list){
 			if (err) return next(err);
-			res.locals.jobfairlist = list;
+			//res.locals.jobfairlist = list;
 			res.render('index', {
 				page: page,
 				job_info: list,
@@ -86,7 +86,7 @@ router.get('/internfair/:p', function(req, res) {
 		count = result;
 		read.readInternFairList(page, function(err, list){
 			if (err) return next(err);
-			res.locals.jobfairlist = list;
+			//res.locals.jobfairlist = list;
 			res.render('index', {
 				page: page,
 				job_info: list,
@@ -104,7 +104,7 @@ router.get('/job', function(req, res) {
 		count = result;
 		read.readJobList(page, function(err, list){
 			if (err) return next(err);
-			res.locals.jobfairlist = list;
+			//res.locals.jobfairlist = list;
 			res.render('index', {
 				page: page,
 				job_info: list,
@@ -121,7 +121,7 @@ router.get('/job/:p', function(req, res) {
 		count = result;
 		read.readJobList(page, function(err, list){
 			if (err) return next(err);
-			res.locals.jobfairlist = list;
+			//res.locals.jobfairlist = list;
 			res.render('index', {
 				page: page,
 				job_info: list,
@@ -131,5 +131,27 @@ router.get('/job/:p', function(req, res) {
 		});
 	});
 		//process.exit(0);
+});
+
+router.get('/search', function(req, res) {
+	//console.log(req.query.keyword);
+	//var re= /select|update|delete|exec|count|’|"|=|;|>|<|%/i;
+	// var re= /’|"|=|;|>|<|%/i;
+	// if(re.test(req.query.keyword)){
+	// 	console.log('含有转义字符');
+	// }else{
+	// 	console.log('success');
+	// }
+		//process.exit(0);
+	read.searchDb(req.query.tbname, req.query.keyword, function(result){
+		console.log(result.length);
+		//var tab = req.query.tbname + '/' + search;
+		res.render('index', {
+			page: -1,
+			job_info: result,
+			tab: req.query.tbname,
+			count: 0
+		})
+	});
 });
 module.exports = router;

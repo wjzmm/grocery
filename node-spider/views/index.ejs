@@ -87,13 +87,16 @@
 				</div>
 					<div class="col-md-3 col-xs-12">
 						<br /><br />
-						<div class="input-group">
-					      <input type="text" class="form-control" placeholder="Search for...">
-					      <span class="input-group-btn">
-					        <button class="btn btn-default" type="button">Go!</button>
-					      </span>
-					    </div>
-					    <div class="col-md-3 col-xs-12">
+							<form action="/search" method="get">
+								<div class="input-group">
+								  <input type="hidden" class="form-control" name="tbname" value="<%= tab %>">						
+							      <input type="text" class="form-control" name="keyword" placeholder="Search">
+							      <span class="input-group-btn">
+							        <button class="btn btn-default" type="button" onClick="submit()">Go!</button>
+							      </span>
+							    </div>
+							</form>
+					  	<div class="col-md-3 col-xs-12">
 						
 							<div class="hot-badge">
 								<h5 class="hb-title">热门标签</h5>

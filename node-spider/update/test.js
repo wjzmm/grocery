@@ -9,6 +9,6 @@
 
 var read = require('../web/read.js');
 
-read.readCount(function(result){
+read.searchDb('job', 'null', function(result){
 	console.log(result);
 })
