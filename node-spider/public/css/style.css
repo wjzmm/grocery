@@ -11,11 +11,24 @@ a{
 	background-color: #CCFFFF;
 	/*border-radius: 5em;*/
 }
-.hot-badge{
-	border:0px solid red;
-	height: 300px;
-	margin-top:70px;
+.labels{
+	margin-top:40px;
 }
-.hb-title{
-	border-bottom:1px solid grey;
+.tagBall{
+    width: 200px;
+    height: 200px;
+    margin:10px auto;
+    position: relative;
 }
+.tag{
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    color: #000;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: "微软雅黑";
+    font-weight: bold;
+}
+.tag:hover{border:1px solid #666;}

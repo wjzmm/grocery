@@ -90,24 +90,46 @@
 							<form action="/search" method="get">
 								<div class="input-group">
 								  <input type="hidden" class="form-control" name="tbname" value="<%= tab %>">						
-							      <input type="text" class="form-control" name="keyword" placeholder="Search">
+							      <input type="text" class="form-control" id="keyword" name="keyword" value="" placeholder="Search">
 							      <span class="input-group-btn">
 							        <button class="btn btn-default" type="button" onClick="submit()">Go!</button>
 							      </span>
 							    </div>
 							</form>
-					  	<div class="col-md-3 col-xs-12">
-						
-							<div class="hot-badge">
-								<h5 class="hb-title">热门标签</h5>
-							</div>
+					  	<div class="labels" style="border:0px solid red">
+					  		<div class="">热门标签: </div>
+							<span class="badge badge-default" style="width:96px;height:26px;margin:10px;">计算机</span>
+							<span class="badge badge-success" style="width:63px;height:23px;margin:10px;">计算机</span>
+							<span class="badge badge-danger" style="width:82px;height:28px;margin:10px;">计算机</span>
+							<span class="badge badge-warning" style="width:73px;height:25px;margin:10px;">计算机</span>
+							<span class="badge badge-primary" style="width:55px;height:21px;margin:10px;">计算机</span>
+							<span class="badge badge-info" style="width:83px;height:27px;margin:10px;">计算机</span>
+							<span class="badge badge-default" style="width:91px;height:29px;margin:10px;">计算机</span>
+							<span class="badge badge-success" style="width:88px;height:20px;margin:10px;">计算机</span>
+							<span class="badge badge-danger" style="width:69px;height:24px;margin:10px;">计算机</span>
+							<span class="badge badge-primary" style="width:72px;height:25px;margin:10px;">计算机</span>
+							
+
+
+
+
 						</div>
-					</div>
-					
-				
-			</div>
-			
+					</div>						
+			</div>			
 	</div>
-			
+<script type="text/javascript">
+	$(function(){
+		$(".badge").click(function(){
+			var keyw = $(this).text().trim();
+			//var tb = $("#tbname").attr('value');
+			//alert($("#keyword").attr('value'));
+			$("#keyword").attr('value') = keyw;
+			alert($("#keyword").attr('value'));
+		})
+
+
+	})
+
+</script>
 </body>
 </html>
