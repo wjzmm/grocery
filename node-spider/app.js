@@ -64,21 +64,21 @@ http.createServer(app).listen(app.get('port'),function(){
 
 module.exports = app;
 
-// var spawn = require('child_process').spawn;
-// var cronJob = require('cron').CronJob;
+var spawn = require('child_process').spawn;
+var cronJob = require('cron').CronJob;
 
-// var job = new cronJob(config.autoUpdate, function(){
-// 	console.log("定时任务开始执行");
-// 	var update = spawn(process.execPath, [path.resolve(__dirname, 'update/all.js')]);
-// 	update.stdout.pipe(process.stdout);
-// 	update.stderr.pipe(process.stderr);
-// 	update.on('close', function(code){
-// 		console.log("更新任务结束，代码 = %d", code);
-// 	});
-// });
-// job.start();
+var job = new cronJob(config.autoUpdate, function(){
+	console.log("定时任务开始执行");
+	var update = spawn(process.execPath, [path.resolve(__dirname, 'update/all.js')]);
+	update.stdout.pipe(process.stdout);
+	update.stderr.pipe(process.stderr);
+	update.on('close', function(code){
+		console.log("更新任务结束，代码 = %d", code);
+	});
+});
+job.start();
 
-// process.on('uncaughtException', function(err){
-// 	console.error('uncaughtException: s%', err.stack);
-// });
+process.on('uncaughtException', function(err){
+	console.error('uncaughtException: s%', err.stack);
+});
 

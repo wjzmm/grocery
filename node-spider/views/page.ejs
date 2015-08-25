@@ -1,9 +1,9 @@
-<nav class="text-center" hidden="<% if(page===-1){%>hidden<%}%>" >
+<nav class="text-center" <% if(page===-1){ %>hidden<%}%> >
   <ul class="pagination">
   
     <li class="">
       <a href="/<%=tab%>/1" aria-label="First">
-        <span aria-hidden="true">&laquo;&laquo;</span>
+        <span aria-hidden="true">First</span>
       </a>
     </li>
     <li class="<% if(page<2){ %> disabled <% } %>">
@@ -29,7 +29,7 @@
     </li>
     <li class="">
       <a href="/<%=tab%>/<%= count %>" aria-label="Last">
-        <span aria-hidden="true">&raquo;&raquo;</span>
+        <span aria-hidden="true">Last</span>
       </a>
     </li>
 
