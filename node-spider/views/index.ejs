@@ -12,27 +12,7 @@
 	<script src="/public/js/bootstrap.min.js"></script>
 	<script src="/public/js/metro.min.js"></script>
 </head>
-<script type="text/javascript">
-	// $(function(){
-	// 	$('#jobfair').click(function(){
-	// 		$(this).addClass('active');
-	// 		$('#internfair').removeClass('active');
-	// 		$('#job').removeClass('active');
-	// 	})
 
-	// 	$('#internfair').click(function(){
-	// 		$(this).addClass('active');
-	// 		$('#jobfair').removeClass('active');
-	// 		$('#job').removeClass('active');
-	// 	})
-
-	// 	$('#job').click(function(){
-	// 		$(this).addClass('active');
-	// 		$('#internfair').removeClass('active');
-	// 		$('#jobfair').removeClass('active');
-	// 	})
-	// })
-</script>
 <body>
 		<%- include header %>
 		
@@ -47,13 +27,13 @@
 		<div class="">
 			<ul id="myTab" class="nav nav-tabs">
 			   	<li id="jobfair" <% if(tab == 'jobfair'){%> class="active" <%}%>>
-			   		<a href="/jobfair">校园招聘</a>
+			   		<a href="/jobfair">招聘会</a>
 			   	</li>
 			   	<li id="internfair" <% if(tab == 'internfair'){%> class="active" <%}%>>
 			   		<a href="/internfair">实习招聘</a>
 			   	</li>
 			   	<li id="job" <% if(tab == 'job'){%> class="active" <%}%>>
-			      	<a href="/job">校外招聘</a>
+			      	<a href="/job">校园招聘</a>
 			   	</li>
 			</ul>
 			<div class="tab-content col-md-9 col-xs-12">
@@ -131,5 +111,6 @@
 	})
 
 </script>
+	<%- include footer%>
 </body>
 </html>
