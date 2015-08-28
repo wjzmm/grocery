@@ -5,14 +5,36 @@ var async = require('async'),
 
 
 exports.searchDb = function(tbname, keywords, callback){
-	var searchSql = "select * from " + tbname + " where title like '%" + keywords + "%'";
-	console.log(searchSql);
-	db.query(searchSql, function(err, result, fields){
-		//console.log('serach');
+	async.series([
+		function(done){
+			console.log('save');
+			var querySql = "insert into search_info(keyword) values('" + keywords +"') ON DUPLICATE KEY update keywordv=keywordv+1"
+			db.query(querySql, function(err, result, fields){
+				console.log(querySql);
+				done();
+			});
+		},
+		function(done){
+			var searchSql = "select * from " + tbname + " where title like '%" + keywords + "%'";
+			console.log(searchSql);
+			db.query(searchSql, function(err, result, fields){
+				console.log('serach');
+				done(result);
+			});
+		},
+	], function(result){
+		console.log('result');
 		callback(result);
 	});
+	// var searchSql = "select * from " + tbname + " where title like '%" + keywords + "%'";
+	// console.log(searchSql);
+	// db.query(searchSql, function(err, result, fields){
+	// 	//console.log('serach');
+	// 	callback(result);
+	// });
 }
 exports.readJobFairList = function(page, callback){
+
 	var start = (page - 1) * pageSize;
 	//var sql = 'select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc';
 	var sql = 'select * from jobfair where time >= DATE_SUB(NOW(), INTERVAL 3 MONTH) order by time desc limit ' + start + ',' + pageSize;
@@ -50,7 +72,14 @@ exports.readCount = function(callback){
 		db.query(sql_job, function(err, result, fields){
 			done(err, result[0]['count(*)']);
 		});
-	}}, function(err, result){
+	},
+	searchwords:function(done){
+		var sear_sql = "select * from search_info order by keywordv desc limit 0,10";
+		db.query(sear_sql, function(err, result, fields){
+			done(err, result);
+		});
+	}
+	}, function(err, result){
 		//console.log("message");
 		//console.log(result);
 		callback(result);

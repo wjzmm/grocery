@@ -18,6 +18,7 @@ router.get('/', function(req, res) {
 				page: page,
 				job_info: job_info,
 				tab: 'jobfair',
+				search: count.searchwords,
 				count: Math.ceil(count.jobfairc/config.pageSize)
 			})
 			//process.exit(0);
@@ -38,6 +39,7 @@ router.get('/jobfair', function(req, res) {
 				page: page,
 				job_info: list,
 				tab: 'jobfair',
+				search: count.searchwords,
 				count: Math.ceil(count.jobfairc/config.pageSize)
 			})
 			//process.exit(0);
@@ -56,6 +58,7 @@ router.get('/jobfair/:p', function(req, res) {
 				page: page,
 				job_info: list,
 				tab: 'jobfair',
+				search: count.searchwords,
 				count: Math.ceil(count.jobfairc/config.pageSize)
 			})
 			//process.exit(0);
@@ -74,6 +77,7 @@ router.get('/internfair', function(req, res) {
 				page: page,
 				job_info: list,
 				tab: 'internfair',
+				search: count.searchwords,
 				count: Math.ceil(count.internfairc/config.pageSize)
 			})
 		});
@@ -91,6 +95,7 @@ router.get('/internfair/:p', function(req, res) {
 				page: page,
 				job_info: list,
 				tab: 'internfair',
+				search: count.searchwords,
 				count: Math.ceil(count.internfairc/config.pageSize)
 			})
 		});
@@ -109,6 +114,7 @@ router.get('/job', function(req, res) {
 				page: page,
 				job_info: list,
 				tab: 'job',
+				search: count.searchwords,
 				count: Math.ceil(count.jobc/config.pageSize)
 			})
 		});
@@ -126,6 +132,7 @@ router.get('/job/:p', function(req, res) {
 				page: page,
 				job_info: list,
 				tab: 'job',
+				search: count.searchwords,
 				count: Math.ceil(count.jobc/config.pageSize)
 			})
 		});
@@ -143,15 +150,19 @@ router.get('/search', function(req, res) {
 	// 	console.log('success');
 	// }
 		//process.exit(0);
-	read.searchDb(req.query.tbname, req.query.keyword, function(result){
-		console.log(result.length);
-		//var tab = req.query.tbname + '/' + search;
-		res.render('index', {
-			page: -1,
-			job_info: result,
-			tab: req.query.tbname,
-			count: 0
-		})
+	read.readCount(function(result){
+	count = result;
+		read.searchDb(req.query.tbname, req.query.keyword, function(result){
+			console.log(result.length);
+			//var tab = req.query.tbname + '/' + search;
+			res.render('index', {
+				page: -1,
+				job_info: result,
+				tab: req.query.tbname,
+				search: count.searchwords,
+				count: 0
+			})
+		});
 	});
 });
 module.exports = router;

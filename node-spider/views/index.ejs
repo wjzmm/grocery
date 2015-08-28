@@ -78,7 +78,10 @@
 							</form>
 					  	<div class="labels" style="border:0px solid red">
 					  		<div class="">热门标签: </div>
-							<span class="badge badge-default" style="width:96px;height:26px;margin:10px;">计算机</span>
+					  		<% search.forEach(function(words){%>
+					  		<span class="badge badge-info" style="width:96px;height:26px;margin:10px;"><%= words.keyword%></span>
+					  		<% }) %>
+							<!-- <span class="badge badge-default" style="width:96px;height:26px;margin:10px;">计算机</span>
 							<span class="badge badge-info" style="width:63px;height:23px;margin:10px;">校园招聘</span>
 							<span class="badge badge-danger" style="width:82px;height:28px;margin:10px;">研发</span>
 							<span class="badge badge-warning" style="width:73px;height:25px;margin:10px;">大数据</span>
@@ -87,7 +90,7 @@
 							<span class="badge badge-primary" style="width:91px;height:29px;margin:10px;">深圳</span>
 							<span class="badge badge-success" style="width:88px;height:20px;margin:10px;">软件</span>
 							<span class="badge badge-danger" style="width:69px;height:24px;margin:10px;">金融</span>
-							<span class="badge badge-info" style="width:72px;height:25px;margin:10px;">人力资源</span>
+							<span class="badge badge-info" style="width:72px;height:25px;margin:10px;">人力资源</span> -->
 						</div>
 						<div class="back">
 							<span>友情链接</span>
