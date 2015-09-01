@@ -1,6 +1,5 @@
 var request = require('request'),
 	cheerio = require('cheerio'),
-	async = require('async'),
 	debug   = require('debug')('node-spider:update');
 
 	debug('尝试读取招聘信息');
@@ -68,54 +67,32 @@ exports.internFairList = function(url, callback){
 };
 
 exports.jobList = function(url, callback){
-	async.waterfall([
-		function(callback){
-			request(url, function(err, res){
-				if (err) return console.log(err);
+	request(url, function(err, res){
+		if (err) return console.log(err);
 
-				var $ = cheerio.load(res.body.toString());
+		var $ = cheerio.load(res.body.toString());
 
-				var jobList = [];
-				$('.r_listjob1 ul li').each(function(){
-					var $me = $(this);
-					var item = {
-						title: $me.find('a').attr('title'),
-						time: '20' + $me.find('font').text().substr(10).replace('\r\n','').trim(),
-						scantime: new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' '),
-						school: '西安交通大学',
-						arcContent:''
-					}
-					var url = $me.find('a').attr('href').trim();
-					if(url.indexOf('http://job.xjtu.edu.cn') >= 0){
-						item.url = url;
-					}else{
-						item.url = 'http://job.xjtu.edu.cn' + url;
-					}
-					jobList.push(item);
-					//console.log(item);
-				});
-				callback(null, jobList);
-			});
-	},
-	function(items, callback){
-		async.mapSeries(items, function(item, callback) {
-		   	setTimeout(function() {
-			request(item.url,
-			function(err, res, body){
-				if (err) return console.log(err);
-				var $ = cheerio.load(res.body.toString());
-				item.arcContent = $('.artibody').text();
-			});
-			callback(null, item);
-			}, 500);
-		}, function(err, result) {
-		    callback(null, result);
+		var jobList = [];
+		$('.r_listjob1 ul li').each(function(){
+			var $me = $(this);
+			var item = {
+				title: $me.find('a').attr('title'),
+				time: '20' + $me.find('font').text().substr(10).replace('\r\n','').trim(),
+				scantime: new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' '),
+				school: '西安交通大学',
+				arcContent:''
+			}
+			var url = $me.find('a').attr('href').trim();
+			if(url.indexOf('http://job.xjtu.edu.cn') >= 0){
+				item.url = url;
+			}else{
+				item.url = 'http://job.xjtu.edu.cn' + url;
+			}
+			jobList.push(item);
+			//console.log(item);
 		});
-	}], function(err, result){
-		//console.log(result);
-		callback(null, result);
-	})
-	
+		callback(null, jobList);
+	});
 };
 
 

@@ -75,8 +75,9 @@ exports.saveJob = function(list, callback) {
 			if (Array.isArray(data) && data.length >=1 ) {
 				db.query("update job set scantime = ? where title = ?", [item.scantime, item.title] , next);	
 			} else {
-				db.query("insert into job(title, time, status, url, school, type, scantime) values (?, ?, ?, ?, ?, ?, ?)", 
-						[item.title, item.time, item.status, item.url, item.school, item.type, item.scantime], next);
+				console.log(item.arcContent);
+				db.query("insert into job(title, time, status, url, school, type, scantime, content) values (?, ?, ?, ?, ?, ?, ?, ?)", 
+						[item.title, item.time, item.status, item.url, item.school, item.type, item.scantime, item.arcContent], next);
 			}
 		})
 	}, callback);
