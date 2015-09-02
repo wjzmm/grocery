@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>瘦瘦瘦瘦瘦耶</title>
 	<script src="/public/js/jquery-1.11.3.min.js"></script>
+	<script src="/public/js/jquery.pin.js"></script>
 	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/public/css/style-metronic.css">
 	<!-- <link rel="stylesheet" href="/public/css/modern.css"> -->
@@ -16,14 +17,89 @@
 <body>
 	<%- include header %>
 	<div class="container">
-		<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:5px;"></div>
-		<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:5px;"></div>
-		<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:5px;"></div>
-		<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:5px;"></div>
-		<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:5px;"></div>
-		<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:5px;" ></div>
+		<div class="pinned" style="width: 61px; left: 838px; top: 0px; position: fixed; ">
+			<!-- <div style="width:50px;height:50px;position: absolute;z-index:1190;background:url(/public/imgs/plus.png);no-repeat;"></div> -->
+			<div style="width:50px;height:50px;background:url(/public/imgs/plus.png)"></div>
 
+		</div>
+		<div class="comment">
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>		
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>		
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+			<div class="panel col-md-3" style="border:1px solid red;height:200px; padding:10px;">
+				<p>这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试这是吐槽测试</p>
+			</div>
+		</div>
 	</div>	
+	<script>
+		  $(".pinned").pin({containerSelector: ".container", minWidth: 940});
+	</script>
 	<%- include footer%>
 </body>
 </html>
