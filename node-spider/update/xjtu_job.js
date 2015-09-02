@@ -104,7 +104,7 @@ exports.jobList = function(url, callback){
 			function(err, res, body){
 				if (err) return console.log(err);
 				var $ = cheerio.load(res.body.toString());
-				item.arcContent = $('.artibody').text();
+				item.arcContent = $('.artibody').html();
 			});
 			callback(null, item);
 			}, 500);

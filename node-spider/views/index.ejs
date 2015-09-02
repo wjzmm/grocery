@@ -17,23 +17,16 @@
 		<%- include header %>
 		
 	<div class="container">
-		<!-- <div class="page-sidebar ">
-	        <ul>
-	            <li class="sticker"><a>Item</a></li>
-	            ...
-	        </ul>
-	    </div> -->
-	    
 		<div class="">
 			<ul id="myTab" class="nav nav-tabs">
-			   	<li id="jobfair" <% if(tab == 'jobfair'){%> class="active" <%}%>>
-			   		<a href="/jobfair">招聘会</a>
-			   	</li>
 			   	<li id="internfair" <% if(tab == 'internfair'){%> class="active" <%}%>>
 			   		<a href="/internfair">实习招聘</a>
 			   	</li>
 			   	<li id="job" <% if(tab == 'job'){%> class="active" <%}%>>
 			      	<a href="/job">校园招聘</a>
+			   	</li>
+			   	<li id="jobfair" <% if(tab == 'jobfair'){%> class="active" <%}%> >
+			   		<a href="/jobfair">招聘会</a>
 			   	</li>
 			</ul>
 			<div class="tab-content col-md-9 col-xs-12">
@@ -42,7 +35,7 @@
 					
 					<div class="col-md-12 info">
 						<h3>
-							<a href="<%= job_info.url %>" target="_blank" title=
+							<a href="/details/<%= tab %>/<%= job_info.id %>" target="_blank" title=
 							"<%= job_info.title %>" style="font-size:24px;">	
 									<%= job_info.title %>
 							</a>
@@ -52,14 +45,15 @@
 						<ul class="list-inline" >
 							<li>
 								<i class="glyphicon glyphicon-time"></i> 发表于：<%= job_info.time %>&nbsp;&nbsp;&nbsp;
-								<i class="glyphicon glyphicon-eye-open"></i> 阅读次数：2562
+								<i class="glyphicon glyphicon-eye-open"></i> 阅读次数：2562&nbsp;&nbsp;&nbsp;
+								<a href="<%= job_info.url%>">原文链接</a>
 							</li>
 						</ul>
 						<p>
 							单位名称：<strong style="font-size: 16px;"><%= job_info.title %></strong><br/>
 							来源：<strong><%= job_info.school %></strong> &nbsp;&nbsp;&nbsp;&nbsp;所属行业：<strong>教育</strong> &nbsp;&nbsp;&nbsp;&nbsp;职位性质：<strong>全职</strong><br/>
-							工作地点：<strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;职位类别：<strong></strong>
-							&nbsp;&nbsp;&nbsp;&nbsp;学历要求：<strong></strong>
+							<!--工作地点：<strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;职位类别：<strong></strong>
+							&nbsp;&nbsp;&nbsp;&nbsp;学历要求：<strong></strong>-->
 						 </p>
 						</div>
 					<% }) %>

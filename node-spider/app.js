@@ -25,6 +25,8 @@ app.use('/', routes);
 app.use('/jobfair', routes);
 app.use('/internfair', routes);
 app.use('/job', routes);
+app.use('/details', routes);
+app.use('/abcxyz', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,6 +78,7 @@ var job = new cronJob(config.autoUpdate, function(){
 		console.log("更新任务结束，代码 = %d", code);
 	});
 });
+
 job.start();
 
 process.on('uncaughtException', function(err){

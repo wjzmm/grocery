@@ -10,14 +10,14 @@ router.get('/', function(req, res) {
 	read.readCount(function(result){
 		count = result;
 		console.log(count);
-		read.readJobFairList(page, function(err, list){
+		read.readJobList(page, function(err, list){
 			if (err) return next(err);
 			//console.log(list);
 			job_info = list;
 			res.render('index', {
 				page: page,
 				job_info: job_info,
-				tab: 'jobfair',
+				tab: 'job',
 				search: count.searchwords,
 				count: Math.ceil(count.jobfairc/config.pageSize)
 			})
@@ -140,6 +140,22 @@ router.get('/job/:p', function(req, res) {
 		//process.exit(0);
 });
 
+router.get('/details/:tab/:id', function(req, res) {
+	var arcid = parseInt(req.params.id);
+	var tab = req.params.tab;
+	console.log(arcid, tab);
+	read.readDetails(arcid, tab, function(err, list){
+		if (err) return next(err);
+		console.log(list);
+		//res.locals.jobfairlist = list;
+		res.render('details', {
+			job_info: list,
+			tab: tab,
+		});
+	});
+		//process.exit(0);
+});
+
 router.get('/search', function(req, res) {
 	//console.log(req.query.keyword);
 	//var re= /select|update|delete|exec|count|’|"|=|;|>|<|%/i;
@@ -165,4 +181,12 @@ router.get('/search', function(req, res) {
 		});
 	});
 });
+
+router.get('/abcxyz', function(req, res) {
+	res.render('abcxyz', {
+		});
+		//process.exit(0);
+});
+
+
 module.exports = router;

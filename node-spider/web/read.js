@@ -50,6 +50,22 @@ exports.readJobFairList = function(page, callback){
 
 }
 
+exports.readDetails = function(id, tb, callback){
+
+
+	var sql = 'select * from ' + tb +' where id=' + id;
+	console.log(sql);
+	db.query(sql, function(err, result, fields){
+		//取三个月之内的数据
+		// result.forEach(function(item){
+		// 	item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+		// 	//console.log(item.time);
+		// });
+		callback(null, result);
+	});
+
+}
+
 exports.readCount = function(callback){
 	async.series({
 	jobfairc:function(done){
