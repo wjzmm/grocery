@@ -1,0 +1,36 @@
+header{
+	height: 200px;
+
+}
+.container{
+	margin-top: 60px;
+}
+.info{
+	height: 170px;
+}
+a{
+	text-decoration: none;
+}
+.info:hover{
+	background-color: #CCFFFF;
+	/*border-radius: 5em;*/
+}
+.labels{
+	margin-top:40px;
+}
+
+.back{
+	margin-top:40px;
+	height: 300px;
+	border:0px solid green;
+}
+.link{
+	margin-top:10px;
+}
+.link dt{
+	margin:10px;
+}
+
+.article{
+	padding:10px;
+}

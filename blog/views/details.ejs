@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瘦瘦瘦瘦瘦耶</title>
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style-metronic.css">
+	<!-- <link rel="stylesheet" href="/css/modern.css"> -->
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/metro.min.js"></script>
+</head>
+
+<body>
+		<%- include header %>
+		
+	<div class="container">
+	
+			<!--<div class="col-md-9 col-xs-12">-->	
+				<%- job_info[0].content%>
+			<!--</div>
+			<div class="col-md-3 col-xs-12">
+									
+			</div>		-->	
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			console.log('<%= job_info[0].content %>');
+		})
+	</script>
+	<%- include footer%>
+</body>
+</html>

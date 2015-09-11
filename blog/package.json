@@ -1,0 +1,21 @@
+{
+  "name": "blog",
+  "main": "app.js",
+  "version": "0.0.1",
+  "private": true,
+  "description": "node个人博客",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "dependencies": {
+    "async": "0.2.9",
+    "body-parser": "~1.12.4",
+    "ejs": "^1.0.0",
+    "express": "~4.2.0",
+    "iconv-lite": "*",
+    "moment": "*",
+    "morgan": "*",
+    "mysql": "2.x",
+    "ueditor": "^1.0.0"
+  }
+}
