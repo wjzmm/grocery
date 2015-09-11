@@ -56,10 +56,15 @@
 				    </div>
 				</form>
 		  	<div class="labels" style="border:0px solid red">
-		  		<div class="">热门标签: </div>
-		  		
-		  		<span class="badge badge-info" style="width:96px;height:26px;margin:10px;"></span>
-		  		
+		  		<div class="">分类 </div>
+		  		<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+				
+					<button type="button" class="btn btn-default cat">C</button>
+		  			<button type="button" class="btn btn-default cat">JS</button>
+		  			<button type="button" class="btn btn-default cat">其他语言</button>
+		  			<button type="button" class="btn btn-default cat">生活吐槽</button>
+		  			<button type="button" class="btn btn-default cat">心情广播</button>	
+		  		</div>
 			</div>
 			<div class="back">
 				<span>友情链接</span>
@@ -73,5 +78,20 @@
 					
 	</div>
 	<%- include footer %>
+	<script type="text/javascript">
+		$(function(){
+			$(".badge").click(function(){
+				var keyw = $(this).text().trim();
+				$("#keyword").val(keyw)
+				console.log($("#keyword").val());
+				$("#subm").trigger("click");
+			});
+			$(".cat").click(function(){
+				console.log($(this).text().trim());
+				window.location.href = "/classify/" + $(this).text().trim();
+			});
+		})
+
+	</script>
 </body>
 </html>

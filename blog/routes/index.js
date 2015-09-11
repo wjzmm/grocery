@@ -34,6 +34,19 @@ router.get('/article/:id', function(req, res){
 		})
 	})
 })
+
+router.get('/classify', function(req, res){
+	var page = 1;
+	var type = req.params.type;
+	read.readClassify(type, function(result){
+		res.render('index', {
+			page: page,
+			count: Math.ceil(count/config.pageSize),
+			articleList: result,
+			tab: "article"
+		})
+	})
+})
 router.post('/deliver', function(req, res) {
 	var title = req.body.title;
 	var author = req.body.author;

@@ -39,6 +39,19 @@ exports.readArticleList = function(page, callback){
 	})
 }
 
+exports.readClassify = function(type, callback){
+	console.log(type);
+	var sql = "select * from article where type = '" + type +"';"
+	console.log(sql);
+	db.query(sql, function(err, result){
+		if (err) console.log(err);
+		result.forEach(function(item){
+			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+			//console.log(item.time);
+		});
+		callback(result);
+	})
+}
 exports.readArticle = function(id, callback){
 	db.query("select * from article where id = ?", [id], function(err, result){
 		if (err) console.log(err);

@@ -45,6 +45,7 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res
 app.use('/', routes);
 app.use('/deliver', routes);
 app.use('/article', routes);
+app.use('/classify', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
