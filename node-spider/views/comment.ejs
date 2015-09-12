@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我要工作！</title>
+	<script src="/public/js/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/style-metronic.css">
+	<!-- <link rel="stylesheet" href="/public/css/modern.css"> -->
+	<link rel="stylesheet" href="/public/css/style.css">
+	
+	<script src="/public/js/bootstrap.min.js"></script>
+	<script src="/public/js/metro.min.js"></script>
+</head>
+
+<body>
+		<%- include header %>
+		
+	<div class="container">
+		<div class="tab-content col-md-9 col-xs-12">
+		<% comments.forEach(function(comment){ %>
+			<div class="col-md-12 info">
+				<div style="float:left;width:100px;height:100px;background:url(/public/imgs/tx.jpg)"></div>
+				<div style="width:80%;float:right">
+					<h7>
+						<p style="font-size:27px;"><%= comment.name %></p> 
+					</h7>
+					<ul class="list-inline" >
+						<li>
+							<i class="glyphicon glyphicon-time"></i> 发表于：<%= comment.create_time %>&nbsp;&nbsp;&nbsp;
+						</li>
+					</ul>
+					<p style="height:100px;">
+						<%= comment.content%>	
+					</p>
+				</div>
+			</div>
+			<% }) %>
+			<%- include page %>
+		</div>
+		<div class="col-md-3 col-xs-12">
+			<form action="/comment" method="post">
+			  	<div class="form-group">
+			    	<label for="nickname">昵称</label>
+			    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称">
+			  	</div>
+			  	<div class="form-group">
+			   	 	<label for="con">评论内容</label>
+			   	 	<textarea class="form-control" name="con" id="con" cols="40" rows="10" placeholder="请输入评论内容"></textarea>
+			  	</div>
+			  	
+			  	<button type="submit" class="btn btn-default">提交评论</button>
+			</form>	
+		</div>		
+	</div>
+
+	<%- include footer%>
+</body>
+</html>

@@ -64,6 +64,11 @@ var request = require('request'),
 // 	});
 // };
 
+
+/*
+*读取西电招聘信息
+*url：web连接， callback： 回调 
+*/
 exports.jobList = function(url, callback){
 	request({
 		url: url,

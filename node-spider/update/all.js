@@ -9,6 +9,10 @@ var jobFairList = [],
 	internFairList = [],
 	jobList = [];
 
+/*
+*调用爬虫，存储数据
+*async异步处理
+*/
 async.series([
 	function(done){
 		xjtu_job.jobFairList(config.xjtu_job_url.url, function(err, list){
@@ -54,11 +58,8 @@ async.series([
 	},function(done){
 		nwpu_job.job(config.urls, function(err, job_list, job_intern){
 			console.log('save nwpu_job');
-			//console.log('11111'+jobList);
-			//console.log('22222'+job_intern);
-			//console.log(jobList);
-			//console.log(job_intern);
 			jobList = job_list;
+			console.log(jobList);
 			internFairList = job_intern;
 			done(err);
 		});
@@ -68,12 +69,12 @@ async.series([
 		save.saveJob(jobList, done);
 		//save.saveInternFair(internFairList, done);
 	},
-	function(done){
-		//console.log(jobList);
-		//save.saveJob(jobList, done);
-		//console.log(internFairList);
-		save.saveInternFair(internFairList, done);
-	},
+	// function(done){
+	// 	//console.log(jobList);
+	// 	//save.saveJob(jobList, done);
+	// 	//console.log(internFairList);
+	// 	save.saveInternFair(internFairList, done);
+	// },
 	], function(err){
 		if (err) console.log(err);
 		console.log("all done");

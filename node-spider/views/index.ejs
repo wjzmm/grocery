@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>瘦瘦瘦瘦瘦耶</title>
+	<title>我要工作！</title>
 	<script src="/public/js/jquery-1.11.3.min.js"></script>
 	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/public/css/style-metronic.css">
@@ -25,9 +25,9 @@
 			   	<li id="job" <% if(tab == 'job'){%> class="active" <%}%>>
 			      	<a href="/job">校园招聘</a>
 			   	</li>
-			   	<li id="jobfair" <% if(tab == 'jobfair'){%> class="active" <%}%> >
+			   	<!-- <li id="jobfair" <% if(tab == 'jobfair'){%> class="active" <%}%> >
 			   		<a href="/jobfair">招聘会</a>
-			   	</li>
+			   	</li> -->
 			</ul>
 			<div class="tab-content col-md-9 col-xs-12">
 				
@@ -39,8 +39,8 @@
 							"<%= job_info.title %>" style="font-size:24px;">	
 									<%= job_info.title %>
 							</a>
-							<span class="badge badge-danger"><%= job_info.school %></span> 
-							<span class="badge badge-warning" style="font-size: 9px;">招聘会</span>
+							<span id="school" class="badge badge-danger"><%= job_info.school %></span> 
+							<span class="badge badge-warning" style="font-size: 9px;"></span>
 						</h3>
 						<ul class="list-inline" >
 							<li>
@@ -65,6 +65,7 @@
 								<div class="input-group">
 								  <input type="hidden" class="form-control" id="tbname" name="tbname" value="<%= tab %>">						
 							      <input type="text" class="form-control" id="keyword" name="keyword" value="" placeholder="Search">
+							      <input type="hidden" id="stype" name="stype" value="0">
 							      <span class="input-group-btn">
 							        <button class="btn btn-default" type="button" id="subm" onClick="submit()">搜索 </button>
 							      </span>
@@ -87,7 +88,7 @@
 							<span class="badge badge-info" style="width:72px;height:25px;margin:10px;">人力资源</span> -->
 						</div>
 						<div class="back">
-							<span>友情链接</span>
+							<span>相关链接</span>
 							<dl class="text-center link">
 								<dt><a href="http://job.xjtu.edu.cn/" target="_blank">西安交通大学就业信息网</a></dt>
 								<dt><a href="http://job.nwpu.edu.cn" target="_blank">西北工业大学就业信息网</a></dt>
@@ -99,12 +100,19 @@
 	</div>
 <script type="text/javascript">
 	$(function(){
-		$(".badge").click(function(){
+		$(".labels .badge").click(function(){
 			var keyw = $(this).text().trim();
+			$('#stype').val('title');
 			$("#keyword").val(keyw)
 			console.log($("#keyword").val());
 			$("#subm").trigger("click");
 		});
+		$('#school').click(function(){
+			var keyword = $(this).text().trim();
+			$('#stype').val('school');
+			$("#keyword").val(keyword)
+			$("#subm").trigger("click");
+		})
 	})
 
 </script>

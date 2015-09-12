@@ -17,9 +17,12 @@ app.set('view engine', 'ejs');
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
+/*
+*路由分发
+*/
 
 app.use('/', routes);
 app.use('/jobfair', routes);
@@ -27,6 +30,8 @@ app.use('/internfair', routes);
 app.use('/job', routes);
 app.use('/details', routes);
 app.use('/abcxyz', routes);
+app.use('/comment', routes);
+app.use('/aboutus', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -66,6 +71,11 @@ http.createServer(app).listen(app.get('port'),function(){
 
 module.exports = app;
 
+
+
+/*
+*定时任务，执行爬虫
+*/
 var spawn = require('child_process').spawn;
 var cronJob = require('cron').CronJob;
 

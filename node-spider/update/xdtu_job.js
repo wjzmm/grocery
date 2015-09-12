@@ -6,7 +6,13 @@ var request = require('request'),
 
 	debug('尝试读取招聘信息');
 
-var url = "http://job.xidian.edu.cn/html/zpxx/jobs/";
+//var url = "http://job.xidian.edu.cn/html/zpxx/jobs/";
+
+/*
+*读取西电招聘信息
+*url：web连接， callback： 回调 
+*/
+
 exports.jobList = function(url, callback){
 	//console.log("2");
 	async.waterfall([
@@ -51,7 +57,7 @@ exports.jobList = function(url, callback){
 				if (err) return console.log(err);
 				body = iconv.decode(body, 'gbk');
 				var $ = cheerio.load(body);
-				item.arcContent = $('.arcContent').text();
+				item.arcContent = $('.arcContent').html();
 			});
 			callback(null, item);
 			}, 500);
@@ -65,5 +71,22 @@ exports.jobList = function(url, callback){
 	
 };
 
+//var url = "http://job.xidian.edu.cn/html/zpxx/bxqzph/";
+/*
+*读取西电招聘会信息
+*url：web连接， callback： 回调 
+*/
+exports.fair = function(url, callback){
+	request({
+		url: url,
+		encoding: null},
+		function(err, res, body){
+			if (err) return console.log(err);
+			console.log("xdtu");
+			body = iconv.decode(body, 'gbk');
+			var $ = cheerio.load(body);
 
-	
+			callback($('.arcContent').html())
+		}
+	)
+}

@@ -4,9 +4,6 @@ var async = require('async'),
 
 /**
 *	保存招聘宣讲会信息
-*
-*
-*
 */
 
 exports.saveJobFair = function(list, callback) {
@@ -32,14 +29,12 @@ exports.saveJobFair = function(list, callback) {
 
 /**
 *	保存实习生宣讲会信息
-*
-*
-*
 */
 
 exports.saveInternFair = function(list, callback) {
 	debug('保存实习生宣讲会信息');
 	console.log('saveInternFair');
+	//console.log(list);
 	async.eachSeries(list, function(item, next) {
 		db.query("select * from internfair where title = ?", [item.title], function(err, data){
 			if (err) return next(err);
@@ -60,22 +55,21 @@ exports.saveInternFair = function(list, callback) {
 
 /**
 *	保存招聘信息
-*
-*
-*
 */
 
 exports.saveJob = function(list, callback) {
 	debug('保存招聘信息');
 	console.log('saveJob');
+	//console.log('savejob------------>',list);
 	async.eachSeries(list, function(item, next) {
-		//console.log(list);
+		console.log('savejob------------>');
+		//console.log('savejob------------------------------------------->',item);
 		db.query("select * from job where title = ?", [item.title], function(err, data){
 			if (err) return next(err);
 			if (Array.isArray(data) && data.length >=1 ) {
 				db.query("update job set scantime = ? where title = ?", [item.scantime, item.title] , next);	
 			} else {
-				console.log(item.arcContent);
+				console.log(item.title);
 				db.query("insert into job(title, time, status, url, school, type, scantime, content) values (?, ?, ?, ?, ?, ?, ?, ?)", 
 						[item.title, item.time, item.status, item.url, item.school, item.type, item.scantime, item.arcContent], next);
 			}

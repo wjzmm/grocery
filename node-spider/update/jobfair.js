@@ -4,10 +4,6 @@ var request = require('request'),
 	debug   = require('debug')('node-spider:update');
 
 	debug('尝试读取招聘信息');
-/*
-*读取西交招聘会信息
-*url：web连接， callback： 回调 
-*/
 exports.jobFairList = function(url, callback){
 	request(url, function(err, res){
 		if (err) return console.log(err);
@@ -40,10 +36,6 @@ exports.jobFairList = function(url, callback){
 	});
 };
 
-/*
-*读取西交实习生招聘信息
-*url：web连接， callback： 回调 
-*/
 exports.internFairList = function(url, callback){
 	request(url, function(err, res){
 		if (err) return console.log(err);
@@ -75,10 +67,6 @@ exports.internFairList = function(url, callback){
 	});
 };
 
-/*
-*读取西交招聘信息
-*url：web连接， callback： 回调 
-*/
 exports.jobList = function(url, callback){
 	async.waterfall([
 		function(callback){
@@ -130,19 +118,5 @@ exports.jobList = function(url, callback){
 	
 };
 
-/*
-*读取西交招聘信息
-*url：web连接， callback： 回调 
-*/
-exports.fair = function(url, callback){
-	request(url, function(err, res){
-			if (err) return console.log(err);
-			console.log("xjtu");
-			var $ = cheerio.load(res.body.toString());
-
-			callback($('.arcContent').html())
-		}
-	)
-}
 
 	
