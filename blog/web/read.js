@@ -4,39 +4,40 @@ var async = require('async'),
 	moment = require('moment');
 
 
-exports.searchDb = function(tbname, keywords, callback){
-	async.series([
-		function(done){
-			console.log('save');
-			var querySql = "insert into search_info(keyword) values('" + keywords +"') ON DUPLICATE KEY update keywordv=keywordv+1"
-			db.query(querySql, function(err, result, fields){
-				console.log(querySql);
-				done();
-			});
-		},
-		function(done){
-			var searchSql = "select * from " + tbname + " where title like '%" + keywords + "%'";
-			console.log(searchSql);
-			db.query(searchSql, function(err, result, fields){
-				console.log('serach');
-				done(result);
-			});
-		},
-	], function(result){
-		console.log('result');
+exports.searchDb = function(keywords, callback){
+	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%'";
+	db.query(searchSql, function(err, result, fields){
 		callback(result);
 	});
 }
 exports.readArticleList = function(page, callback){
-	var start = (page -1) * pageSize;
-	db.query("select * from article limit ?, ?", [start, pageSize], function(err, result){
-		if (err) console.log(err);
-		result.forEach(function(item){
-			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
-			//console.log(item.time);
-		});
-		callback(result);
-	})
+	async.series({
+		article:function(done){
+			var start = (page -1) * pageSize;
+			db.query("select * from article limit ?, ?", [start, pageSize], function(err, result){
+				if (err) console.log(err);
+				result.forEach(function(item){
+					item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+					//console.log(item.time);
+				});
+				done(result);
+			})
+		},
+		hotarc:function(done){
+			db.query("select * from article order by rcount desc limit 0, 15", function(err, result){
+				if (err) console.log(err);
+				result.forEach(function(item){
+					item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+					//console.log(item.time);
+				});
+				console.log(result);
+				done(result);
+			})
+		}}, function(result){
+			console.log(result['hotarc']);
+			callback(result);
+	});
+	
 }
 
 exports.readClassifyCount = function(type, callback){
@@ -62,6 +63,7 @@ exports.readClassify = function(page, type, callback){
 exports.readArticle = function(id, callback){
 	db.query("select * from article where id = ?", [id], function(err, result){
 		if (err) console.log(err);
+		// console.log(result);
 		result.time = moment(result.time).format('YYYY-MM-DD h:mm:ss');	
 		callback(result);
 	})
@@ -107,19 +109,7 @@ exports.readCount = function(callback){
 	// });
 }
 
-/*
-*保存评论
-* name: 用户昵称， con：评论内容
-*/
-exports.saveComment = function(name, con, callback){
-	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');
-	var sql = 'insert into comment(name, content, create_time) values ("' + name + '","' + con + '","'+ time + '")';
-	console.log(sql);
-	db.query(sql, function(err, result, fileds){
-		
-		callback(null, result);
-	})
-}
+
 
 /*
 *读取所有评论

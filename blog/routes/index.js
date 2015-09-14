@@ -13,7 +13,8 @@ router.get('/', function(req, res) {
 			res.render('index', {
 				page: page,
 				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				articleList: result,
+				articleList: result.article,
+				hot: result.hotarc,
 				tab: "article"
 			})
 		})
@@ -27,12 +28,15 @@ router.get('/deliver', function(req, res){
 })
 router.get('/details/:id', function(req, res){
 	var id = parseInt(req.params.id);
-	read.readArticle(id, function(result){
-		console.log(result);
-		res.render('article',{
-			article: result[0]
+	save.updateCount(id, function(err){
+		read.readArticle(id, function(result){
+			console.log(result);
+			res.render('article',{
+				article: result[0]
+			})
 		})
 	})
+	
 })
 
 router.get('/article/:p', function(req, res){
@@ -43,7 +47,8 @@ router.get('/article/:p', function(req, res){
 			res.render('index', {
 				page: page,
 				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				articleList: result,
+				articleList: result.article,
+				hot: result.hotarc,
 				tab: "article"
 			})
 		})
@@ -146,7 +151,7 @@ router.post('/comment', function(req, res) {
 	var name = req.body.nickname;
 	var con = req.body.con;
 	//console.log(name, con);
-	read.saveComment(name, con, function(result){
+	save.saveComment(name, con, function(result){
 		//console.log(result);
 		read.readAllComments(page, function(comments){
 			console.log(comments);
@@ -159,5 +164,17 @@ router.post('/comment', function(req, res) {
 		})
 	})
 		//process.exit(0);
+});
+
+router.get('/search', function(req, res) {
+	//var page = 1;
+	read.searchDb( req.query.keyword, function(result){
+		console.log(result.length);
+		res.render('search', {
+			//page: 1,
+			//count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+			articleList: result
+		})
+	});
 });
 module.exports = router;

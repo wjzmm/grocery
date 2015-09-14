@@ -4,15 +4,15 @@ header{
 }
 .container{
 	margin-top: 60px;
+	height: 4000px;
 }
 .info{
-	height: 170px;
 }
 a{
 	text-decoration: none;
 }
 .info:hover{
-	background-color: #CCFFFF;
+	/*background-color: #CCFFFF;*/
 	/*border-radius: 5em;*/
 }
 .labels{
@@ -33,4 +33,14 @@ a{
 
 .article{
 	padding:10px;
+}
+
+#footer{
+	margin-top: -60px;  
+    height: 60px; 
+    clear:both; 
+}
+.pinned{
+	top: 80px; 
+	position: fixed; 
 }
