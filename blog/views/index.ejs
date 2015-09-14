@@ -68,7 +68,13 @@
 				</form>
 		  	<div class="labels" style="border:0px solid red">
 		  		<div class="">热门文章 </div>
-		  		
+		  		<ul>
+		  		<% hot.forEach(function(hot){ %>
+		  			<li><a href="/details/<%= hot.id %>/" target="_blank">	
+						<%= hot.title %>	
+					</a></li>
+		  		<%})%>
+				</ul>
 			</div>
 			<div class="back">
 				<span>友情链接</span>

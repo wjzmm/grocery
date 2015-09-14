@@ -10,33 +10,29 @@ exports.searchDb = function(keywords, callback){
 		callback(result);
 	});
 }
+
+exports.readArticleRight = function(callback){
+	db.query("select * from article order by rcount desc limit 0, 15", function(err, result){
+		if (err) console.log(err);
+		result.forEach(function(item){
+			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+			//console.log(item.time);
+		});
+		callback(result);
+	})
+}
+
+
 exports.readArticleList = function(page, callback){
-	async.series({
-		article:function(done){
-			var start = (page -1) * pageSize;
-			db.query("select * from article limit ?, ?", [start, pageSize], function(err, result){
-				if (err) console.log(err);
-				result.forEach(function(item){
-					item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
-					//console.log(item.time);
-				});
-				done(result);
-			})
-		},
-		hotarc:function(done){
-			db.query("select * from article order by rcount desc limit 0, 15", function(err, result){
-				if (err) console.log(err);
-				result.forEach(function(item){
-					item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
-					//console.log(item.time);
-				});
-				console.log(result);
-				done(result);
-			})
-		}}, function(result){
-			console.log(result['hotarc']);
-			callback(result);
-	});
+	var start = (page -1) * pageSize;
+	db.query("select * from article limit ?, ?", [start, pageSize], function(err, result){
+		if (err) console.log(err);
+		result.forEach(function(item){
+			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+			//console.log(item.time);
+		});
+		callback(result);
+	})
 	
 }
 

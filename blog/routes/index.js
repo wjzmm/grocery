@@ -8,18 +8,18 @@ var config = require('../config');
 router.get('/', function(req, res) {
 	var page = 1;
 	read.readCount(function(count){
-		read.readArticleList(page, function(result){
-			console.log(count);
-			res.render('index', {
-				page: page,
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				articleList: result.article,
-				hot: result.hotarc,
-				tab: "article"
+		read.readArticleList(page, function(artlist){
+			read.readArticleRight(function(artinfo){
+				res.render('index', {
+					page: page,
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+					articleList: artlist,
+					hot: artinfo,
+					tab: "article"
+				})
 			})
 		})
-	})
-		
+	})	
 });
 router.get('/deliver', function(req, res){
 	res.render('deliver',{
