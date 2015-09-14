@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 			console.log(count);
 			res.render('index', {
 				page: page,
-				count: Math.ceil(count/config.pageSize),
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 				articleList: result,
 				tab: "article"
 			})
@@ -25,8 +25,8 @@ router.get('/deliver', function(req, res){
 
 	})
 })
-router.get('/article/:id', function(req, res){
-	var id = req.params.id
+router.get('/details/:id', function(req, res){
+	var id = parseInt(req.params.id);
 	read.readArticle(id, function(result){
 		console.log(result);
 		res.render('article',{
@@ -35,18 +35,55 @@ router.get('/article/:id', function(req, res){
 	})
 })
 
-router.get('/classify', function(req, res){
-	var page = 1;
-	var type = req.params.type;
-	read.readClassify(type, function(result){
-		res.render('index', {
-			page: page,
-			count: Math.ceil(count/config.pageSize),
-			articleList: result,
-			tab: "article"
+router.get('/article/:p', function(req, res){
+	var page = parseInt(req.params.p);
+	read.readCount(function(count){
+		read.readArticleList(page, function(result){
+			console.log(count);
+			res.render('index', {
+				page: page,
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				articleList: result,
+				tab: "article"
+			})
 		})
 	})
 })
+
+
+router.get('/classify/:type', function(req, res){
+	var page = 1;
+	var type = req.params.type;
+	console.log(type);
+	read.readClassifyCount(type, function(count){
+		read.readClassify(page, type, function(result){
+			res.render('index', {
+				page: page,
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				articleList: result,
+				tab: "classify/" + type
+			})
+		})
+	})
+})
+
+router.get('/classify/:type/:p', function(req, res){
+	var page = parseInt(req.params.p);
+	var type = req.params.type;
+	console.log(type);
+	read.readClassifyCount(type, function(count){
+		read.readClassify(page, type, function(result){
+			res.render('index', {
+				page: page,
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				articleList: result,
+				tab: "classify/" + type
+			})
+		})
+	})
+})
+
+
 router.post('/deliver', function(req, res) {
 	var title = req.body.title;
 	var author = req.body.author;
@@ -62,4 +99,65 @@ router.post('/deliver', function(req, res) {
 		
 });
 
+router.get('/comment', function(req, res){
+	var page = 1;
+	read.readCommentCount(function(result){
+		count = result;
+		read.readAllComments(page, function(comments){
+			console.log(comments);
+			res.render('comment', {
+				page: page,
+				comments: comments,
+				tab: 'comment',
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+			})
+		})
+	})
+})
+
+router.get('/aboutme', function(req, res){
+	res.render('aboutme',{
+
+	})
+})
+router.get('/abcxyz', function(req, res){
+	res.render('abcxyz',{
+		
+	})
+})
+
+router.get('/comment/:p', function(req, res){
+	var page = parseInt(req.params.p);
+	read.readCount(function(result){
+		count = result;
+		read.readAllComments(page, function(comments){
+			console.log(comments);
+			res.render('comment', {
+				page: page,
+				comments: comments,
+				tab: 'comment',
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+			})
+		})
+	})
+})
+router.post('/comment', function(req, res) {
+	var page = 1;
+	var name = req.body.nickname;
+	var con = req.body.con;
+	//console.log(name, con);
+	read.saveComment(name, con, function(result){
+		//console.log(result);
+		read.readAllComments(page, function(comments){
+			console.log(comments);
+			res.render('comment', {
+				page: page,
+				comments: comments,
+				tab: 'comment',
+				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+			})
+		})
+	})
+		//process.exit(0);
+});
 module.exports = router;

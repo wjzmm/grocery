@@ -46,6 +46,9 @@ app.use('/', routes);
 app.use('/deliver', routes);
 app.use('/article', routes);
 app.use('/classify', routes);
+app.use('/comment', routes);
+app.use('/aboutme', routes);
+app.use('/abcxyz', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

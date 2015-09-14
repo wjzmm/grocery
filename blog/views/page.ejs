@@ -1,34 +1,33 @@
-<nav class="text-center" <% if(page===-1){ %>hidden<%}%> >
+<nav class="text-center" <% if(parseInt(page)===-1){ %>hidden<%}%> >
   <ul class="pagination">
-  
     <li class="">
       <a href="/<%=tab%>/1" aria-label="First">
         <span aria-hidden="true">First</span>
       </a>
     </li>
-    <li class="<% if(page<2){ %> disabled <% } %>">
-      <a href="/<%=tab%>/<%= page-1 %>" aria-label="Previous">
+    <li class="<% if(parseInt(page)<2){ %> disabled <% } %>">
+      <a href="/<%=tab%>/<%= parseInt(page)-1 %>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     <%
     for(var i=0;i<3;i++){
 
-        if(page+i<count+1){%>
-           <li class=""><a href="/<%=tab%>/<%= page+i %>"><%= page+i %></a></li>
+        if(parseInt(page)+i<parseInt(count)+1){%>
+           <li class=""><a href="/<%=tab%>/<%= parseInt(page)+i %>"><%= parseInt(page)+i %></a></li>
         <%
         }else{%>
-            <li class="disabled"><a href="/<%=tab%>/<%= page+i %>"><%= page+i %></a></li>
+            <li class="disabled"><a href="/<%=tab%>/<%= parseInt(page)+i %>"><%= parseInt(page)+i %></a></li>
         <%
         }}
     %>
-    <li class="<% if(page==count){ %> disabled <% } %>">
-      <a href="/<%=tab%>/<%= page+1 %>" aria-label="Next">
+    <li class="<% if(parseInt(page)==parseInt(count)){ %> disabled <% } %>">
+      <a href="/<%=tab%>/<%= parseInt(page)+1 %>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
-    <li class="<% if(page==count){ %> disabled <% } %>">
-      <a href="/<%=tab%>/<%= count %>" aria-label="Last">
+    <li class="<% if(parseInt(page)==parseInt(count)){ %> disabled <% } %>">
+      <a href="/<%=tab%>/<%= parseInt(count)%>" aria-label="Last">
         <span aria-hidden="true">Last</span>
       </a>
     </li>
