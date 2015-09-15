@@ -22,6 +22,16 @@ exports.readArticleRight = function(callback){
 	})
 }
 
+exports.readArticleComments = function(id, callback){
+	db.query("select * from comment where parentid = '"+ id + "'order by create_time desc limit 0, 10", function(err, result){
+		if (err) console.log(err);
+		result.forEach(function(item){
+			item.create_time = moment(item.create_time).format('YYYY-MM-DD h:mm:ss');
+			//console.log(item.time);
+		});
+		callback(result);
+	})
+}
 
 exports.readArticleList = function(page, callback){
 	var start = (page -1) * pageSize;

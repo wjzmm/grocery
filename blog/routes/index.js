@@ -30,9 +30,12 @@ router.get('/details/:id', function(req, res){
 	var id = parseInt(req.params.id);
 	save.updateCount(id, function(err){
 		read.readArticle(id, function(result){
-			console.log(result);
-			res.render('article',{
-				article: result[0]
+			read.readArticleComments(id, function(comments){
+				console.log(comments);
+				res.render('article',{
+					article: result[0],
+					comment: comments
+				})
 			})
 		})
 	})
@@ -62,11 +65,14 @@ router.get('/classify/:type', function(req, res){
 	console.log(type);
 	read.readClassifyCount(type, function(count){
 		read.readClassify(page, type, function(result){
-			res.render('index', {
-				page: page,
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				articleList: result,
-				tab: "classify/" + type
+			read.readArticleRight(function(artinfo){
+				res.render('index', {
+					page: page,
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+					articleList: result,
+					hot: artinfo,
+					tab: "classify/" + type
+				})
 			})
 		})
 	})
@@ -78,11 +84,14 @@ router.get('/classify/:type/:p', function(req, res){
 	console.log(type);
 	read.readClassifyCount(type, function(count){
 		read.readClassify(page, type, function(result){
-			res.render('index', {
-				page: page,
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				articleList: result,
-				tab: "classify/" + type
+			read.readArticleRight(function(artinfo){
+				res.render('index', {
+					page: page,
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+					articleList: result,
+					hot: artinfo,
+					tab: "classify/" + type
+				})
 			})
 		})
 	})

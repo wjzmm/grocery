@@ -44,3 +44,9 @@ a{
 	top: 80px; 
 	position: fixed; 
 }
+
+.pin{
+	top: 80px; 
+	vertical-align: center;
+	position: fixed; 
+}
