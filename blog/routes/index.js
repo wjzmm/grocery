@@ -152,7 +152,7 @@ router.post('/deliver', function(req, res) {
 router.get('/comment', function(req, res){
 	var page = 1;
 	var id = 0;
-	read.readCommentCount(function(result){
+	read.readCommentCount(id, function(result){
 		count = result;
 		read.readComments(page, id, function(comments){
 			console.log(comments);
@@ -161,6 +161,7 @@ router.get('/comment', function(req, res){
 				comments: comments,
 				tab: 'comment',
 				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				total: count
 			})
 		})
 	})
@@ -179,15 +180,17 @@ router.get('/abcxyz', function(req, res){
 
 router.get('/comment/:p', function(req, res){
 	var page = parseInt(req.params.p);
-	read.readCount(function(result){
+	var id = 0;
+	read.readCommentCount(id, function(result){
 		count = result;
-		read.readAllComments(page, function(comments){
+		read.readUnpagedComments(page, id, function(comments){
 			console.log(comments);
-			res.render('comment', {
+			res.render('test', {
 				page: page,
 				comments: comments,
 				tab: 'comment',
 				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				total: count
 			})
 		})
 	})
@@ -206,7 +209,7 @@ router.post('/comment', function(req, res) {
 		read.readComments(page, id, function(comments){
 			//console.log(comments);
 			if(id == 0){
-				res.render('comment', {
+				res.render('test', {
 					page: page,
 					comments: comments,
 					tab: 'comment',

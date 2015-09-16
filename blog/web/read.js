@@ -125,9 +125,23 @@ exports.readComments = function(page, id, callback){
 		callback(result);
 	})
 }
-exports.readCommentCount = function(callback){
-	var sql = 'select count(*) from comment';
+exports.readCommentCount = function(id, callback){
+	var sql = 'select count(*) from comment where parentid = "' + id +'"';
 	db.query(sql, function(err, result, fields){
 		callback(result[0]['count(*)']);
+	})
+}
+
+exports.readUnpagedComments = function(page, id, callback){
+	var start = (page - 1) * commentSize;
+	var sql = 'select * from comment where parentid = ' + id + ' order by create_time desc limit ' + start + ',' + commentSize;
+	//console.log(sql);
+	db.query(sql, function(err, result, fields){
+		//console.log(result);
+		result.forEach(function(re){
+			re.create_time = moment(re.create_time).format('YYYY-MM-DD h:mm:ss a');
+			//console.log(re.time);
+		});
+		callback(result);
 	})
 }

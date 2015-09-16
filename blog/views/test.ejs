@@ -1,0 +1,7 @@
+<% comments.forEach(function(comment){ %>
+		  	<div class="item">
+		    	<h3> <span class="fl"><%= comment.name %></span></h3> <p>发表于：<%= comment.create_time %>&nbsp;&nbsp;&nbsp;</p> 
+		    	<p class="con"><%= comment.content%></p>
+		    	<!-- <h4><b>Reply：</b>管理员尚未回复</h4> -->
+		  	</div>
+		  	<% }) %>

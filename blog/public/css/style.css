@@ -4,7 +4,7 @@ header{
 }
 .container{
 	margin-top: 60px;
-	height: 4000px;
+	height: auto;
 }
 .info{
 }
@@ -50,4 +50,9 @@ a{
 	right:90px;
 	width: 250px;
 	position: fixed; 
+}
+.floatb{
+	top: 80px; 
+	right:90px;
+	position: fixed;
 }
