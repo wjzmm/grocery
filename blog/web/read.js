@@ -5,10 +5,19 @@ var async = require('async'),
 	moment = require('moment');
 
 
-exports.searchDb = function(keywords, callback){
-	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%'";
+exports.searchDb = function(page, keywords, callback){
+	var start = (page -1) * pageSize;
+	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%' limit " + start + "," + pageSize + ";";
 	db.query(searchSql, function(err, result, fields){
 		callback(result);
+	});
+}
+
+exports.searchDbCount = function(keywords, callback){
+	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%'";
+	//console.log(searchSql);
+	db.query(searchSql, function(err, result, fields){
+		callback(result.length);
 	});
 }
 
@@ -62,7 +71,7 @@ exports.readClassify = function(page, type, callback){
 		if (err) console.log(err);
 		result.forEach(function(item){
 			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
-			//console.log(item.time);
+			
 		});
 		callback(result);
 	})
@@ -71,7 +80,10 @@ exports.readArticle = function(id, callback){
 	db.query("select * from article where id = ?", [id], function(err, result){
 		if (err) console.log(err);
 		// console.log(result);
-		result.time = moment(result.time).format('YYYY-MM-DD h:mm:ss');	
+		result.forEach(function(item){
+			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
+			
+		});
 		callback(result);
 	})
 }

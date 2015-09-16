@@ -1,8 +1,8 @@
 <nav>
   <ul class="pager">
     <li class="<% if(first){ %> disabled <% } %>">
-    	<a href="#">上一页</a></li>
+    	<a href="<%= tab + (parseInt(page)-1)%>">上一页</a></li>
     <li class="<% if(last){ %> disabled <% } %>">
-   	 	<a href="#">下一页</a></li>
+   	 	<a href="<%= tab + (parseInt(page)+1)%>">下一页</a></li>
   </ul>
 </nav>

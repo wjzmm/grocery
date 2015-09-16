@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
 	var page = 1;
 	read.readCount(function(count){
 		read.readArticleList(page, function(artlist){
+			console.log(artlist[0].time);
 			read.readArticleRight(function(artinfo){
 				res.render('index', {
 					page: page,
@@ -54,6 +55,7 @@ router.get('/details/:id/:p', function(req, res){
 	//console.log('details');
 	save.updateCount(id, function(err){
 		read.readArticle(id, function(result){
+			console.log(result[0].time);
 			read.readComments(page, id, function(comments){
 				if (comments.length < config.commentSize) {
 					last = true;
@@ -66,7 +68,8 @@ router.get('/details/:id/:p', function(req, res){
 					comment: comments,
 					first: first,
 					last: last,
-					page: page
+					page: page,
+					tab: '/details/' + id +'/'
 				})
 			})
 		})
@@ -77,14 +80,15 @@ router.get('/details/:id/:p', function(req, res){
 router.get('/article/:p', function(req, res){
 	var page = parseInt(req.params.p);
 	read.readCount(function(count){
-		read.readArticleList(page, function(result){
-			console.log(count);
-			res.render('index', {
-				page: page,
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				articleList: result.article,
-				hot: result.hotarc,
-				tab: "article"
+		read.readArticleList(page, function(artlist){
+			read.readArticleRight(function(artinfo){
+				res.render('index', {
+					page: page,
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+					articleList: artlist,
+					hot: artinfo,
+					tab: "article"
+				})
 			})
 		})
 	})
@@ -194,19 +198,42 @@ router.post('/comment', function(req, res) {
 	var name = req.body.nickname;
 	var con = req.body.con;
 	var id = parseInt(req.body.id);
-	console.log(id);
+	//console.log(id);
 	//console.log(name, con);
 	var count = 0;
 	save.saveComment(name, con, id, function(result){
 		//console.log(result);
 		read.readComments(page, id, function(comments){
-			console.log(comments);
-			res.render('comment', {
-				page: page,
-				comments: comments,
-				tab: 'comment',
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-			})
+			//console.log(comments);
+			if(id == 0){
+				res.render('comment', {
+					page: page,
+					comments: comments,
+					tab: 'comment',
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				})
+			}else{
+				read.readArticle(id, function(result){
+					var first = false;
+					var last = false;
+					if (comments.length < config.commentSize) {
+						last = true;
+					}
+					if(page == 1){
+						first = true;
+					}
+					res.render('article',{
+						article: result[0],
+						comment: comments,
+						first: first,
+						last: last,
+						page: page,
+						tab: '/details/' + id +'/'
+					})
+				})
+				
+			}
+			
 		})
 	})
 		//process.exit(0);
@@ -214,14 +241,40 @@ router.post('/comment', function(req, res) {
 
 
 router.get('/search', function(req, res) {
-	//var page = 1;
-	read.searchDb( req.query.keyword, function(result){
-		console.log(result.length);
-		res.render('search', {
-			//page: 1,
-			//count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-			articleList: result
-		})
-	});
+	var page = 1;
+	read.searchDbCount(req.query.keyword, function(count){
+		read.searchDb(page, req.query.keyword, function(result){
+			read.readArticleRight(function(artinfo){
+				res.render('index', {
+					page: page,
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+					articleList: result,
+					hot: artinfo,
+					tab: "search/" +  req.query.keyword
+				})
+			})
+		});
+	})
+	
+});
+
+router.get('/search/:keyword/:p', function(req, res) {
+	var page = parseInt(req.params.p);
+	var keyword = req.params.keyword;
+	console.log(page, keyword);
+	read.searchDbCount(keyword, function(count){
+		read.searchDb(page, keyword, function(result){
+			read.readArticleRight(function(artinfo){
+				res.render('index', {
+					page: page,
+					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+					articleList: result,
+					hot: artinfo,
+					tab: "search/" + keyword
+				})
+			})
+		});
+	})
+	
 });
 module.exports = router;

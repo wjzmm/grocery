@@ -11,16 +11,15 @@
 	
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/metro.min.js"></script>
-	<script src="/js/jquery.pin.js"></script>
 </head>
 
 <body>
 		
-		
+	<%- include header %>	
 	<div class="container">
-		<%- include header %>
+		
 		<div class="tab-content col-md-9 col-xs-12">
-			
+			文章列表
 			<% articleList.forEach(function(art) { %>
 				
 				<div class="col-md-12 info">
@@ -46,18 +45,9 @@
 					</div>	
 				</div>
 				<% }) %>
-				<%- include tinypage %>
 			</div>
 		<div class="col-md-3 col-xs-12">
 			<br /><br />
-			<div class="btn-group pinned" role="group" aria-label="Vertical button group">
-				
-				<button type="button" class="btn btn-default cat">C</button>
-	  			<button type="button" class="btn btn-default cat">JS</button>
-	  			<button type="button" class="btn btn-default cat">其他</button>
-	  			<button type="button" class="btn btn-default cat">吐槽</button>
-	  			<button type="button" class="btn btn-default cat">小心情</button>	
-	  		</div>
 				<form action="/search" method="get">
 					<div class="input-group">			
 				      <input type="text" class="form-control" id="keyword" name="keyword" value="" placeholder="Search">
@@ -67,14 +57,15 @@
 				    </div>
 				</form>
 		  	<div class="labels" style="border:0px solid red">
-		  		<div class="">热门文章 </div>
-		  		<ul>
-		  		<% hot.forEach(function(hot){ %>
-		  			<li><a href="/details/<%= hot.id %>/" target="_blank">	
-						<%= hot.title %>	
-					</a></li>
-		  		<%})%>
-				</ul>
+		  		<div class="">分类 </div>
+		  		<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+				
+					<button type="button" class="btn btn-default cat">C</button>
+		  			<button type="button" class="btn btn-default cat">JS</button>
+		  			<button type="button" class="btn btn-default cat">其他语言</button>
+		  			<button type="button" class="btn btn-default cat">生活吐槽</button>
+		  			<button type="button" class="btn btn-default cat">心情广播</button>	
+		  		</div>
 			</div>
 			<div class="back">
 				<span>友情链接</span>
@@ -84,7 +75,6 @@
 					<dt><a href="http://job.xidian.edu.cn" target="_blank">西安电子科技大学就业信息网</a></dt>
 				</dl>
 			</div>
-			
 		</div>						
 					
 	</div>
@@ -92,9 +82,6 @@
 	<script type="text/javascript">
 		$(function(){
 			$(".more").hide();
-			$(".pinned").pin({
-			      containerSelector: ".container"
-			})
 			$(".badge").click(function(){
 				var keyw = $(this).text().trim();
 				$("#keyword").val(keyw)

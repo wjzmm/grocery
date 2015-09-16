@@ -47,6 +47,7 @@ a{
 
 .pin{
 	top: 80px; 
-	vertical-align: center;
+	right:90px;
+	width: 250px;
 	position: fixed; 
 }

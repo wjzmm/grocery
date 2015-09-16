@@ -23,7 +23,12 @@
 	<div class="container"> 
 		<div class="article">
 			
-			<div class="col-md-9 col-xs-12">	
+			<div class="col-md-9 col-xs-12">
+				<div class="text-center">
+					<h3 class=""><%= article.title %></h3><br />
+					<span>作者: &nbsp;<%= article.author %></span>&nbsp;&nbsp;&nbsp;
+					<span>发表时间: <%= article.time %></span><br /><br /><br />
+				</div>	
 				<%- article.content %>
 			</div>
 			<div class="col-md-3 col-xs-12">
@@ -43,16 +48,16 @@
 					</form>	
 				</div>
 
-				<div style="width:80%;float:right" id="commentlist">
+				<div style="width:100%;float:right" id="commentlist">
 					<% comment.forEach(function(comment){ %>
 					<h4><%= comment.name %></h4>
 					<ul class="list-inline" >
 						<li>
-							<i class="glyphicon glyphicon-time"><%= comment.create_time %></i> 发表于&nbsp;&nbsp;&nbsp;
+							<i class="glyphicon glyphicon-time">: <%= comment.create_time %></i> &nbsp;&nbsp;&nbsp;
 						</li>
 					</ul>
 					<p style="height:100px;">
-						<%= comment.content %>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= comment.content %>
 					</p>
 					<% }) %>
 				</div>	
@@ -63,22 +68,29 @@
 	<%- include footer %>
 	<script>
 		$(function(){
+			console.log('<%=article.time%>');
 			$('#addcomment').hide();
 			$('.pin').pin({
 				containerSelector: ".container"
 			})
 			var show = true;
 			$('#change').click(function(){
+				$('html, body').animate({scrollTop:0}, 'fast');
+				console.log(show);
 				if(show){
-					$('#addcomment').stop().fadeIn();
+					$('#addcomment').stop().slideDown();
 					//$('#commentlist').stop().animate();
 					show = !show;
 				}else{
-					$('#addcomment').stop().fadeOut();
+					$('#addcomment').stop().slideUp();
 					show = !show;
 				}
-				
+				 
 				//$('#commentlist').stop().fadeOut();
+			})
+			$(window).scroll(function(){
+				$('#addcomment').stop().slideUp();
+				show = true;
 			})
 		})
 
