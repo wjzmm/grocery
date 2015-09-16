@@ -1,6 +1,7 @@
 var async = require('async'),
 	db = require('../config').db,
 	pageSize = require('../config').pageSize,
+	commentSize = require('../config').commentSize,
 	moment = require('moment');
 
 
@@ -56,7 +57,7 @@ exports.readClassifyCount = function(type, callback){
 exports.readClassify = function(page, type, callback){
 	var start = (page-1) * pageSize;
 	var sql = "select * from article where type = '" + type +"' limit " + start + "," + pageSize + ";";
-	console.log(sql);
+	//console.log(sql);
 	db.query(sql, function(err, result){
 		if (err) console.log(err);
 		result.forEach(function(item){
@@ -79,40 +80,6 @@ exports.readCount = function(callback){
 	db.query("select count(*) from article", function(err, result){
 		callback(result[0]['count(*)']);
 	})
-	// async.series({
-	// article:function(done){
-
-	// 	var sql= 'select count(*) from article';
-	// 	db.query(sql, function(err, result, fields){
-	// 		//count.jobfairCount = result[0]['count(*)'];
-	// 		done(err, result[0]['count(*)']);
-	// 	});
-		
-	// },
-	// internfairc:function(done){
-	// 	var sql_if = 'select count(*) from internfair';
-	// 	db.query(sql_if, function(err, result, fields){
-	// 		done(err, result[0]['count(*)']);
-	// 	});
-	// },
-	// jobc:function(done){
-	// 	var sql_job = 'select count(*) from job';
-	// 	db.query(sql_job, function(err, result, fields){
-	// 		done(err, result[0]['count(*)']);
-	// 	});
-	// },
-	// searchwords:function(done){
-	// 	var sear_sql = "select * from search_info order by keywordv desc limit 0,10";
-	// 	db.query(sear_sql, function(err, result, fields){
-	// 		done(err, result);
-	// 	});
-	// }
-	// }, function(err, result){
-	// 	//console.log("message");
-	// 	//console.log(result);
-	// 	callback(result);
-	// 	//process.exit(0);
-	// });
 }
 
 
@@ -121,10 +88,24 @@ exports.readCount = function(callback){
 *读取所有评论
 * page：当前页数
 */
-exports.readAllComments = function(page, callback){
-	var start = (page - 1) * pageSize;
-	var sql = 'select * from comment order by create_time desc limit ' + start + ',' + pageSize;
+// exports.readAllComments = function(page, callback){
+// 	var start = (page - 1) * pageSize;
+// 	var sql = 'select * from comment order by create_time desc limit ' + start + ',' + pageSize;
+// 	db.query(sql, function(err, result, fields){
+// 		result.forEach(function(re){
+// 			re.create_time = moment(re.create_time).format('YYYY-MM-DD h:mm:ss a');
+// 			//console.log(re.time);
+// 		});
+// 		callback(result);
+// 	})
+// }
+
+exports.readComments = function(page, id, callback){
+	var start = (page - 1) * commentSize;
+	var sql = 'select * from comment where parentid = ' + id + ' order by create_time desc limit ' + start + ',' + commentSize;
+	//console.log(sql);
 	db.query(sql, function(err, result, fields){
+		//console.log(result);
 		result.forEach(function(re){
 			re.create_time = moment(re.create_time).format('YYYY-MM-DD h:mm:ss a');
 			//console.log(re.time);

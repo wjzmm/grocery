@@ -28,13 +28,45 @@ router.get('/deliver', function(req, res){
 })
 router.get('/details/:id', function(req, res){
 	var id = parseInt(req.params.id);
+	var page = 1;
 	save.updateCount(id, function(err){
 		read.readArticle(id, function(result){
-			read.readArticleComments(id, function(comments){
-				console.log(comments);
+			read.readComments(page, id, function(comments){
+				console.log(comments.length);
 				res.render('article',{
 					article: result[0],
-					comment: comments
+					comment: comments,
+					first: first,
+					last: last,
+					page: page
+				})
+			})
+		})
+	})
+	
+})
+
+router.get('/details/:id/:p', function(req, res){
+	var id = parseInt(req.params.id);
+	var page = parseInt(req.params.p);
+	var first = false;
+	var last = false;
+	//console.log('details');
+	save.updateCount(id, function(err){
+		read.readArticle(id, function(result){
+			read.readComments(page, id, function(comments){
+				if (comments.length < config.commentSize) {
+					last = true;
+				}
+				if(page == 1){
+					first = true;
+				}
+				res.render('article',{
+					article: result[0],
+					comment: comments,
+					first: first,
+					last: last,
+					page: page
 				})
 			})
 		})
@@ -115,9 +147,10 @@ router.post('/deliver', function(req, res) {
 
 router.get('/comment', function(req, res){
 	var page = 1;
+	var id = 0;
 	read.readCommentCount(function(result){
 		count = result;
-		read.readAllComments(page, function(comments){
+		read.readComments(page, id, function(comments){
 			console.log(comments);
 			res.render('comment', {
 				page: page,
@@ -155,14 +188,18 @@ router.get('/comment/:p', function(req, res){
 		})
 	})
 })
+
 router.post('/comment', function(req, res) {
 	var page = 1;
 	var name = req.body.nickname;
 	var con = req.body.con;
+	var id = parseInt(req.body.id);
+	console.log(id);
 	//console.log(name, con);
-	save.saveComment(name, con, function(result){
+	var count = 0;
+	save.saveComment(name, con, id, function(result){
 		//console.log(result);
-		read.readAllComments(page, function(comments){
+		read.readComments(page, id, function(comments){
 			console.log(comments);
 			res.render('comment', {
 				page: page,
@@ -174,6 +211,7 @@ router.post('/comment', function(req, res) {
 	})
 		//process.exit(0);
 });
+
 
 router.get('/search', function(req, res) {
 	//var page = 1;

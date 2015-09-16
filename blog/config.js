@@ -10,3 +10,4 @@ exports.db = mysql.createConnection({
 
 exports.port = 3001;
 exports.pageSize = 20;
+exports.commentSize = 20;
