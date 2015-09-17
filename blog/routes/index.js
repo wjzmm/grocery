@@ -140,12 +140,22 @@ router.post('/deliver', function(req, res) {
 	var content = req.body.content;
 	var selector = req.body.selectorh;
 	var summary = req.body.summaryh;
-	console.log(title, author, content, selector, summary);
-	save.saveArticle(title, author, content, selector, summary, function(err){
-		res.render('deliver', {
-
+	if(selector == '心情广播'){
+		console.log(selector);
+		save.saveAbcxyz(content, function(err){
+			res.render('abcxyz',{
+				abcxyz: result
+			})
 		})
-	})
+	}else{
+		console.log(title, author, content, selector, summary);
+		save.saveArticle(title, author, content, selector, summary, function(err){
+			res.render('route', {
+
+			})
+		})
+	}
+	
 		
 });
 
@@ -154,13 +164,14 @@ router.get('/comment', function(req, res){
 	var id = 0;
 	read.readCommentCount(id, function(result){
 		count = result;
+		console.log(count);
 		read.readComments(page, id, function(comments){
 			console.log(comments);
 			res.render('comment', {
 				page: page,
 				comments: comments,
 				tab: 'comment',
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				count: count == 0 ? 1 : Math.ceil(count/config.commentSize),
 				total: count
 			})
 		})
@@ -173,9 +184,12 @@ router.get('/aboutme', function(req, res){
 	})
 })
 router.get('/abcxyz', function(req, res){
-	res.render('abcxyz',{
-		
+	read.readAbcxyz(function(result){
+		res.render('abcxyz',{
+			abcxyz: result
+		})
 	})
+	
 })
 
 router.get('/comment/:p', function(req, res){
@@ -183,9 +197,9 @@ router.get('/comment/:p', function(req, res){
 	var id = 0;
 	read.readCommentCount(id, function(result){
 		count = result;
-		read.readUnpagedComments(page, id, function(comments){
-			console.log(comments);
-			res.render('test', {
+		read.readComments(page, id, function(comments){
+			//console.log(comments);
+			res.render('comment', {
 				page: page,
 				comments: comments,
 				tab: 'comment',
@@ -209,7 +223,7 @@ router.post('/comment', function(req, res) {
 		read.readComments(page, id, function(comments){
 			//console.log(comments);
 			if(id == 0){
-				res.render('test', {
+				res.render('comment', {
 					page: page,
 					comments: comments,
 					tab: 'comment',

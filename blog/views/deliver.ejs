@@ -22,10 +22,6 @@
 	<div class="container">
 		<form method="post" action="/deliver">
 			<div class="form-group">
-   		 		<label for="title">文章名称</label>
-    			<input type="text" class="form-control" id="title" name="title" placeholder="文章名称">
-			</div>
-    		<div class="form-group">
     			<label for="author">文章类型</label>
     			<select class="form-control" id="selector">
 					<option>C</option>
@@ -35,14 +31,19 @@
 					<option>心情广播</option>
 				</select>
   			</div>
-  			<div class="form-group">
+			<div class="form-group" id="tit">
+   		 		<label for="title">文章名称</label>
+    			<input type="text" class="form-control" id="title" name="title" placeholder="文章名称">
+			</div>
+    		
+  			<div class="form-group" id="aut">
     			<label for="select">文章作者</label>
     			<input type="text" class="form-control" id="author" name="author" placeholder="文章作者">
   			</div>
 			<input type="text" id="content" name="content" value="" hidden/>
 			<input type="text" name="selectorh" id="selectorh" value="" hidden/>
 			<input type="text" name="summaryh" id="summaryh" value="" hidden/>
-			<div class="form-group">
+			<div class="form-group" id="sum">
     			<label for="author">概要</label>
     			<textarea class="form-control" rows="3"  id="summary"></textarea>
   			</div>
@@ -59,8 +60,19 @@
 	<script>
    
     $(function(){
-    	 var ue = UE.getEditor('editor');
-    	 $("#sub").click(function(){
+    	var ue = UE.getEditor('editor');
+    	$("#selector").change(function(){
+    		if($("#selector").val() == '心情广播'){
+	    	 	$("#aut").stop().fadeOut()
+	    	 	$("#sum").stop().fadeOut()
+	    	 	$("#tit").stop().fadeOut()
+	    	 }else{
+	    	 	$("#aut").stop().fadeIn()
+	    	 	$("#sum").stop().fadeIn()
+	    	 	$("#tit").stop().fadeIn()
+	    	 }
+    	})
+    	$("#sub").click(function(){
     	 	var con = UE.getEditor('editor').getContent();
     	 	var summary = $("#summary").val();
     	 	var selector = $("#selector").val();
@@ -69,7 +81,7 @@
     	 	//alert(summary);
     	 	$("#content").val(con);
 
-    	 })
+    	})
 
 
     })

@@ -145,3 +145,15 @@ exports.readUnpagedComments = function(page, id, callback){
 		callback(result);
 	})
 }
+
+exports.readAbcxyz = function(callback){
+	//console.log(sql);
+	db.query('select * from abcxyz order by time desc', function(err, result, fields){
+		//console.log(result);
+		result.forEach(function(re){
+			re.time = moment(re.time).format('YYYY-MM-DD h:mm:ss a');
+			//console.log(re.time);
+		});
+		callback(result);
+	})
+}

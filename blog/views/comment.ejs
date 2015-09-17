@@ -4,27 +4,42 @@
 	<meta charset="UTF-8">
 	<title>瘦瘦瘦瘦瘦耶</title>
 	<script src="/js/jquery-1.11.3.min.js"></script>
-	<script src="/js/jquery.pin.js"></script>
-	<link rel="stylesheet" href="/css/Smohan.blog.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style-metronic.css">
 	<!-- <link rel="stylesheet" href="/css/modern.css"> -->
 	<link rel="stylesheet" href="/css/style.css">
+	
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/temp.js"></script>
+	<script src="/js/metro.min.js"></script>
 </head>
+
 <body>
-	<%- include header %>
+		<%- include header %>
+		
 	<div class="container">
-		<div id="container">
-		  	<div class="timeline_container">
-		    	<div class="timeline">
-		      		<div class="plus"></div>
-		      		<div class="plus2"></div>
-		    	</div>
-		  	</div>
-		  	<%- include test %>
-  		</div>
-  		<button type="button" class="btn btn-default floatb" style="border-radius:10px;" data-toggle="modal" data-target="#addcomment" data-whatever="">吐槽点我</button>	
+		<h3 class="text-center">评论列表</h3>
+		<!-- <div class="tab-content col-md-9 col-xs-12"> -->
+		<% comments.forEach(function(comment){ %>
+			<div class="col-md-12 info" style="border-bottom: 1px dashed grey;">
+				<div style="float:left;width:100px;height:100px;background:url(/images/tx.jpg)"></div>
+				<div style="width:80%;float:right">
+					<h7>
+						<p style="font-size:27px;"><%= comment.name %></p> 
+					</h7>
+					<ul class="list-inline" >
+						<li>
+							<i class="glyphicon glyphicon-time"></i> 发表于：<%= comment.create_time %>&nbsp;&nbsp;&nbsp;
+						</li>
+					</ul>
+					<p style="height:100px;">
+						<%= comment.content%>	
+					</p>
+				</div>
+			</div>
+			<% }) %>
+			<%- include page %>
+		<!-- </div> -->
+		<button type="button" class="btn btn-default floatb" style="border-radius:10px;" data-toggle="modal" data-target="#addcomment" data-whatever="">吐槽点我</button>	
   		<div class="modal fade" id="addcomment" tabindex="-1" role="dialog" aria-labelledby="addcomment">
 		  	<div class="modal-dialog" role="document">
 		    	<div class="modal-content">
@@ -51,61 +66,15 @@
 		      		</div>
 		    	</div>
 		  	</div>
-		</div>
+		</div>	
 	</div>
-	<script>
-	$(function(){
-		$('#container').masonry({itemSelector : '.item'});
-		function Arrow_Points(){
-	  		var s = $("#container").find(".item");
-	 	 	$.each(s,function(i,obj){
-				var posLeft = $(obj).css("left");
-				if(posLeft == "0px"){
-		  		html = "<span class='rightCorner'></span>";
-		  		$(obj).prepend(html);
-				} else {
-		  		html = "<span class='leftCorner'></span>";
-		  		$(obj).prepend(html);
-				}
-	  		});
-		}	
-		Arrow_Points();
-		var page=2;
-		$(window).scroll(function(){ 
-			// console.log('123'); 
-			var count = (page - 1) * 5;
-			var total = <%=parseInt(total)%>;
-	        var $this =$(this),  
-	        viewH =$(this).height(),//可见高度  
-	        contentH =$(document).height(),//内容高度  
-	        scrollTop =$(this).scrollTop();//滚动高度  
-	        //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容  
-	        	//console.log(contentH, scrollTop, viewH);
-	        if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容  
-	        	if(count<total){
-	        		$.get("/comment/"+page, function(item){
-	        			console.log(item);
-	        			$("#container").append(item);
-	        		}) 
-		        	page += 1;
-	        	}else{
-	        		alert("没有更多内容了");
-	        	}
-	        	// if(count<total){
-	        	// 	window.location.href = "/comment/" +page; 
-		        // 	page += 1;
-	        	// }else{
-	        	// 	alert("没有更多内容了");
-	        	// }
-		        
-	        }  
-	    }); 
-		$("#submit").click(function(){
-			$("form").submit();
+	<script type="text/javascript">
+		$(function(){
+			$("#submit").click(function(){
+				$("form").submit();
+			})
 		})
-		
-	})
-</script>
+	</script>
 	<%- include footer%>
 </body>
 </html>
