@@ -24,7 +24,7 @@
       }else{
         for(var i=0;i<3;i++){
 
-        if(parseInt(page)+i<parseInt(count)+1){%>
+        if(parseInt(page)+i<=parseInt(count)+1){%>
            <li class=""><a href="/<%=tab%>/<%= parseInt(page)+i-1 %>"><%= parseInt(page)+i-1 %></a></li>
         <%
         }else{%>

@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : node-b
-Source Server Version : 50626
+Source Server         : myPc
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : blog
 
 Target Server Type    : MYSQL
-Target Server Version : 50626
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-09-17 11:00:55
+Date: 2015-09-17 22:28:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -70,24 +70,12 @@ CREATE TABLE `comment` (
   `type` varchar(12) DEFAULT NULL COMMENT '评论类型',
   `parentid` int(6) unsigned DEFAULT NULL COMMENT '父id',
   `create_time` datetime DEFAULT NULL,
+  `email` varchar(64) DEFAULT NULL,
+  `header` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('6', 'C语言测试', '我来测试一下测语言回复', null, '24', '2015-09-16 10:13:27');
-INSERT INTO `comment` VALUES ('7', '留言板测试', '我来测试一下留言板', '', '0', '2015-09-16 10:13:28');
-INSERT INTO `comment` VALUES ('8', '第二条回复', '这是c语言发展史的第二条回复，该回复在留言板页面不可见。', null, '24', '2015-09-16 12:49:49');
-INSERT INTO `comment` VALUES ('9', '第三条回复', '本条回复不可见来吧，应该自动跳转到本页面', null, '24', '2015-09-16 12:56:07');
-INSERT INTO `comment` VALUES ('10', '测试模态框', '模态框以及timeline显示', null, '0', '2015-09-16 15:35:56');
-INSERT INTO `comment` VALUES ('11', '第四条评论', '第四条品论啊', null, '0', '2015-09-16 16:15:22');
-INSERT INTO `comment` VALUES ('12', '第五条评论。', '第五条评论', null, '0', '2015-09-16 16:19:20');
-INSERT INTO `comment` VALUES ('13', '第六条评论', '第六条稍微有点长的评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论评论论论论论论论论', null, '0', '2015-09-16 16:20:00');
-INSERT INTO `comment` VALUES ('14', '第六条评论', '这是第六条评论', null, '0', '2015-09-16 16:39:35');
-INSERT INTO `comment` VALUES ('15', '第七条品论', '这是第七条评论', null, '0', '2015-09-16 16:40:10');
-INSERT INTO `comment` VALUES ('16', '第八条评论', '这是第八条评论了啊啊啊 ', null, '0', '2015-09-17 10:05:10');
-INSERT INTO `comment` VALUES ('17', '第九条评论', '第九条评论测试', null, '0', '2015-09-17 10:10:37');
-INSERT INTO `comment` VALUES ('18', '第十条评论', '第十条评论', null, '0', '2015-09-17 10:11:33');
-INSERT INTO `comment` VALUES ('19', '十一', '十一了？', null, '0', '2015-09-17 10:12:07');
-INSERT INTO `comment` VALUES ('20', '十二', '十二', null, '0', '2015-09-17 10:12:25');
+INSERT INTO `comment` VALUES ('23', '正式的第一条吐槽', '这是第一条吐槽，网站留言板界面大致就定下来这样了。暂时没有留言嵌套功能，以后慢慢加吧，现在这样够用了感觉，毕竟有没有人用还不知道呢。', null, '0', '2015-09-17 22:19:23', 'cz920902@gmail.com', 'http://www.gravatar.com/avatar/ab14b44454722e960fd9b8f5eafd9185?s=48');

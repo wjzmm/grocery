@@ -19,10 +19,12 @@
 	<div class="container">
 		<h3 class="text-center">评论列表</h3>
 		<!-- <div class="tab-content col-md-9 col-xs-12"> -->
+		<p class="text-center">当前共有<%= total %>条评论，当前第<%=page%>页，共<%=count%>页</p>
 		<% comments.forEach(function(comment){ %>
-			<div class="col-md-12 info" style="border-bottom: 1px dashed grey;">
-				<div style="float:left;width:100px;height:100px;background:url(/images/tx.jpg)"></div>
-				<div style="width:80%;float:right">
+			<div class="col-md-12 info" style="">
+				
+				<div class="comcon" style="">
+					<div style="float:left;width:48px;height:48px;"><img src="<%=comment.header%>" alt="" width="38" height="38"></div>
 					<h7>
 						<p style="font-size:27px;"><%= comment.name %></p> 
 					</h7>
@@ -31,7 +33,7 @@
 							<i class="glyphicon glyphicon-time"></i> 发表于：<%= comment.create_time %>&nbsp;&nbsp;&nbsp;
 						</li>
 					</ul>
-					<p style="height:100px;">
+					<p style="height:auto">
 						<%= comment.content%>	
 					</p>
 				</div>
@@ -54,8 +56,12 @@
 						    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称">
 						  	</div>
 						  	<div class="form-group">
+						    	<label for="email">邮箱</label>
+						    	<input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱">
+						  	</div>
+						  	<div class="form-group">
 						   	 	<label for="con">评论内容</label>
-						   	 	<textarea class="form-control" name="con" id="con" cols="40" rows="10" placeholder="请输入评论内容"></textarea>
+						   	 	<textarea class="form-control" name="con" id="con" cols="30" rows="10" placeholder="请输入评论内容"></textarea>
 						  	</div>
 							<input type="text" name="id" id="id" value="0" hidden>
 						</form>	

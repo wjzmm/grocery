@@ -5,6 +5,7 @@ var read = require('../web/read');
 var save = require('../web/save');
 var config = require('../config');
 
+
 router.get('/', function(req, res) {
 	var page = 1;
 	read.readCount(function(count){
@@ -168,7 +169,7 @@ router.get('/comment', function(req, res){
 		count = result;
 		console.log(count);
 		read.readComments(page, id, function(comments){
-			console.log(comments);
+			console.log(comments[0].email);
 			res.render('comment', {
 				page: page,
 				comments: comments,
@@ -200,12 +201,13 @@ router.get('/comment/:p', function(req, res){
 	read.readCommentCount(id, function(result){
 		count = result;
 		read.readComments(page, id, function(comments){
-			//console.log(comments);
+
+			console.log(comments[0].email);
 			res.render('comment', {
 				page: page,
 				comments: comments,
 				tab: 'comment',
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				count: count == 0 ? 1 : Math.ceil(count/config.commentSize),
 				total: count
 			})
 		})
@@ -216,21 +218,27 @@ router.post('/comment', function(req, res) {
 	var page = 1;
 	var name = req.body.nickname;
 	var con = req.body.con;
+	var email = req.body.email;
 	var id = parseInt(req.body.id);
 	//console.log(id);
 	//console.log(name, con);
 	var count = 0;
-	save.saveComment(name, con, id, function(result){
+	save.saveComment(name, con, id, email, function(result){
 		//console.log(result);
 		read.readComments(page, id, function(comments){
 			//console.log(comments);
 			if(id == 0){
-				res.render('comment', {
-					page: page,
-					comments: comments,
-					tab: 'comment',
-					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				})
+				read.readCommentCount(id, function(result){
+					count = result;
+					console.log(count);
+					res.render('comment', {
+						page: page,
+						comments: comments,
+						tab: 'comment',
+						count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+						total: count
+					});
+				});
 			}else{
 				read.readArticle(id, function(result){
 					var first = false;

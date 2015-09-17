@@ -3,6 +3,8 @@ var async = require('async'),
 	pageSize = require('../config').pageSize,
 	commentSize = require('../config').commentSize,
 	moment = require('moment');
+var crypto = require('crypto');
+var md5 = crypto.createHash('md5');
 
 
 exports.searchDb = function(page, keywords, callback){

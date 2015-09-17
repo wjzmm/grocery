@@ -1,6 +1,8 @@
 var async = require('async'),
 	db = require('../config').db,
 	moment = require('moment');
+var crypto = require('crypto');
+var md5 = crypto.createHash('md5');
 
 
 exports.saveArticle = function(title, author, content, selector, summary, callback){
@@ -28,14 +30,22 @@ exports.saveAbcxyz = function(content, callback){
 *保存评论
 * name: 用户昵称， con：评论内容
 */
-exports.saveComment = function(name, con, id, callback){
+exports.saveComment = function(name, con, id, email, callback){
+	console.log(email);
+	var email_md5 = md5.update(email.toLowerCase()).digest('hex');
+	var header = "http://www.gravatar.com/avatar/" + email_md5 + "?s=48";
+	console.log(header);
 	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');
-	var sql = 'insert into comment(name, content, parentid, create_time) values ("' + name + '","' + con + '","' + id + '","' + time + '")';
+	var sql = 'insert into comment(name, content, parentid, create_time, email, header) values ("' + name + '","' + con + '","' + id + '","' + time + '","' + email + '","' + header + '")';
 	console.log(sql);
 	db.query(sql, function(err, result, fileds){
-		
+		console.log('insert'+result);
 		callback(null, result);
 	})
+	// db.query("insert into comment(name, content, parentid, create_time, email, header) values (?, ?, ?, ?, ?, ?)", [name, con, id, time, email, header], function(err, result, fileds){
+	// 	console.log('insert'+result);
+	// 	callback(null, result);
+	// })
 }
 
 exports.updateCount = function(id, callback){
