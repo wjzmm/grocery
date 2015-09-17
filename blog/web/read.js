@@ -49,7 +49,7 @@ exports.readArticleList = function(page, callback){
 		if (err) console.log(err);
 		result.forEach(function(item){
 			item.time = moment(item.time).format('YYYY-MM-DD h:mm:ss');
-			//console.log(item.time);
+			console.log(item.time);
 		});
 		callback(result);
 	})

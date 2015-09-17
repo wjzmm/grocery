@@ -1,8 +1,8 @@
-<nav class="text-center" <% if(parseInt(page)===-1){ %>hidden<%}%> >
+<nav class="text-center page" <% if(parseInt(page)===-1){ %>hidden<%}%> >
   <ul class="pagination">
     <li class="">
       <a href="/<%=tab%>/1" aria-label="First">
-        <span aria-hidden="true">First</span>
+        <span aria-hidden="true">首页</span>
       </a>
     </li>
     <li class="<% if(parseInt(page)<2){ %> disabled <% } %>">
@@ -11,7 +11,8 @@
       </a>
     </li>
     <%
-    for(var i=0;i<3;i++){
+      if(parseInt(page)==1){
+        for(var i=0;i<3;i++){
 
         if(parseInt(page)+i<parseInt(count)+1){%>
            <li class=""><a href="/<%=tab%>/<%= parseInt(page)+i %>"><%= parseInt(page)+i %></a></li>
@@ -20,6 +21,17 @@
             <li class="disabled"><a href="/<%=tab%>/<%= parseInt(page)+i %>"><%= parseInt(page)+i %></a></li>
         <%
         }}
+      }else{
+        for(var i=0;i<3;i++){
+
+        if(parseInt(page)+i<parseInt(count)+1){%>
+           <li class=""><a href="/<%=tab%>/<%= parseInt(page)+i-1 %>"><%= parseInt(page)+i-1 %></a></li>
+        <%
+        }else{%>
+            <li class="disabled"><a href="/<%=tab%>/<%= parseInt(page)+i-1 %>"><%= parseInt(page)+i-1 %></a></li>
+        <%
+        }}
+      }
     %>
     <li class="<% if(parseInt(page)==parseInt(count)){ %> disabled <% } %>">
       <a href="/<%=tab%>/<%= parseInt(page)+1 %>" aria-label="Next">
@@ -28,7 +40,7 @@
     </li>
     <li class="<% if(parseInt(page)==parseInt(count)){ %> disabled <% } %>">
       <a href="/<%=tab%>/<%= parseInt(count)%>" aria-label="Last">
-        <span aria-hidden="true">Last</span>
+        <span aria-hidden="true">末页</span>
       </a>
     </li>
 

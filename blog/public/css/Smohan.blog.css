@@ -21,7 +21,7 @@ A:hover {
 	Z-INDEX: 5000; POSITION: absolute; WIDTH: 29px; BACKGROUND: url(../Images/timeline.png) 0px -36px; HEIGHT: 10px; TOP: 0px; LEFT: -10px
 }*/
 .timeline DIV.plus2 {
-	POSITION: absolute; WIDTH: 10px; BOTTOM: 0px; BACKGROUND: url(../Images/timeline.png) -29px -26px; HEIGHT: 10px; LEFT: -3px
+	POSITION: absolute; WIDTH: 10px; BOTTOM: 0px; BACKGROUND: url(../images/timeline.png) -29px -26px; HEIGHT: 10px; LEFT: -3px
 }
 .leftCorner {
 	Z-INDEX: 99; POSITION: absolute; WIDTH: 36px; DISPLAY: block; HEIGHT: 26px; OVERFLOW: hidden

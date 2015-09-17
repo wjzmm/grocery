@@ -143,9 +143,11 @@ router.post('/deliver', function(req, res) {
 	if(selector == '心情广播'){
 		console.log(selector);
 		save.saveAbcxyz(content, function(err){
+			read.readAbcxyz(function(result){
 			res.render('abcxyz',{
 				abcxyz: result
 			})
+		})
 		})
 	}else{
 		console.log(title, author, content, selector, summary);
