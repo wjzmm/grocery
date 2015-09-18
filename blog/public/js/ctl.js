@@ -7,4 +7,8 @@ $(function(){
 			$(".back2top").show();
 		}
 	})
+	$(".back2top").click(function(){
+		$('html, body, .content').animate({scrollTop: 0}, 300); 
+		//return false; 
+	})
 })

@@ -22,7 +22,7 @@
 		<%- include header %>
 		<div class="tab-content col-md-9 col-xs-12" style="border-right:0px dashed #999;">
 			<div class="content-index">
-				<p class="ptitle h3">文章列表</p>
+				<p class="ptitle h3"><strong>文章列表</strong></p>
 			
 			<% articleList.forEach(function(art) { %>
 				
@@ -36,7 +36,7 @@
 						<span class="badge badge-success" style="font-size: 9px;"><%= art.type %></span>
 					</h3><br />
 					<div class="more">
-						<p class="h4 ">
+						<p class=" " style="font-size:16px;">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<%= art.summary %>
 						</p>
@@ -62,18 +62,19 @@
 	  			<button type="button" class="btn btn-default cat">JS</button>
 	  			<button type="button" class="btn btn-default cat">其他</button>
 	  			<button type="button" class="btn btn-default cat">吐槽</button>
-	  			<button type="button" class="btn btn-default cat">小心情</button>	
-	  		</div>
+	  			<button type="button" class="btn btn-default cat">搜索</button>	
+	  		
 				<form action="/search" method="get">
-					<div class="input-group">			
+					<div class="input-group buts">			
 				      <input type="text" class="form-control" id="keyword" name="keyword" value="" placeholder="Search">
 				      <span class="input-group-btn">
 				        <button class="btn btn-default butt" type="button" id="subm" onClick="submit()">搜索 </button>
 				      </span>
 				    </div>
 				</form>
+			</div>
 		  	<div class="hot" style="border:0px solid red">
-		  		<div class="">热门文章 </div>
+		  		<div class="h4"><strong>热门文章 </strong></div>
 		  		<ul>
 		  		<% hot.forEach(function(hot){ %>
 		  			<li><a href="/details/<%= hot.id %>/" target="_blank" title="<%= hot.title %>">	
@@ -83,7 +84,7 @@
 				</ul>
 			</div>
 			<div class="links">
-				<span>友情链接</span>
+				<span class="h4"><strong>友情链接</strong></span>
 				<dl class="text-center link">
 					<dt><a href="http://job.xjtu.edu.cn/" target="_blank">西安交通大学就业信息网</a></dt>
 					<dt><a href="http://job.nwpu.edu.cn" target="_blank">西北工业大学就业信息网</a></dt>
@@ -100,6 +101,8 @@
 	<script type="text/javascript">
 		$(function(){
 			$(".more").hide();
+			$(".buts").hide();
+			var show = false;
 			$(".pinned").pin({
 			      containerSelector: ".container"
 			})
@@ -110,8 +113,14 @@
 				$("#subm").trigger("click");
 			});
 			$(".cat").click(function(){
-				console.log($(this).text().trim());
-				window.location.href = "/classify/" + $(this).text().trim();
+				var words = $(this).text().trim();
+				if(words == '搜索'){
+					$(".buts").stop().fadeToggle("slow");
+				}else{
+					window.location.href = "/classify/" + words;
+				}
+				//console.log($(this).text().trim());
+				
 			});
 			$(".info").hover(
 				function(){

@@ -18,10 +18,72 @@ button:hover{
 	background-color: white;
 }
 .mnav a:hover{
-	/*background-color:#FE5187;*/
+	animation: color 3s;
+	-moz-animation: color 3s;	/* Firefox */
+	-webkit-animation: color 3s;	/* Safari 和 Chrome */
+	-o-animation: color 3s;	/* Opera */
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
 	
 }
+@keyframes color
+{
+	from {color: #999;}
+	to {color: #FE5187;}
+}
 
+@-moz-keyframes color /* Firefox */
+{
+	from {color: #999;}
+	to {color: #FE5187;}
+}
+
+@-webkit-keyframes color /* Safari 和 Chrome */
+{
+	from {color: #999;}
+	to {color: #FE5187;}
+}
+
+@-o-keyframes color /* Opera */
+{
+	from {color: #999;}
+	to {color: #FE5187;}
+}
+
+@keyframes abcxyz
+{
+	0%   {color: #999;}
+	25%  {color: green;}
+	50%  {color: blue;}
+	100% {color: #FE5187;}
+}
+
+@-moz-keyframes abcxyz /* Firefox */
+{
+	0%   {color: #999;}
+	25%  {color: green;}
+	50%  {color: blue;}
+	100% {color: #FE5187;}
+}
+
+@-webkit-keyframes abcxyz /* Safari 和 Chrome */
+{
+	0%   {color: #999;}
+	25%  {color: green;}
+	50%  {color: blue;}
+	100% {color: #FE5187;}
+}
+
+@-o-keyframes abcxyz /* Opera */
+{
+	0%   {color: #999;}
+	25%  {color: green;}
+	50%  {color: blue;}
+	100% {color: #FE5187;}
+}
+.mnav{
+	height: 60px;
+}
 @keyframes fonts
 {	
 	from {font-size: 14px;}
@@ -46,7 +108,7 @@ button:hover{
 	to {font-size: 18px;}
 }
 
-header{
+.header{
 	height: 200px;
 
 }
@@ -75,9 +137,16 @@ a{
 }
 .info:hover{
 	color:black;
+	animation: abcxyz 10s;
+	-moz-animation: abcxyz 10s;	/* Firefox */
+	-webkit-animation: abcxyz 10s;	/* Safari 和 Chrome */
+	-o-animation: abcxyz 10s;	/* Opera */
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
 }
 .hot{
 	margin-top:40px;
+	height: 300px;
 	/*transition:font-size 2s;
 	-webkit-transition:font-size 2s;*/
 	font-size: 14px;
@@ -105,6 +174,7 @@ a{
 
 .links{
 	margin-top:40px;
+	height: 300px;
 	/*transition:font-size 2s;
 	-webkit-transition:font-size 2s;*/
 	font-size: 14px;
@@ -271,7 +341,12 @@ a{
 }
 
 .item:hover{
-	color:black;
+	animation: abcxyz 10s;
+	-moz-animation: abcxyz 10s;	/* Firefox */
+	-webkit-animation: abcxyz 10s;	/* Safari 和 Chrome */
+	-o-animation: abcxyz 10s;	/* Opera */
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
 }
 
 .content{
