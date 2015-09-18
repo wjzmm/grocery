@@ -1,5 +1,7 @@
 body{
 	color:#999;
+	background: url(../images/bg.png);
+	position: relative;
 	font-family: "微软雅黑", Arial, Helvetica, sans-serif;
 }
 a{
@@ -52,11 +54,21 @@ header{
 	margin-top: 60px;
 	height: auto;
 }
+#container{
+	height: 1200px !important;
+}
+.content{
+	height: auto;
+}
+.content-index{
+	height: 1200px;
+}
 .ptitle{
 	border-bottom: 0px dashed #999;
-	color:#FE5187;
+	color:#999;
 }
 .info{
+
 }
 a{
 	text-decoration: none;
@@ -152,7 +164,7 @@ a{
 }
 
 .pinned button:hover{
-	background-color:white;
+	background-color: white;
 	border-color:black;
 	-webkit-transform: rotate(360deg);
 	-moz-transform: rotate(360deg);
@@ -160,11 +172,13 @@ a{
 	transform: rotate(360deg);
 }
 .pin{
-	bottom: 120px; 
+
 	right:90px;
 	height: 32px;
 	width: 100px;
 	position: fixed; 
+	bottom: 120px;
+	z-index: 3;
 	-webkit-transition: all 1s;
 	-moz-transition: all 1s;
 	-o-transition: all 1s;
@@ -173,7 +187,7 @@ a{
 }
 
 .pin:hover{
-	border-color: red;
+	border-color: black;
 	background-color: white;
 	-webkit-transform: rotate(360deg);
 	-moz-transform: rotate(360deg);
@@ -184,17 +198,38 @@ a{
 	top: 80px; 
 	right:90px;
 	position: fixed;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
 }
-.page{
-	/*position: fixed;
-	bottom:100px;
-	left:25%;*/
+
+.floatb:hover{
+	border-color:black;
+	background-color: white !important;
+	-webkit-transform: rotate(360deg);
+	-moz-transform: rotate(360deg);
+	-o-transform: rotate(360deg);
+	transform: rotate(360deg);
 }
+
+}
+.pagination > li > a, .pagination > li > span{
+	color: #999 !important;
+	margin:1px;
+}
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover{
+	border-color:black;
+	font-color: red !important;  
+	background-color: white;
+}
+.actived a{
+	font-weight:bold !important;
+}
+
 .footer{
 	margin-top:20px;
-/*	position: fixed;
-	bottom:20px;
-	left:48%;*/
+
 }
 
 .back2top{
@@ -204,6 +239,12 @@ a{
 	width: 32px;
 	z-index: 3;
 	right: 220px;
+}
+.comcon{
+	width:80%;
+	margin:auto;
+	border-bottom:1px solid #999;
+	padding:20px 40px 30px 40px;
 }
 
 .back2top a{
@@ -221,42 +262,8 @@ a{
 	transition: all 1s;
 }
 
-
-
-@keyframes mani
-{	0% {transform:rotate(0deg)translate(0,0);}
-	25% {transform:rotate(90deg)}
-	50% {transform:rotate(180deg)translate(-300px,0);}
-	75% {transform:rotate(270deg);}
-	100% {transform:rotate(360deg)translate(0,0);}
-}
-
-@-moz-keyframes mani /* Firefox */
-{	0% {transform:rotate(0deg)translate(0,0);}
-	25% {transform:rotate(90deg)}
-	50% {transform:rotate(180deg)translate(-300px,0);}
-	75% {transform:rotate(270deg);}
-	100% {transform:rotate(360deg)translate(0,0);}
-}
-
-@-webkit-keyframes mani /* Safari 和 Chrome */
-{	0% {transform:rotate(0deg)translate(0,0);}
-	25% {transform:rotate(90deg)}
-	50% {transform:rotate(180deg)translate(-300px,0);}
-	75% {transform:rotate(270deg);}
-	100% {transform:rotate(360deg)translate(0,0);}
-}
-
-@-o-keyframes mani /* Opera */
-{	0% {transform:rotate(0deg)translate(0,0);}
-	25% {transform:rotate(90deg)}
-	50% {transform:rotate(180deg)translate(-300px,0);}
-	75% {transform:rotate(270deg);}
-	100% {transform:rotate(360deg)translate(0,0);}
-}
-
 .back2top a:hover{
-	background-color: red;
+	border-color: black;
 	-webkit-transform: rotate(360deg);
 	-moz-transform: rotate(360deg);
 	-o-transform: rotate(360deg);
@@ -273,6 +280,6 @@ a{
 }
 
 .butt:hover{
-	border-color:red;
+	border-color:black;
 	background-color: white;
 }

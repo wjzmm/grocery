@@ -11,33 +11,47 @@
 	
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/metro.min.js"></script>
+	<script src="/js/ctl.js"></script>
 </head>
 
 <body>
 		<%- include header %>
 		
 	<div class="container">
-		<h3 class="text-center">评论列表</h3>
+		<div class="text-center" style="color:black;font-weight:bold;"><br /><br />
+			<!-- <h3>留言薄</h3><br /> -->
+			<p>或许，最美的事不是留住时光</p>
+			<p>而是留住记忆</p>
+			<p>如最初相识的感觉一样</p>
+			<p>哪怕一个不经意的笑容</p>
+			<p>便是我们最怀念的故事</p>
+			<p>但愿，时光，如初见</p>
+		</div>
+		<div class="content">
+		<h3 class="text-center">吐槽</h3>
 		<!-- <div class="tab-content col-md-9 col-xs-12"> -->
+		<p class="text-center">当前共有<%= total %>条吐槽，当前第<%=page%>页，共<%=count%>页</p>
 		<% comments.forEach(function(comment){ %>
-			<div class="col-md-12 info" style="border-bottom: 1px dashed grey;">
-				<div style="float:left;width:100px;height:100px;background:url(/images/tx.jpg)"></div>
-				<div style="width:80%;float:right">
+			<div class="col-md-12 info" style="">
+				
+				<div class="comcon" style="">
+					<div style="float:left;width:48px;height:48px;"><img src="<%=comment.header%>" alt="" width="38" height="38" style="border-radius: 50%!important;"></div>
 					<h7>
-						<p style="font-size:27px;"><%= comment.name %></p> 
+						<p style="font-size:16px;"><%= comment.name %></p> 
 					</h7>
 					<ul class="list-inline" >
 						<li>
 							<i class="glyphicon glyphicon-time"></i> 发表于：<%= comment.create_time %>&nbsp;&nbsp;&nbsp;
 						</li>
 					</ul>
-					<p style="height:100px;">
+					<p style="height:auto">
 						<%= comment.content%>	
 					</p>
 				</div>
 			</div>
 			<% }) %>
-			<%- include page %>
+		</div>
+		<%- include page %>
 		<!-- </div> -->
 		<button type="button" class="btn btn-default floatb" style="border-radius:10px;" data-toggle="modal" data-target="#addcomment" data-whatever="">吐槽点我</button>	
   		<div class="modal fade" id="addcomment" tabindex="-1" role="dialog" aria-labelledby="addcomment">
@@ -54,8 +68,12 @@
 						    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称">
 						  	</div>
 						  	<div class="form-group">
+						    	<label for="email">邮箱</label>
+						    	<input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱">
+						  	</div>
+						  	<div class="form-group">
 						   	 	<label for="con">评论内容</label>
-						   	 	<textarea class="form-control" name="con" id="con" cols="40" rows="10" placeholder="请输入评论内容"></textarea>
+						   	 	<textarea class="form-control" name="con" id="con" cols="30" rows="10" placeholder="请输入评论内容"></textarea>
 						  	</div>
 							<input type="text" name="id" id="id" value="0" hidden>
 						</form>	
@@ -67,6 +85,9 @@
 		    	</div>
 		  	</div>
 		</div>	
+		<div class="back2top">
+			<a href="#" title="返回顶部">back to top</a>
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(function(){

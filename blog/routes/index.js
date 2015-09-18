@@ -5,13 +5,14 @@ var read = require('../web/read');
 var save = require('../web/save');
 var config = require('../config');
 
+
 router.get('/', function(req, res) {
 	var page = 1;
 	read.readCount(function(count){
 		read.readArticleList(page, function(artlist){
 			console.log(artlist[0].time);
 			read.readArticleRight(function(artinfo){
-				res.render('index', {
+				res.render('articles', {
 					page: page,
 					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 					articleList: artlist,
@@ -34,7 +35,7 @@ router.get('/details/:id', function(req, res){
 		read.readArticle(id, function(result){
 			read.readComments(page, id, function(comments){
 				console.log(comments.length);
-				res.render('article',{
+				res.render('details',{
 					article: result[0],
 					comment: comments,
 					first: first,
@@ -63,13 +64,15 @@ router.get('/details/:id/:p', function(req, res){
 				if(page == 1){
 					first = true;
 				}
-				res.render('article',{
+				res.render('details',{
 					article: result[0],
-					comment: comments,
+					comments: comments,
 					first: first,
 					last: last,
 					page: page,
-					tab: '/details/' + id +'/'
+					tab: '/details/' + id +'/',
+					total: comments.length,
+					count: Math.ceil(comments.length/config.commentSize)
 				})
 			})
 		})
@@ -82,7 +85,7 @@ router.get('/article/:p', function(req, res){
 	read.readCount(function(count){
 		read.readArticleList(page, function(artlist){
 			read.readArticleRight(function(artinfo){
-				res.render('index', {
+				res.render('articles', {
 					page: page,
 					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 					articleList: artlist,
@@ -102,7 +105,7 @@ router.get('/classify/:type', function(req, res){
 	read.readClassifyCount(type, function(count){
 		read.readClassify(page, type, function(result){
 			read.readArticleRight(function(artinfo){
-				res.render('index', {
+				res.render('articles', {
 					page: page,
 					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 					articleList: result,
@@ -121,7 +124,7 @@ router.get('/classify/:type/:p', function(req, res){
 	read.readClassifyCount(type, function(count){
 		read.readClassify(page, type, function(result){
 			read.readArticleRight(function(artinfo){
-				res.render('index', {
+				res.render('articles', {
 					page: page,
 					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 					articleList: result,
@@ -168,7 +171,7 @@ router.get('/comment', function(req, res){
 		count = result;
 		console.log(count);
 		read.readComments(page, id, function(comments){
-			console.log(comments);
+			console.log(comments[0].email);
 			res.render('comment', {
 				page: page,
 				comments: comments,
@@ -200,12 +203,13 @@ router.get('/comment/:p', function(req, res){
 	read.readCommentCount(id, function(result){
 		count = result;
 		read.readComments(page, id, function(comments){
-			//console.log(comments);
+
+			console.log(comments[0].email);
 			res.render('comment', {
 				page: page,
 				comments: comments,
 				tab: 'comment',
-				count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+				count: count == 0 ? 1 : Math.ceil(count/config.commentSize),
 				total: count
 			})
 		})
@@ -216,21 +220,27 @@ router.post('/comment', function(req, res) {
 	var page = 1;
 	var name = req.body.nickname;
 	var con = req.body.con;
+	var email = req.body.email;
 	var id = parseInt(req.body.id);
 	//console.log(id);
 	//console.log(name, con);
 	var count = 0;
-	save.saveComment(name, con, id, function(result){
+	save.saveComment(name, con, id, email, function(result){
 		//console.log(result);
 		read.readComments(page, id, function(comments){
 			//console.log(comments);
 			if(id == 0){
-				res.render('comment', {
-					page: page,
-					comments: comments,
-					tab: 'comment',
-					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
-				})
+				read.readCommentCount(id, function(result){
+					count = result;
+					console.log(count);
+					res.render('comment', {
+						page: page,
+						comments: comments,
+						tab: 'comment',
+						count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
+						total: count
+					});
+				});
 			}else{
 				read.readArticle(id, function(result){
 					var first = false;
@@ -241,13 +251,15 @@ router.post('/comment', function(req, res) {
 					if(page == 1){
 						first = true;
 					}
-					res.render('article',{
+					res.render('details',{
 						article: result[0],
-						comment: comments,
+						comments: comments,
 						first: first,
 						last: last,
 						page: page,
-						tab: '/details/' + id +'/'
+						tab: '/details/' + id +'/',
+						total: comments.length,
+						count: Math.ceil(comments.length/config.commentSize)
 					})
 				})
 				
@@ -264,7 +276,7 @@ router.get('/search', function(req, res) {
 	read.searchDbCount(req.query.keyword, function(count){
 		read.searchDb(page, req.query.keyword, function(result){
 			read.readArticleRight(function(artinfo){
-				res.render('index', {
+				res.render('articles', {
 					page: page,
 					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 					articleList: result,
@@ -284,7 +296,7 @@ router.get('/search/:keyword/:p', function(req, res) {
 	read.searchDbCount(keyword, function(count){
 		read.searchDb(page, keyword, function(result){
 			read.readArticleRight(function(artinfo){
-				res.render('index', {
+				res.render('articles', {
 					page: page,
 					count: count == 0 ? 1 : Math.ceil(count/config.pageSize),
 					articleList: result,
