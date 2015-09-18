@@ -191,9 +191,10 @@ a{
 	left:25%;*/
 }
 .footer{
-	position: fixed;
-	bottom:40px;
-	left:48%;
+	margin-top:20px;
+/*	position: fixed;
+	bottom:20px;
+	left:48%;*/
 }
 
 .back2top{
