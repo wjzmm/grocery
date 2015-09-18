@@ -30,10 +30,10 @@ A:hover {
 	Z-INDEX: 99; POSITION: absolute; WIDTH: 36px; DISPLAY: block; HEIGHT: 26px; OVERFLOW: hidden
 }
 .rightCorner {
-	BACKGROUND: url(../Images/timeline.png) 0px 0px; TOP: 25px; RIGHT: -36px
+	BACKGROUND: url(../images/timeline.png) 0px 0px; TOP: 25px; RIGHT: -36px
 }
 .leftCorner {
-	BACKGROUND: url(../Images/timeline.png) -36px 0px; TOP: 10px; LEFT: -36px
+	BACKGROUND: url(../images/timeline.png) -36px 0px; TOP: 10px; LEFT: -36px
 }
 .item {
 	BORDER-BOTTOM: #eaeaea 1px solid; 
