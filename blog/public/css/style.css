@@ -124,18 +124,21 @@ button:hover{
 }
 .content-index{
 	height: 1200px;
+
 }
 .ptitle{
 	border-bottom: 0px dashed #999;
 	color:#999;
 }
-.info{
-
+.info, .comcon{
+	border-radius: 30px;
+	background-color: #fff;
+	margin-top: 5px;
 }
 a{
 	text-decoration: none;
 }
-.info:hover{
+.info:hover, .comcon:hover{
 	color:black;
 	animation: abcxyz 10s;
 	-moz-animation: abcxyz 10s;	/* Firefox */
@@ -145,11 +148,13 @@ a{
 	-webkit-animation-fill-mode: forwards;
 }
 .hot{
-	margin-top:40px;
+	margin-top:30px;
 	height: 300px;
 	/*transition:font-size 2s;
 	-webkit-transition:font-size 2s;*/
 	font-size: 14px;
+	background-color: #fff;
+	padding:10px;
 }
 .hot li{
 
@@ -178,6 +183,8 @@ a{
 	/*transition:font-size 2s;
 	-webkit-transition:font-size 2s;*/
 	font-size: 14px;
+	background-color: #fff;
+	padding:10px;
 }
 .links li{
 
@@ -312,8 +319,8 @@ a{
 }
 .comcon{
 	width:80%;
-	margin:auto;
-	border-bottom:1px solid #999;
+	margin:2px auto;
+	border-bottom:0px solid #999;
 	padding:20px 40px 30px 40px;
 }
 

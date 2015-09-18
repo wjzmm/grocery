@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2015-09-18 15:18:30
+Date: 2015-09-18 16:14:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -74,7 +74,7 @@ CREATE TABLE `comment` (
   `email` varchar(64) DEFAULT NULL,
   `header` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment
@@ -85,3 +85,4 @@ INSERT INTO `comment` VALUES ('25', '猪八戒', '测试一下第二条评论', 
 INSERT INTO `comment` VALUES ('26', '测试一下第三条评论', '测试第三条评论', null, '24', '2015-09-18 10:51:19', '860856332@qq.com', 'http://gravatar.duoshuo.com/avatar/076f039e9bfb5ff82763364d207735be?s=50&d=monsterid&r=G');
 INSERT INTO `comment` VALUES ('27', '我是斑竹', '修改了网站的整体样式，自己也说不清是好看还是难看，总感觉有些地方乖乖的不和谐，看来需要找几个“专业”的来帮忙看看了。', null, '0', '2015-09-18 11:29:59', '735514465@qq.com', 'http://gravatar.duoshuo.com/avatar/b9abdab50016ef6aadbb7ec07a2bcadc?s=50&d=monsterid&r=G');
 INSERT INTO `comment` VALUES ('28', '小八', '评论内容是什么意思啊，还有这个添加评论的按钮地方也太丑了吧', null, '25', '2015-09-18 13:55:26', 'cz920902@gmail.com', 'http://gravatar.duoshuo.com/avatar/ab14b44454722e960fd9b8f5eafd9185?s=50&d=monsterid&r=G');
+INSERT INTO `comment` VALUES ('29', '卖身买肾六艾斯', '修改页面样式，由原来的页面背景透明改为有内容出页面背景为白色。还是感觉样式有很多不完美的地方，慢慢美化。', null, '0', '2015-09-18 16:13:41', '598570874@qq.com', 'http://gravatar.duoshuo.com/avatar/53d28c0a835ea1bacfffb5ca48ee3678?s=50&d=monsterid&r=G');
