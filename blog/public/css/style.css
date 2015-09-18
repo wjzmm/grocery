@@ -120,7 +120,8 @@ button:hover{
 	height: 1200px !important;
 }
 .content{
-	height: auto;
+	/*height: auto;*/
+	padding:0 30px;
 }
 .content-index{
 	height: 1200px;
@@ -130,7 +131,7 @@ button:hover{
 	border-bottom: 0px dashed #999;
 	color:#999;
 }
-.info, .comcon{
+.info, .comcon, .content{
 	border-radius: 30px;
 	background-color: #fff;
 	margin-top: 5px;
@@ -356,10 +357,6 @@ a{
 	-webkit-animation-fill-mode: forwards;
 }
 
-.content{
-	
-	padding:10px;
-}
 
 .butt:hover{
 	border-color:black;
