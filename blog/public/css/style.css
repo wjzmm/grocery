@@ -358,3 +358,12 @@ a{
 	border-color:black;
 	background-color: white;
 }
+
+strong > a{
+	animation: abcxyz 10s;
+	-moz-animation: abcxyz 10s;	/* Firefox */
+	-webkit-animation: abcxyz 10s;	/* Safari 和 Chrome */
+	-o-animation: abcxyz 10s;	/* Opera */
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
+}
