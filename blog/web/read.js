@@ -159,3 +159,15 @@ exports.readAbcxyz = function(callback){
 		callback(result);
 	})
 }
+
+exports.readAllArticle = function(callback){
+	//console.log(sql);
+	db.query('select * from article order by time desc', function(err, result, fields){
+		//console.log(result);
+		result.forEach(function(re){
+			re.time = moment(re.time).format('YYYY-MM-DD h:mm:ss a');
+			//console.log(re.time);
+		});
+		callback(result);
+	})
+}

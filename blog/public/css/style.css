@@ -371,3 +371,11 @@ strong > a{
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 }
+.artlist span{
+	margin:0px 10px;
+}
+.artlist{
+	/*display: blcok;*/
+	background-color: white;
+	margin-top:40px;
+}

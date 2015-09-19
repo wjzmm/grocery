@@ -308,4 +308,13 @@ router.get('/search/:keyword/:p', function(req, res) {
 	})
 	
 });
+
+router.get('/file', function(req, res) {
+	read.readAllArticle(function(result){
+		res.render('file',{
+			articles: result,
+			total: result.length
+		})
+	})
+});
 module.exports = router;
