@@ -19,6 +19,7 @@
 	<div class="container">
 		<div class="artlist text-center">
 			<% articles.forEach(function(article){ %>
+				<span class="pull-left"><%= article.time%></span><br /><br />
 				<span><%= article.title %></span>
 				<span><%= article.type %></span>
 				<span><%= article.time %></span><br /><br />
