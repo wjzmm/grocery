@@ -17,6 +17,7 @@
     "morgan": "*",
     "mysql": "2.x",
     "ueditor": "^1.0.0",
-    "crypto": "*"
+    "crypto": "*",
+    "express-session":"*"
   }
 }

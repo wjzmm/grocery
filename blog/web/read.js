@@ -178,3 +178,19 @@ exports.deleteArticle = function(id, callback){
 		callback(result);
 	})
 }
+
+exports.updateVisited = function(ip, callback){
+	//"insert into web(ip) values(?) ON DUPLICATE KEY update visited=visited+1"
+	db.query("insert into web(ip) values(?) ON DUPLICATE KEY update visited=visited+1",[ip], function(err, result){
+		db.query("select sum(visited) from web", function(err, count){
+			callback(count[0]['sum(visited)']);
+		})
+	})
+}
+
+exports.readVisited = function(callback){
+	//"insert into web(ip) values(?) ON DUPLICATE KEY update visited=visited+1"
+	db.query("select sum(visited) from web", function(err, count){
+		callback(count[0]['sum(visited)']);
+	})
+}

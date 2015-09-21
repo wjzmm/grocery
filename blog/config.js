@@ -17,4 +17,4 @@ exports.user = {
 	password: "nevermore"
 }
 
-exports.visited = 0;
+exports.cookieSecret = 'cloudy';

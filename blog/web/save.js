@@ -46,7 +46,8 @@ exports.saveAbcxyz = function(content, callback){
 */
 exports.saveComment = function(name, con, id, email, callback){
 	console.log(email);
-	var email_md5 = md5.update(email.toLowerCase()).digest('hex');
+	// var email_md5 = md5.update(email.toLowerCase()).digest('hex');
+	var email_md5 = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
 	var header = "http://gravatar.duoshuo.com/avatar/" + email_md5 + "?s=50&d=monsterid&r=G";
 	console.log(header);
 	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');

@@ -7,12 +7,19 @@ var path = require('path'),
   logger = require('morgan'),
 	config = require('./config');
 
+var session = require('express-session'); 
 var app = express();
 var ueditor = require("ueditor");
 
 app.set('port', process.env.PORT || config.port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
+
+app.use(session({ secret: config.cookieSecret,
+                  saveUninitialized: true,
+          resave: true}));
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
