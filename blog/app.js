@@ -54,6 +54,7 @@ app.use('/edit', routes);
 app.use('/delete', routes);
 app.use('/manager', routes);
 app.use('/login', routes);
+app.use('/test', routes);
 
 
 // catch 404 and forward to error handler

@@ -16,3 +16,5 @@ exports.user = {
 	username: "zwc",
 	password: "nevermore"
 }
+
+exports.visited = 0;

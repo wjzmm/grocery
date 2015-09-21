@@ -5,10 +5,13 @@ var read = require('../web/read');
 var save = require('../web/save');
 var config = require('../config');
 var user = require('../config').user;
+var func = require('../web/func');
 
 
 router.get('/', function(req, res) {
+	console.log(func.getClientIP(req));
 	var page = 1;
+	//config.visited ++;
 	read.readCount(function(count){
 		read.readArticleList(page, function(artlist){
 			console.log(artlist[0].time);
@@ -397,4 +400,12 @@ router.post('/login', function(req, res) {
 
 	
 });
+router.get('/test', function(req, res) {
+	res.render('index',{
+		info: req
+	})
+});
+
 module.exports = router;
+
+

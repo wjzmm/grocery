@@ -173,7 +173,7 @@ exports.readAllArticle = function(callback){
 }
 
 exports.deleteArticle = function(id, callback){
-	db.query('delete from article where id=?',[id], function(err, result){
+	db.query('delete article.*, comment.* from article,comment where article.id=comment.parentid and article.id=?',[id], function(err, result){
 		console.log(result);
 		callback(result);
 	})
