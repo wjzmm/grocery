@@ -1,10 +1,12 @@
-exports.getClientIP = function(req){
-	var ipAddress;
-	var headers = req.headers;
-	var forwardedIpsStr = headers['x-real-ip'] || headers['x-forwarded-for'];
-	forwardedIpsStr ? ipAddress = forwardedIpsStr : ipAddress = null;
-	if (!ipAddress) {
-		ipAddress = req.connection.remoteAddress;
-	}
-	return ipAddress;
-}
+exports.getClientIp = function(req) {
+    var ipAddress;
+    var forwardedIpsStr = req.header('x-forwarded-for'); 
+    if (forwardedIpsStr) {
+        var forwardedIps = forwardedIpsStr.split(',');
+        ipAddress = forwardedIps[0];
+    }
+    if (!ipAddress) {
+        ipAddress = req.connection.remoteAddress;
+    }
+    return ipAddress;
+};
