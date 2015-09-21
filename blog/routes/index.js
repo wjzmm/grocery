@@ -143,6 +143,9 @@ router.post('/deliver', function(req, res) {
 	var content = req.body.content;
 	var selector = req.body.selectorh;
 	var summary = req.body.summaryh;
+	var artid = parseInt(req.body.artid);
+	console.log(artid);
+	
 	if(selector == '心情广播'){
 		console.log(selector);
 		save.saveAbcxyz(content, function(err){
@@ -153,12 +156,21 @@ router.post('/deliver', function(req, res) {
 		})
 		})
 	}else{
-		console.log(title, author, content, selector, summary);
-		save.saveArticle(title, author, content, selector, summary, function(err){
-			res.render('route', {
+		//console.log(title, author, content, selector, summary);
+		if(artid == 0){
+			save.saveArticle(title, author, content, selector, summary, function(err){
+				res.render('route', {
 
+				})
 			})
-		})
+		}else{
+			save.updateArticle(artid, title, author, content, selector, summary, function(err){
+				res.render('route', {
+
+				})
+			})
+		}
+		
 	}
 	
 		
@@ -314,6 +326,47 @@ router.get('/file', function(req, res) {
 		res.render('file',{
 			articles: result,
 			total: result.length
+		})
+	})
+});
+
+router.get('/delete', function(req, res) {
+	read.readAllArticle(function(result){
+		res.render('manafer',{
+			articles: result,
+			total: result.length
+		})
+	})
+});
+
+router.get('/delete/:id', function(req, res) {
+	var id = parseInt(req.params.id);
+	read.deleteArticle(id, function(result){
+		read.readAllArticle(function(result){
+			res.render('manager',{
+				articles: result,
+				total: result.length
+			})
+		})
+	})
+	
+});
+router.get('/manager', function(req, res) {
+	read.readAllArticle(function(result){
+		res.render('manager',{
+			articles: result,
+			total: result.length
+		})
+	})
+});
+
+router.get('/edit/:id', function(req, res) {
+	var id = parseInt(req.params.id);
+
+	read.readArticle(id, function(result){
+		console.log(result);
+		res.render('edit',{
+			article: result[0]
 		})
 	})
 });

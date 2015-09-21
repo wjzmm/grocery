@@ -50,6 +50,10 @@ app.use('/comment', routes);
 app.use('/aboutme', routes);
 app.use('/abcxyz', routes);
 app.use('/file', routes);
+app.use('/edit', routes);
+app.use('/delete', routes);
+app.use('/manager', routes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

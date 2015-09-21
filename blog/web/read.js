@@ -171,3 +171,10 @@ exports.readAllArticle = function(callback){
 		callback(result);
 	})
 }
+
+exports.deleteArticle = function(id, callback){
+	db.query('delete from article where id=?',[id], function(err, result){
+		console.log(result);
+		callback(result);
+	})
+}

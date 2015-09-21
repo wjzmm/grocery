@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阴天了</title>
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style-metronic.css">
+	<!-- <link rel="stylesheet" href="/css/modern.css"> -->
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/metro.min.js"></script>
+	<script src="/js/jquery.pin.js"></script>
+	<script src="/js/ctl.js"></script>
+</head>
+<style type="text/css">
+	th,td{
+		text-align: center;
+	}
+</style>
+
+<body>
+	<%- include header %>
+	<div class="container">
+		<div class="artlist text-center">
+			<table class="table table-hover">
+				<tr>
+					<th>文章ID</th>
+					<th>文章名称</th>
+					<th>文章类型</th>
+					<th>文章作者</th>
+					<th>发表时间</th>
+					<th>操作</th>
+
+				</tr>
+			<% articles.forEach(function(article){ %>
+				<!-- <span class="pull-left"><%= article.time%></span><br /><br /> -->
+				<tr>
+					<td class="id"><%= article.id %></td>
+					<td class="title"><a href="/details/<%= article.class %>/1" target="_blank" title=
+							"" style=";">		
+							<%= article.title %></a></td>
+					<td class="type"><%= article.type %></td>
+					<td class="author"><%= article.author %></td>
+					<td class="time"><%= article.time %></td>
+					<td class="operate"><span class="remove glyphicon glyphicon-remove"></span>
+					<span class="edit glyphicon glyphicon-pencil"></span></td>
+				</tr>
+			<% }) %>
+			</table>
+		</div>
+	</div>
+	<%- include footer%>
+	<script type="text/javascript">
+		$(".remove").click(function(){
+			var id = parseInt($(this).parent().parent().find(".id").text());
+			window.location.href = "/delete/" + id;
+		})
+		$(".edit").click(function(){
+			var id = parseInt($(this).parent().parent().find(".id").text());
+			window.location.href = "/edit/" + id;
+		})
+	</script>
+</body>
+</html>

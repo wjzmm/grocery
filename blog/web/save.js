@@ -8,8 +8,21 @@ var md5 = crypto.createHash('md5');
 exports.saveArticle = function(title, author, content, selector, summary, callback){
 	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');
 	console.log(time);
+		//insert into abcxyz(time, content) values(?, ?) ON DUPLICATE KEY update keywordv=keywordv+1
 	db.query("insert into article(title, type, time, author, summary, content) values (?, ?, ?, ?, ?, ?)", 
 		[title, selector, time, author, summary, content], function(err, data){
+		if (err) console.log(err);
+		callback(null);
+		//console.log(data);
+	});
+}
+
+exports.updateArticle = function(id, title, author, content, selector, summary, callback){
+	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');
+	console.log(time);
+		//insert into abcxyz(time, content) values(?, ?) ON DUPLICATE KEY update keywordv=keywordv+1
+	db.query("update article set title=?, type=?, time=?, author=?, summary=?, content=? where id=?", 
+		[title, selector, time, author, summary, content, id], function(err, data){
 		if (err) console.log(err);
 		callback(null);
 		//console.log(data);
@@ -19,7 +32,8 @@ exports.saveArticle = function(title, author, content, selector, summary, callba
 exports.saveAbcxyz = function(content, callback){
 	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');
 	console.log(time);
-	db.query("insert into abcxyz(time, content) values (?, ?)", 
+
+	db.query("insert into abcxyz(time, content) values ", 
 		[time, content], function(err, data){
 		if (err) console.log(err);
 		callback(null);

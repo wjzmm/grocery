@@ -33,12 +33,12 @@
   			</div>
 			<div class="form-group" id="tit">
    		 		<label for="title">文章名称</label>
-    			<input type="text" class="form-control" id="title" name="title" placeholder="文章名称">
+    			<input type="text" class="form-control" id="title" name="title" placeholder="文章名称" value="<%= article.title%>">
 			</div>
     		
   			<div class="form-group" id="aut">
     			<label for="select">文章作者</label>
-    			<input type="text" class="form-control" id="author" name="author" placeholder="文章作者">
+    			<input type="text" class="form-control" id="author" name="author" placeholder="文章作者" value="<%= article.author%>">
   			</div>
 			<input type="text" id="content" name="content" value="" hidden/>
 			<input type="text" name="selectorh" id="selectorh" value="" hidden/>
@@ -46,7 +46,7 @@
 			<input type="text" name="artid" id="artid" value="0" hidden/>
 			<div class="form-group" id="sum">
     			<label for="author">概要</label>
-    			<textarea class="form-control" rows="3"  id="summary"></textarea>
+    			<textarea class="form-control" rows="3"  id="summary"  value=""><%= article.summary%></textarea>
   			</div>
 			
 			<script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
@@ -55,24 +55,40 @@
 			<button class="btn btn-default pull-right" id="sub">     提交     </button>
 		</form>
 	
-
+		<button class="btn btn-default pull-right hidden" id="test">     test     </button>	
 	</div>
 	<%- include footer %>
 	<script>
-   
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
     $(function(){
     	var ue = UE.getEditor('editor');
-    	$("#selector").change(function(){
-    		if($("#selector").val() == '心情广播'){
-	    	 	$("#aut").stop().fadeOut()
-	    	 	$("#sum").stop().fadeOut()
-	    	 	$("#tit").stop().fadeOut()
-	    	 }else{
-	    	 	$("#aut").stop().fadeIn()
-	    	 	$("#sum").stop().fadeIn()
-	    	 	$("#tit").stop().fadeIn()
-	    	 }
-    	})
+    	var type = '<%= article.type %>';
+    	var content = '<%- article.content %>';
+    	var artid = '<%- article.id %>';
+    	//console.log(type);
+    	//console.log(content);
+    	$("#selector").val(type);
+    	ue.ready(function() {
+			  UE.getEditor('editor').setContent(content, null);
+		});
+    	
+    	
+    	// $("#selector").change(function(){
+    	// 	if($("#selector").val() == '心情广播'){
+	    // 	 	$("#aut").stop().fadeOut()
+	    // 	 	$("#sum").stop().fadeOut()
+	    // 	 	$("#tit").stop().fadeOut()
+	    // 	 }else{
+	    // 	 	$("#aut").stop().fadeIn()
+	    // 	 	$("#sum").stop().fadeIn()
+	    // 	 	$("#tit").stop().fadeIn()
+	    // 	 }
+    	// })
     	$("#sub").click(function(){
     	 	var con = UE.getEditor('editor').getContent();
     	 	var summary = $("#summary").val();
@@ -81,6 +97,7 @@
     	 	$("#selectorh").val(selector);
     	 	//alert(summary);
     	 	$("#content").val(con);
+    	 	$("#artid").val(artid);
 
     	})
 

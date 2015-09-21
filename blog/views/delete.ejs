@@ -15,19 +15,6 @@
 </head>
 
 <body>
-	<%- include header %>
-	<div class="container">
-		<div class="artlist text-center">
-			<% articles.forEach(function(article){ %>
-				<span class="pull-left"><%= article.time%></span><br /><br />
-				<span><a href="/details/<%= article.id %>/1" target="_blank" title=
-						"" style="font-size:20px;">		
-						<%= article.title %></a></span>
-				<span><%= article.type %></span>
-				<span><%= article.time %></span><br /><br />
-			<% }) %>
-		</div>
-	</div>
-	<%- include footer%>
+	
 </body>
 </html>
