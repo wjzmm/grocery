@@ -53,6 +53,7 @@ app.use('/file', routes);
 app.use('/edit', routes);
 app.use('/delete', routes);
 app.use('/manager', routes);
+app.use('/login', routes);
 
 
 // catch 404 and forward to error handler

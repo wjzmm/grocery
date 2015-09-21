@@ -134,7 +134,7 @@ button:hover{
 .info, .comcon, .content{
 	border-radius: 30px;
 	background-color: #fff;
-	margin-top: 5px;
+	margin-top: 1px;
 }
 a{
 	text-decoration: none;
@@ -149,7 +149,7 @@ a{
 	-webkit-animation-fill-mode: forwards;
 }
 .hot{
-	margin-top:30px;
+	margin-top:0px;
 	height: 300px;
 	/*transition:font-size 2s;
 	-webkit-transition:font-size 2s;*/
@@ -378,4 +378,14 @@ strong > a{
 	/*display: blcok;*/
 	background-color: white;
 	margin-top:40px;
+}
+
+#log{
+	text-decoration: none;
+}
+#login{
+	width: 400px;
+	height: 200px;
+	text-align: center;
+	margin:20px auto;
 }

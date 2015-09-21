@@ -4,6 +4,7 @@ var async = require('async');
 var read = require('../web/read');
 var save = require('../web/save');
 var config = require('../config');
+var user = require('../config').user;
 
 
 router.get('/', function(req, res) {
@@ -369,5 +370,31 @@ router.get('/edit/:id', function(req, res) {
 			article: result[0]
 		})
 	})
+});
+
+router.get('/login', function(req, res) {
+	res.render('login',{
+		info: ""
+	})
+});
+
+router.post('/login', function(req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+	console.log(username, password);
+	if((username == user.username) && (password == user.password)){
+		read.readAllArticle(function(result){
+			res.render('manager',{
+				articles: result,
+				total: result.length
+			})
+		})
+	}else{
+		res.render('login',{
+			info: "用户名或者密码错误，请重新输入"
+		});
+	}
+
+	
 });
 module.exports = router;

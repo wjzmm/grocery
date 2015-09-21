@@ -11,3 +11,8 @@ exports.db = mysql.createConnection({
 exports.port = 3001;
 exports.pageSize = 10;
 exports.commentSize = 10;
+
+exports.user = {
+	username: "zwc",
+	password: "nevermore"
+}
