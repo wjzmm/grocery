@@ -33,7 +33,7 @@ exports.saveAbcxyz = function(content, callback){
 	var time = new Date(+new Date()+8*3600*1000).toISOString().slice(0, 19).replace('T', ' ');
 	console.log(time);
 
-	db.query("insert into abcxyz(time, content) values ", 
+	db.query("insert into abcxyz(time, content) values(?,?)", 
 		[time, content], function(err, data){
 		if (err) console.log(err);
 		callback(null);
