@@ -9,7 +9,9 @@ var md5 = crypto.createHash('md5');
 
 exports.searchDb = function(page, keywords, callback){
 	var start = (page -1) * pageSize;
-	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%' limit " + start + "," + pageSize + ";";
+	console.log(keywords);
+	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%' or type like '%" + keywords + "%' limit " + start + "," + pageSize + ";";
+	console.log(searchSql);
 	db.query(searchSql, function(err, result, fields){
 		callback(result);
 	});

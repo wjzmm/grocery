@@ -3,16 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>阴天了</title>
-	<script src="/js/jquery-1.11.3.min.js"></script>
+	
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style-metronic.css">
 	<!-- <link rel="stylesheet" href="/css/modern.css"> -->
 	<link rel="stylesheet" href="/css/style.css">
-	
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/metro.min.js"></script>
-	<script src="/js/jquery.pin.js"></script>
-	<script src="/js/ctl.js"></script>
+
 </head>
 
 <body>
@@ -87,9 +83,9 @@
 			<div class="links">
 				<span class="h4"><strong>友情链接</strong></span>
 				<dl class="text-center link">
-					<dt><a href="http://job.xjtu.edu.cn/" target="_blank">西安交通大学就业信息网</a></dt>
-					<dt><a href="http://job.nwpu.edu.cn" target="_blank">西北工业大学就业信息网</a></dt>
-					<dt><a href="http://job.xidian.edu.cn" target="_blank">西安电子科技大学就业信息网</a></dt>
+					<dt><a href="http://job.xjtu.edu.cn/" target="_blank">建设中...</a></dt>
+					<dt><a href="http://job.nwpu.edu.cn" target="_blank"></a></dt>
+					<dt><a href="http://job.xidian.edu.cn" target="_blank"></a></dt>
 				</dl>
 			</div>
 			
@@ -99,6 +95,11 @@
 		</div>		
 	</div>
 	<%- include footer %>
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/metro.min.js"></script>
+	<script src="/js/jquery.pin.js"></script>
+	<script src="/js/ctl.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$(".more").hide();
@@ -109,6 +110,7 @@
 			})
 			$(".badge").click(function(){
 				var keyw = $(this).text().trim();
+				console.log(keyw);
 				$("#keyword").val(keyw)
 				console.log($("#keyword").val());
 				$("#subm").trigger("click");
@@ -137,5 +139,6 @@
 		})
 
 	</script>
+
 </body>
 </html>

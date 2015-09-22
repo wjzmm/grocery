@@ -3,15 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>阴天了</title>
-	<script src="/js/jquery-1.11.3.min.js"></script>
+	
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style-metronic.css">
 	<!-- <link rel="stylesheet" href="/css/modern.css"> -->
 	<link rel="stylesheet" href="/css/style.css">
-	
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/metro.min.js"></script>
-	<script src="/js/ctl.js"></script>
+
 </head>
 
 <body>
@@ -90,6 +87,11 @@
 			<a href="#" title="返回顶部">back to top</a>
 		</div>
 	</div>
+	<%- include footer%>
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/metro.min.js"></script>
+	<script src="/js/ctl.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$("#submit").click(function(){
@@ -97,6 +99,5 @@
 			})
 		})
 	</script>
-	<%- include footer%>
 </body>
 </html>

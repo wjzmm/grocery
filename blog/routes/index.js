@@ -316,6 +316,7 @@ router.post('/comment', function(req, res) {
 
 router.get('/search', function(req, res) {
 	var page = 1;
+	console.log('123'+req.query.keyword);
 	read.searchDbCount(req.query.keyword, function(count){
 		read.searchDb(page, req.query.keyword, function(result){
 			read.readArticleRight(function(artinfo){
@@ -336,7 +337,7 @@ router.get('/search', function(req, res) {
 router.get('/search/:keyword/:p', function(req, res) {
 	var page = parseInt(req.params.p);
 	var keyword = req.params.keyword;
-	console.log(page, keyword);
+	console.log("sad"+keyword);
 	read.searchDbCount(keyword, function(count){
 		read.searchDb(page, keyword, function(result){
 			read.readArticleRight(function(artinfo){
