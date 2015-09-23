@@ -15,14 +15,15 @@
 	<div class="container"> 
 		<div class="article">
 			
-			<div class="col-md-9 col-xs-12 content">
-
-				<div class="text-center ">
-					<h3 class=""><%= article.title %></h3><br />
-					<span>作者: &nbsp;<%= article.author %></span>&nbsp;&nbsp;&nbsp;
-					<span>发表时间: <%= article.time %></span><br /><br /><br />
-				</div>	
-				<%- article.content %>
+			<div class="col-md-9 col-xs-12 ">
+				<div class="content">
+					<div class="text-center">
+						<h3 class=""><%= article.title %></h3><br />
+						<span>作者: &nbsp;<%= article.author %></span>&nbsp;&nbsp;&nbsp;
+						<span>发表时间: <%= article.time %></span><br /><br /><br />
+					</div>	
+					<%- article.content %>
+				</div>
 			</div>
 			<div class="col-md-3 col-xs-12">
 				
@@ -30,18 +31,18 @@
 					<form action="/comment" method="post">
 					  	<div class="form-group">
 					    	<label for="nickname">昵称</label>
-					    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称">
+					    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称" check-type="required" />
 					  	</div>
 					  	<div class="form-group">
 					    	<label for="email">邮箱</label>
-					    	<input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱">
+					    	<input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱" check-type="mail" />
 					  	</div>
 					  	<div class="form-group">
 					   	 	<label for="con">评论内容</label>
-					   	 	<textarea class="form-control" name="con" id="con" cols="40" rows="10" placeholder="请输入评论内容"></textarea>
+					   	 	<textarea class="form-control" name="con" id="con" cols="40" rows="10" placeholder="请输入评论内容" check-type="required"></textarea>
 					  	</div>
 					  	<input type="text" name="id" id="id" value="<%= article.id %>" hidden>
-					  	<button type="submit" class="btn btn-default pull-right butt">提交评论</button>
+					  	<button type="submit" id="submit" class="btn btn-default pull-right butt">提交评论</button>
 					  	<div class="clearfix"></div>
 					</form>	
 				</div>
@@ -53,7 +54,7 @@
 					<!-- <div class="tab-content col-md-9 col-xs-12"> -->
 					<p class="text-center">当前共有<%= total %>条评论，当前第<%=page%>页，共<%=count%>页</p>
 					<% comments.forEach(function(comment){ %>
-						<div class="col-md-12 info" style="margin:20px 0;">
+						<div class="col-md-12 info_details" style="">
 							
 							<div class="" style="">
 								<div style="float:left;width:48px;height:48px;"><img src="<%=comment.header%>" alt="" width="38" height="38" style="border-radius: 50%!important;"></div>
@@ -83,6 +84,7 @@
 	<script src="/js/metro.min.js"></script>
 	<script src="/js/jquery.pin.js"></script>
 	<script src="/js/ctl.js"></script>
+	<script src="/js/validate.js"></script>
 	<script>
 		$(function(){
 			console.log('<%=article.time%>');
@@ -104,6 +106,15 @@
 				}
 				 
 				//$('#commentlist').stop().fadeOut();
+			})
+			$("form").validation();
+			$("#submit").on('click',function(event){
+		    // 2.最后要调用 valid()方法。
+			    if ($("form").valid(this,"error!")==false){
+			    //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
+			       	return false;
+			    }
+			    $("form").submit();
 			})
 			$(window).scroll(function(){
 				$('#addcomment').stop().slideUp();

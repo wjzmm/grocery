@@ -9,9 +9,9 @@ var md5 = crypto.createHash('md5');
 
 exports.searchDb = function(page, keywords, callback){
 	var start = (page -1) * pageSize;
-	console.log(keywords);
+	//console.log(keywords);
 	var searchSql = "select * from article where title like '%" + keywords + "%' or content like '%" + keywords + "%' or type like '%" + keywords + "%' limit " + start + "," + pageSize + ";";
-	console.log(searchSql);
+	//console.log(searchSql);
 	db.query(searchSql, function(err, result, fields){
 		callback(result);
 	});
@@ -194,5 +194,25 @@ exports.readVisited = function(callback){
 	//"insert into web(ip) values(?) ON DUPLICATE KEY update visited=visited+1"
 	db.query("select sum(visited) from web", function(err, count){
 		callback(count[0]['sum(visited)']);
+	})
+}
+
+exports.readAllComments = function(callback){
+	//"insert into web(ip) values(?) ON DUPLICATE KEY update visited=visited+1"
+	db.query("select * from comment order by create_time desc", function(err, result){
+		//console.log(result);
+		result.forEach(function(re){
+			re.time = moment(re.time).format('YYYY-MM-DD h:mm:ss a');
+			//console.log(re.time);
+		});
+		callback(result);
+	})
+}
+
+exports.deleteComment = function(id, callback){
+	//console.log('12312312');
+	db.query('delete from comment where id=?',[id], function(err, result){
+		//console.log(result);
+		callback(result);
 	})
 }

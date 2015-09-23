@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 	//config.visited ++;
 	read.readCount(function(count){
 		read.readArticleList(page, function(artlist){
-			console.log(artlist[0].time);
+			//console.log(artlist[0].time);
 			read.readArticleRight(function(artinfo){
 				read.updateVisited(ip, function(visited){
 					req.session.visited = visited;
@@ -45,7 +45,7 @@ router.get('/details/:id', function(req, res){
 	save.updateCount(id, function(err){
 		read.readArticle(id, function(result){
 			read.readComments(page, id, function(comments){
-				console.log(comments.length);
+				//console.log(comments.length);
 				res.render('details',{
 					article: result[0],
 					comment: comments,
@@ -65,10 +65,10 @@ router.get('/details/:id/:p', function(req, res){
 	var page = parseInt(req.params.p);
 	var first = false;
 	var last = false;
-	console.log(req.session.visited);
+	//console.log(req.session.visited);
 	save.updateCount(id, function(err){
 		read.readArticle(id, function(result){
-			console.log(result[0].time);
+			//console.log(result[0].time);
 			read.readComments(page, id, function(comments){
 				if (comments.length < config.commentSize) {
 					last = true;
@@ -115,7 +115,7 @@ router.get('/article/:p', function(req, res){
 router.get('/classify/:type', function(req, res){
 	var page = 1;
 	var type = req.params.type;
-	console.log(type);
+	//console.log(type);
 	read.readClassifyCount(type, function(count){
 		read.readClassify(page, type, function(result){
 			read.readArticleRight(function(artinfo){
@@ -135,7 +135,7 @@ router.get('/classify/:type', function(req, res){
 router.get('/classify/:type/:p', function(req, res){
 	var page = parseInt(req.params.p);
 	var type = req.params.type;
-	console.log(type);
+	//console.log(type);
 	read.readClassifyCount(type, function(count){
 		read.readClassify(page, type, function(result){
 			read.readArticleRight(function(artinfo){
@@ -160,10 +160,10 @@ router.post('/deliver', function(req, res) {
 	var selector = req.body.selectorh;
 	var summary = req.body.summaryh;
 	var artid = parseInt(req.body.artid);
-	console.log(artid);
+	//console.log(artid);
 	
 	if(selector == '心情广播'){
-		console.log(selector);
+		//console.log(selector);
 		save.saveAbcxyz(content, function(err){
 			read.readAbcxyz(function(result){
 				read.readVisited(function(visited){
@@ -176,17 +176,17 @@ router.post('/deliver', function(req, res) {
 		})
 		})
 	}else{
-		//console.log(title, author, content, selector, summary);
+		////console.log(title, author, content, selector, summary);
 		if(artid == 0){
 			save.saveArticle(title, author, content, selector, summary, function(err){
 				res.render('route', {
-
+					page: '/'
 				})
 			})
 		}else{
 			save.updateArticle(artid, title, author, content, selector, summary, function(err){
 				res.render('route', {
-
+					page: '/'
 				})
 			})
 		}
@@ -201,9 +201,9 @@ router.get('/comment', function(req, res){
 	var id = 0;
 	read.readCommentCount(id, function(result){
 		count = result;
-		console.log(count);
+		//console.log(count);
 		read.readComments(page, id, function(comments){
-			console.log(comments[0].email);
+			//console.log(comments[0].email);
 			res.render('comment', {
 				page: page,
 				comments: comments,
@@ -238,7 +238,7 @@ router.get('/comment/:p', function(req, res){
 		count = result;
 		read.readComments(page, id, function(comments){
 
-			console.log(comments[0].email);
+			//console.log(comments[0].email);
 			res.render('comment', {
 				page: page,
 				comments: comments,
@@ -257,19 +257,19 @@ router.post('/comment', function(req, res) {
 	var con = req.body.con;
 	var email = req.body.email;
 	var id = parseInt(req.body.id);
-	//console.log(id);
-	//console.log(name, con);
+	////console.log(id);
+	////console.log(name, con);
 	var count = 0;
 	save.saveComment(name, con, id, email, function(result){
-		//console.log(result);
+		////console.log(result);
 		read.readComments(page, id, function(comments){
-			//console.log(comments);
+			////console.log(comments);
 			if(id == 0){
 				read.readCommentCount(id, function(result){
 					read.readVisited(function(visited){
 						req.session.visited = visited;
 						count = result;
-						console.log(count);
+						//console.log(count);
 						res.render('comment', {
 							page: page,
 							comments: comments,
@@ -316,7 +316,7 @@ router.post('/comment', function(req, res) {
 
 router.get('/search', function(req, res) {
 	var page = 1;
-	console.log('123'+req.query.keyword);
+	////console.log('123'+req.query.keyword);
 	read.searchDbCount(req.query.keyword, function(count){
 		read.searchDb(page, req.query.keyword, function(result){
 			read.readArticleRight(function(artinfo){
@@ -337,7 +337,7 @@ router.get('/search', function(req, res) {
 router.get('/search/:keyword/:p', function(req, res) {
 	var page = parseInt(req.params.p);
 	var keyword = req.params.keyword;
-	console.log("sad"+keyword);
+	////console.log("sad"+keyword);
 	read.searchDbCount(keyword, function(count){
 		read.searchDb(page, keyword, function(result){
 			read.readArticleRight(function(artinfo){
@@ -365,44 +365,59 @@ router.get('/file', function(req, res) {
 	})
 });
 
-router.get('/delete', function(req, res) {
-	read.readAllArticle(function(result){
-		res.render('manafer',{
-			articles: result,
-			total: result.length,
-			visited: req.session.visited
+// router.get('/delete', function(req, res) {
+// 	read.readAllArticle(function(result){
+// 		res.render('manager',{
+// 			articles: result,
+// 			total: result.length,
+// 			visited: req.session.visited
+// 		})
+// 	})
+// });
+
+router.get('/delete/:type/:id', function(req, res) {
+	var id = parseInt(req.params.id);
+	var type = req.params.type;
+	//console.log(id, type);
+	if(type == 'comment'){
+		//console.log(req.session.user);
+		read.deleteComment(id, function(result){
+			res.render('route',{
+				page: "/manager?password=nevermore"
+			})	
 		})
-	})
+	}else{
+		//console.log(req.session.user);
+		read.deleteArticle(id, function(result){
+			res.render('route',{
+				page: "/manager?password=nevermore"
+			})	
+		})
+	}	
 });
 
-router.get('/delete/:id', function(req, res) {
+router.get('/delete/comment/:id', function(req, res) {
 	var id = parseInt(req.params.id);
-	read.deleteArticle(id, function(result){
-		read.readAllArticle(function(result){
-			res.render('manager',{
-				articles: result,
-				total: result.length,
-				visited: req.session.visited
-			})
-		})
-	})
+	//console.log(id);
 	
 });
-router.get('/manager', function(req, res) {
-	read.readAllArticle(function(result){
-		res.render('manager',{
-			articles: result,
-			total: result.length,
-			visited: req.session.visited
-		})
-	})
-});
+
+
+// router.get('/manager', function(req, res) {
+// 	read.readAllArticle(function(result){
+// 		res.render('manager',{
+// 			articles: result,
+// 			total: result.length,
+// 			visited: req.session.visited
+// 		})
+// 	})
+// });
 
 router.get('/edit/:id', function(req, res) {
 	var id = parseInt(req.params.id);
 
 	read.readArticle(id, function(result){
-		console.log(result);
+		//console.log(result);
 		res.render('edit',{
 			article: result[0],
 			visited: req.session.visited
@@ -416,20 +431,49 @@ router.get('/login', function(req, res) {
 	})
 });
 
+router.get('/manager', function(req, res) {
+	//var username = req.body.username;
+	var password = req.query.password;
+	console.log(password);
+	if((password == user.password)){
+		//req.session.user = username;
+		read.readAllArticle(function(result){
+			read.readAllComments(function(comments){
+				read.readVisited(function(visited){
+					req.session.visited = visited;
+					res.render('manager',{
+						articles: result,
+						comments: comments,
+						total: result.length,
+						visited: req.session.visited
+					})
+				});
+			})
+		})
+	}else{
+		res.render('login',{
+			info: "用户名或者密码错误，请重新输入"
+		});
+	}
+});
 router.post('/login', function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
-	console.log(username, password);
+	//console.log(username, password);
 	if((username == user.username) && (password == user.password)){
+		req.session.user = username;
 		read.readAllArticle(function(result){
-			read.readVisited(function(visited){
-				req.session.visited = visited;
-				res.render('manager',{
-					articles: result,
-					total: result.length,
-					visited: req.session.visited
-				})
-			});
+			read.readAllComments(function(comments){
+				read.readVisited(function(visited){
+					req.session.visited = visited;
+					res.render('manager',{
+						articles: result,
+						comments: comments,
+						total: result.length,
+						visited: req.session.visited
+					})
+				});
+			})
 		})
 	}else{
 		res.render('login',{

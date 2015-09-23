@@ -63,15 +63,15 @@
 		        		<form action="/comment" method="post">
 						  	<div class="form-group">
 						    	<label for="nickname">昵称</label>
-						    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称">
+						    	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入昵称" check-type="required">  
 						  	</div>
 						  	<div class="form-group">
 						    	<label for="email">邮箱</label>
-						    	<input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱">
+						    	<input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱" check-type="mail"/>
 						  	</div>
 						  	<div class="form-group">
 						   	 	<label for="con">评论内容</label>
-						   	 	<textarea class="form-control" name="con" id="con" cols="30" rows="10" placeholder="请输入评论内容"></textarea>
+						   	 	<textarea class="form-control" name="con" id="con" cols="30" rows="10" placeholder="请输入评论内容" check-type="required"></textarea>
 						  	</div>
 							<input type="text" name="id" id="id" value="0" hidden>
 						</form>	
@@ -92,11 +92,22 @@
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/metro.min.js"></script>
 	<script src="/js/ctl.js"></script>
+	<script src="/js/validate.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$("#submit").click(function(){
-				$("form").submit();
+			$("form").validation();
+		    $("#submit").on('click',function(event){
+		    // 2.最后要调用 valid()方法。
+			    if ($("form").valid(this,"error!")==false){
+			    //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
+			       	return false;
+			    }
+			    $("form").submit();
 			})
+			// $("#submit").click(function(){
+			// 	alert("1");
+			// 	$("form").submit();
+			// })
 		})
 	</script>
 </body>

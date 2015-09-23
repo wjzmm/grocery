@@ -124,6 +124,7 @@ button:hover{
 .content{
 	/*height: auto;*/
 	padding:0 20px;
+	background-color: white;
 }
 .content-index{
 	height: 1200px;
@@ -133,15 +134,32 @@ button:hover{
 	border-bottom: 0px dashed #999;
 	color:#999;
 }
-.info, .comcon, .content{
+.info_details{
+	border: 0px solid white;
 	border-radius: 30px;
 	background-color: #fff;
-	margin-top: 1px;
+	margin-bottom: 12px;
+}
+.info, .comcon, .content{
+	border: 1px solid white;
+	border-radius: 30px;
+	background-color: #fff;
+	margin-top: 15px;
 }
 a{
 	text-decoration: none;
 }
-.info:hover, .comcon:hover{
+.info:hover{
+	color:black;
+	border: 1px solid #999;
+	animation: abcxyz 10s;
+	-moz-animation: abcxyz 10s;	/* Firefox */
+	-webkit-animation: abcxyz 10s;	/* Safari 和 Chrome */
+	-o-animation: abcxyz 10s;	/* Opera */
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
+}
+.info_details:hover, .comcon:hover{
 	color:black;
 	animation: abcxyz 10s;
 	-moz-animation: abcxyz 10s;	/* Firefox */
@@ -373,10 +391,10 @@ strong > a{
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 }
-.artlist span{
+.artlist, .comlist span{
 	margin:0px 10px;
 }
-.artlist{
+.artlist, .comlist{
 	/*display: blcok;*/
 	background-color: white;
 	margin-top:40px;
@@ -409,4 +427,10 @@ strong > a{
 	-moz-transform: rotate(360deg);
 	-o-transform: rotate(360deg);
 	transform: rotate(360deg);
+}
+
+#commentlist{
+	background-color: white;
+	padding-left:10px;
+	margin:15px 0px;
 }
