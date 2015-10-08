@@ -5,7 +5,7 @@ exports.db = mysql.createConnection({
 	port: 3306,
 	database: 'blog',
 	user: 'root',
-	password: '920902',
+	password: 'passowrd',
 });
 
 exports.port = 3001;
