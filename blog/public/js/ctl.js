@@ -8,7 +8,7 @@ $(function(){
 		}
 	})
 	$(".back2top").click(function(){
-		$('html, body, .content').animate({scrollTop: 0}, 600); 
+		$('html, body').animate({scrollTop: 0}, 800); 
 		//return false; 
 	})
 })
