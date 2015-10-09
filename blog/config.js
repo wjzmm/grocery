@@ -13,8 +13,8 @@ exports.pageSize = 10;
 exports.commentSize = 10;
 
 exports.user = {
-	username: "zwc",
-	password: "nevermore"
+	username: "test",
+	password: "test"
 }
 
 exports.cookieSecret = 'cloudy';
