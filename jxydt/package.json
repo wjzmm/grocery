@@ -1,0 +1,17 @@
+{
+  "name": "node-spider",
+  "main": "app.js",
+  "version": "0.0.0",
+  "private": true,
+  "description": "node爬虫",
+  "engines": {
+    "node": ">= 0.10.0"
+    },
+  "dependencies": {
+    "cheerio": "0.12.3",
+    "request": "2.27.0",
+    "async": "0.2.9",
+    "mysql": "2.x",
+    "cluster": "*"
+  }
+}
